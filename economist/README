@@ -1,0 +1,29 @@
+Requirements:
+- jdk 7
+- tomcat 7
+- mysql with workbench
+- mysql-connector-java-5.1
+
+Eclipse settings:
+- Help - Eclipse Marketplace: Search for ivyde
+- Windows - Preferences - Java - Installed JREs: Add - Standard VM - Directory (select jdk directory)
+- Windows - Preferences - Java - Compiler: Compiler compliance level - change it to 1.7
+- Windows - Preferences - Data Management - Connectivity - Driver Definitions: Add - MySql JDBC Driver 5.1 and edit JAR List
+- add Tomcat 7 in Servers tab
+
+--------------
+
+Setup instructions:
+1. Create 'thera' db:
+CREATE SCHEMA `thera` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+
+2. Apply thera_v1.0.0.sql
+
+3. Change db (and mail) config if needed in application.properties
+You can override application.properties file by putting a copy in config/thera folder (not conf/thera) in your tomcat folder e.g. C:\apache-tomcat-7.0.55\config\thera
+
+6. Run application on Tomcat
+NOTE: Thera is using Java1.7 and it doesn't have embedded Tomcat. (You need to add Tomcat7 in Servers view and deploy projects.)
+
+7. Start using application:
+http://localhost:8080/thera

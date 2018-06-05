@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+    <info organisation="" module="thera" />
+    <dependencies>
+    	<!-- Spring -->
+		<dependency org="org.springframework" name="spring-core" rev="4.0.5.RELEASE"/>
+		<dependency org="org.springframework" name="spring-web" rev="4.0.5.RELEASE"/>
+		<dependency org="org.springframework" name="spring-webmvc" rev="4.0.5.RELEASE"/>
+		<dependency org="org.springframework" name="spring-beans" rev="4.0.5.RELEASE"/>
+		
+    	<!-- Spring Security -->
+		<dependency org="org.springframework.security" name="spring-security-config" rev="3.1.4.RELEASE" />
+		<dependency org="org.springframework.security" name="spring-security-core" rev="3.1.4.RELEASE" />
+		<dependency org="org.springframework.security" name="spring-security-web" rev="3.1.4.RELEASE" />
+		<dependency org="org.springframework.security" name="spring-security-taglibs" rev="3.1.4.RELEASE"/>
+		
+		<!-- Apache Tiles -->
+		<dependency org="org.apache.tiles" name="tiles-api" rev="3.0.4"/>
+		
+		<!-- Jstl -->
+		<dependency org="javax.servlet" name="jstl" rev="1.2"/>
+		
+		<!-- Javax Mail -->
+		<dependency org="javax.mail" name="javax.mail-api" rev="1.4.7"/>
+		<dependency org="javax.mail" name="mail" rev="1.4.7"/>
+		
+		<!-- Velocity -->
+		<dependency org="org.apache.velocity" name="velocity" rev="1.7"/>
+		<dependency org="org.apache.velocity" name="velocity-tools" rev="2.0"/>
+		
+		<!-- Spring Data JPA -->
+		<dependency org="org.springframework.data" name="spring-data-jpa" rev="1.7.0.RELEASE">
+			<exclude org="org.springframework.roo"/>
+		</dependency>
+		
+		<!-- Hibernate -->
+		<dependency org="org.hibernate" name="hibernate-entitymanager" rev="4.3.5.Final"/>
+		<dependency org="org.hibernate" name="hibernate-validator" rev="5.1.1.Final"/>
+		
+		<!-- Database -->
+		<dependency org="mysql" name="mysql-connector-java" rev="5.1.31"/>
+		
+		<!-- Jettison -->
+		<dependency org="org.codehaus.jettison" name="jettison" rev="1.3.7"/>
+    </dependencies>
+</ivy-module>

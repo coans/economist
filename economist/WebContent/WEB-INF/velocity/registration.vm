@@ -1,0 +1,36 @@
+<html>
+	<head>
+	</head>
+	<body style="margin: 0px;">
+		<table style="width: 100%; background: #f1f0e8; border-spacing: 0px; font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 14px; line-height: 1.42857;">
+			<tr>
+				<td style="background-color: #3B5998; color: #FFF; height: 50px; text-align: center;">
+					THERA PROJECT
+				</td>
+			</tr>
+			<tr>
+				<td align="center">
+					<table style="font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 14px; line-height: 1.42857; max-width: 650px; padding: 20px 0px;">
+						<tr>
+							<td style="background-color: #FFF; padding: 30px 20px 0 20px;">
+								<p>Hi,</p>
+								<p>
+									You are almost done with the registration. To confirm the validity of your e-mail address, please click the following link:	<a href="$url">$url</a>
+								</p>
+								<p>
+									Thanks,<br/>TheraProject
+								</p>
+								<br/>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td style="background-color: #3B5998; color: #FFF; font-size: 12px; height: 80px; text-align: center;">
+					<a href="www.theraproject.org" style="color: #FFF;">www.theraproject.org</a>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
