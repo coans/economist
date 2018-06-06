@@ -1,5 +1,5 @@
 eclipse.preferences.version=1
-entitygen.DEFAULT_PACKAGE=com.thera.db.entity
+entitygen.DEFAULT_PACKAGE=com.economist.db.entity
 org.eclipse.jpt.core.platform=eclipselink2_5
 org.eclipse.jpt.jpa.core.discoverAnnotatedClasses=true
 problem.ASSOCIATION_OVERRIDE_INVALID_NAME=error
