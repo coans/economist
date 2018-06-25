@@ -1,9 +1,16 @@
 package com.economist.db.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -37,10 +44,6 @@ public class User implements Serializable {
 	private String status;
 
 	private String uuid;
-
-	//bi-directional many-to-one association to Post
-	@OneToMany(mappedBy="user")
-	private List<Post> posts;
 
 	public User() {
 	}
@@ -115,28 +118,6 @@ public class User implements Serializable {
 
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
-	}
-
-	public List<Post> getPosts() {
-		return this.posts;
-	}
-
-	public void setPosts(List<Post> posts) {
-		this.posts = posts;
-	}
-
-	public Post addPost(Post post) {
-		getPosts().add(post);
-		post.setUser(this);
-
-		return post;
-	}
-
-	public Post removePost(Post post) {
-		getPosts().remove(post);
-		post.setUser(null);
-
-		return post;
 	}
 
 }

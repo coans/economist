@@ -64,6 +64,6 @@ public class ProfileController extends BaseController {
 		sessionUser.setGender(user.getGender());
         userRepository.save(sessionUser);
 
-        return "redirect:/" + UserPath.MY + MyPostsController.CONTROLLER;
+        return "redirect:/" + HomeController.CONTROLLER;
 	}
 }

@@ -27,7 +27,6 @@ import com.economist.db.entity.User;
 import com.economist.db.repository.UserRepository;
 import com.economist.model.enums.EnumStatus;
 import com.economist.util.EmailUtil;
-import com.economist.util.UserPath;
 import com.economist.validator.UserValidator;
 
 @Controller
@@ -103,7 +102,7 @@ public class SignUpController extends BaseController {
 			user.setUuid(null);
 			userRepository.save(user);
 			authorizationService.loginWithUsername(user.getEmail());
-			return "redirect:/" + UserPath.MY + MyPostsController.CONTROLLER;
+			return "redirect:/" + HomeController.CONTROLLER;
 		}
 		return "redirect:/" + LogInController.CONTROLLER;
 	}

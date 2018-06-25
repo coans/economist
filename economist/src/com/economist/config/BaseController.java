@@ -9,7 +9,9 @@
 package com.economist.config;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +35,8 @@ public class BaseController {
 	private static final String BASEURL = "baseurl";
 	private static final String VERISON = "verison";
 	
+	private static final String VRSTA_DOKUMENTA = "vrstaDokumenta";
+	
 	@Value("${base.url}")
 	protected String baseUrl;
 	
@@ -41,7 +45,7 @@ public class BaseController {
 	
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 	
@@ -58,6 +62,11 @@ public class BaseController {
 	@ModelAttribute(VERISON)
 	public String getProductVersion() {
 		return productVersion;
+	}
+	
+	@ModelAttribute(VRSTA_DOKUMENTA)
+	public List<String> getQuantity() {
+		return Arrays.asList("Ulazni", "Izlazni");
 	}
 	
 	public long getTimeZoneOffset(HttpServletRequest request) {

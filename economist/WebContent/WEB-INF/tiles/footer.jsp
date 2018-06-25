@@ -1,14 +1,12 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<footer>
+<footer style="background:rgb(240,240,240)">
 	<div class="container">
-		<p>&copy; 2015 TheraProject</p>
 		<ul>
-			<li>Currently v${verison}</li>
-			<li>·</li>
-			<li><a href="policies/terms">Terms</a></li>
-			<li>·</li>
-			<li><a href="policies/privacy">Privacy Policy</a></li>
+			<p><font size="2">&copy; 2018 Economist<br/>All rights reserved.</font></p>
+			<p style="margin-top: -1.5%;"><font size="1">Web site by <a href="mailto:oroz.aleksandar@gmail.com">IT-OROZ</a></font></p>
 		</ul>
 	</div>
 </footer>
