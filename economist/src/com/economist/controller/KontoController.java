@@ -1,6 +1,5 @@
 package com.economist.controller;
 
-import java.beans.PropertyEditorSupport;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,31 +17,26 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.economist.config.BaseController;
 import com.economist.db.entity.Konto;
-import com.economist.db.entity.Nalog;
-import com.economist.db.entity.Preduzece;
 import com.economist.db.repository.KontoRepository;
-import com.economist.db.repository.NalogRepository;
-import com.economist.db.repository.PreduzeceRepository;
+import com.economist.db.repository.UserRepository;
 
 
 @Controller
-@RequestMapping(NalogController.CONTROLLER)
-public class NalogController extends BaseController {
+@RequestMapping(KontoController.CONTROLLER)
+public class KontoController extends BaseController {
 	
-	private static final String TITLE = "Dodaj novi nalog";
+	private static final String TITLE = "Dodaj novi konto";
 
-	final static Logger logger = Logger.getLogger(NalogController.class);
+	final static Logger logger = Logger.getLogger(KontoController.class);
 	
-	public static final String CONTROLLER = "nalogs";
-	public static final String VIEW_DEFAULT = "nalogs";
-	private static final String VIEW_NEW = "nalog-new";
+	public static final String CONTROLLER = "kontos";
+	public static final String VIEW_DEFAULT = "kontos";
+	private static final String VIEW_NEW = "konto-new";
 	
-	@Autowired
-	private NalogRepository nalogRepository;
 	@Autowired
 	private KontoRepository kontoRepository;
 	@Autowired
-	private PreduzeceRepository preduzeceRepository;
+	private UserRepository userRepository;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String defaultView(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale/*, @RequestParam(required = false) Integer preduzeceId*/) {
@@ -57,43 +49,38 @@ public class NalogController extends BaseController {
 //		List<Category> categories = categoryRepository.findAll();
 //		categories.add(0, new Category("Select category..."));
 //		model.addAttribute("categories", categories);
-		model.addAttribute("nalogs", nalogRepository.findAll());
+		model.addAttribute("kontos", kontoRepository.findAll());
 		
 		return VIEW_DEFAULT;
 	}
 	
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public String add(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale) {
-		Nalog nalog = new Nalog();
+		Konto konto = new Konto();
 //		nalog.setDatum(/*dateFormat.getInstance().getCalendar().getTime()*/new Date());
-		model.addAttribute("nalog", nalog);
+		model.addAttribute("konto", konto);
 		model.addAttribute("action", CONTROLLER + "/create");
 		model.addAttribute("title", TITLE);
-		model.addAttribute("konta", kontoRepository.findAll());
 		
 		return VIEW_NEW;
 	}
 	
 	@RequestMapping(value = "create", method = RequestMethod.POST)
-	public String create(@ModelAttribute("nalog") Nalog nalog, Errors errors, ModelMap model,
+	public String create(@ModelAttribute("konto") Konto konto, Errors errors, ModelMap model,
 			final RedirectAttributes redirectAttributes) {
 
 //		validator.validate(food, errors);
-		
+		konto.setUser(getUser());		
 		if (errors.hasErrors()) {
-			model.addAttribute("nalog", nalog);
+			model.addAttribute("konto", konto);
 			model.addAttribute("action", CONTROLLER + "/create");
 			model.addAttribute("title", TITLE);
-			model.addAttribute("konta", kontoRepository.findAll());
 			return VIEW_NEW;
 		}
 		
-		Preduzece p = preduzeceRepository.findOne(1);
-		nalog.setPreduzece(p);
+		kontoRepository.save(konto);
 		
-		nalogRepository.save(nalog);
-		
-		return "redirect:/" + NalogController.CONTROLLER;
+		return "redirect:/" + KontoController.CONTROLLER;
 	}
 /*	
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
@@ -158,7 +145,7 @@ public class NalogController extends BaseController {
 		
 		return "redirect:/" + NalogController.CONTROLLER;
 	}
-*/	
+
 	@Override
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
@@ -171,5 +158,5 @@ public class NalogController extends BaseController {
 				setValue(konto);
 			}
 		});
-	}
+	}*/
 }

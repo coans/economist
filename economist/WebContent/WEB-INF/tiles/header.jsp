@@ -1,19 +1,21 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <div class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container">
 		<div class="navbar-header">
-			<a href="" class="navbar-brand">Olgica-Restaurant</a>
+			<a href="" class="navbar-brand">Economist</a>
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<li><a href="#home"><spring:message code="button.home"/></a></li>
-				<li><a href="#about"><spring:message code="button.about"/></a></li>
+				<sec:authorize access="hasAnyRole('ROLE_USER')">
+					<li><a href="nalogs">Nalog</a></li>
+					<li><a href="kontos">Konto</a></li>						
+				</sec:authorize>			
 			</ul>
-			
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="policies/my-orders">My orders</a></li>
 				<c:choose>
 					<c:when test="${not empty user}">
 						<li class="dropdown"><a class="dropdown-toggle"	data-toggle="dropdown" href="#">
