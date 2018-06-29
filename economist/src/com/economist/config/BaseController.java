@@ -8,6 +8,7 @@
 
 package com.economist.config;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -19,11 +20,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.economist.auth.AuthorizationService;
+import com.economist.db.entity.Nalog;
 import com.economist.db.entity.User;
 
 @Controller("/" + BaseController.CONTROLLER)
@@ -67,6 +70,17 @@ public class BaseController {
 	@ModelAttribute(VRSTA_DOKUMENTA)
 	public List<String> getQuantity() {
 		return Arrays.asList("Ulazni", "Izlazni");
+	}
+	
+	public void getSaldo(List<Nalog> nalogs, ModelMap model) {
+		BigDecimal duguje = BigDecimal.ZERO;
+		BigDecimal potrazuje = BigDecimal.ZERO;
+		for (Nalog nalog : nalogs) {
+			duguje = duguje.add(nalog.getDuguje());
+			potrazuje = potrazuje.add(nalog.getPotrazuje());
+		}
+		model.addAttribute("duguje", duguje);
+		model.addAttribute("potrazuje", potrazuje);
 	}
 	
 	public long getTimeZoneOffset(HttpServletRequest request) {

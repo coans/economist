@@ -1,6 +1,8 @@
 package com.economist.controller;
 
 import java.beans.PropertyEditorSupport;
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,9 +24,11 @@ import com.economist.config.BaseController;
 import com.economist.db.entity.Konto;
 import com.economist.db.entity.Nalog;
 import com.economist.db.entity.Preduzece;
+import com.economist.db.entity.VrstaDokumenta;
 import com.economist.db.repository.KontoRepository;
 import com.economist.db.repository.NalogRepository;
 import com.economist.db.repository.PreduzeceRepository;
+import com.economist.db.repository.VrstaDokumentaRepository;
 
 
 @Controller
@@ -45,6 +49,8 @@ public class NalogController extends BaseController {
 	private KontoRepository kontoRepository;
 	@Autowired
 	private PreduzeceRepository preduzeceRepository;
+	@Autowired
+	private VrstaDokumentaRepository vrstaDokumentaRepository;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String defaultView(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale/*, @RequestParam(required = false) Integer preduzeceId*/) {
@@ -57,7 +63,9 @@ public class NalogController extends BaseController {
 //		List<Category> categories = categoryRepository.findAll();
 //		categories.add(0, new Category("Select category..."));
 //		model.addAttribute("categories", categories);
-		model.addAttribute("nalogs", nalogRepository.findAll());
+		final List<Nalog> nalogs = nalogRepository.findAll();
+		getSaldo(nalogs, model);
+		model.addAttribute("nalogs", nalogRepository.findAll());//TODO by preduzece
 		
 		return VIEW_DEFAULT;
 	}
@@ -65,11 +73,14 @@ public class NalogController extends BaseController {
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public String add(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale) {
 		Nalog nalog = new Nalog();
+		nalog.setDuguje(BigDecimal.ZERO);
+		nalog.setPotrazuje(BigDecimal.ZERO);
 //		nalog.setDatum(/*dateFormat.getInstance().getCalendar().getTime()*/new Date());
 		model.addAttribute("nalog", nalog);
 		model.addAttribute("action", CONTROLLER + "/create");
 		model.addAttribute("title", TITLE);
-		model.addAttribute("konta", kontoRepository.findAll());
+		model.addAttribute("konta", kontoRepository.findByUser(getUser()));
+		model.addAttribute("vrstadokumentas", vrstaDokumentaRepository.findByUser(getUser()));
 		
 		return VIEW_NEW;
 	}
@@ -84,7 +95,8 @@ public class NalogController extends BaseController {
 			model.addAttribute("nalog", nalog);
 			model.addAttribute("action", CONTROLLER + "/create");
 			model.addAttribute("title", TITLE);
-			model.addAttribute("konta", kontoRepository.findAll());
+			model.addAttribute("konta", kontoRepository.findByUser(getUser()));
+			model.addAttribute("vrstadokumentas", vrstaDokumentaRepository.findByUser(getUser()));
 			return VIEW_NEW;
 		}
 		
@@ -169,6 +181,15 @@ public class NalogController extends BaseController {
 				Konto konto = new Konto();
 				konto.setId(Integer.parseInt(id));
 				setValue(konto);
+			}
+		});
+		
+		binder.registerCustomEditor(VrstaDokumenta.class, new PropertyEditorSupport() {
+			@Override
+			public void setAsText(String id) {
+				VrstaDokumenta vd = new VrstaDokumenta();
+				vd.setId(Integer.parseInt(id));
+				setValue(vd);
 			}
 		});
 	}

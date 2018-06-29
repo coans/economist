@@ -11,7 +11,7 @@
 		<intercept-url pattern="/my/**" access="hasRole('ROLE_USER')" />
 		<form-login 
 		    login-page="/login" 
-		    default-target-url="/my/posts"
+		    default-target-url="/"
 			authentication-failure-url="/login?error" 
 			username-parameter="email"
 			password-parameter="password" />

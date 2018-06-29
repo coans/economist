@@ -4,25 +4,62 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="container">
-	<p><a href="nalogs/new" class="btn btn-info">Novi nalog</a></p>
-<%-- 	<label>Filter by category</label>
-	<select id="category" onchange="filterFoodByCategory()">
-	    <c:forEach items="${categories}" var="category">
-            <option value="${category.id}" ${category.id == selectedCategoryId ? 'selected' : ''}>${category.name}</option>
-	    </c:forEach>
-	</select> --%>
-	<table class="table table-striped">
-		<thead>
+	<form:form modelAttribute="search" method="POST" action="${action}">
+		<div class="row">
+			<h3>Bruto bilans (po datumu i kontu)</h3>
+				<div class="col-xs-3">
+					<div class="form-group">
+						<form:label path="kontoOd">Konto od</form:label>
+						<form:select path="kontoOd" class="form-control" items="${konta}" itemLabel="naziv" itemValue="id"/>
+						<div class="has-error">
+							<form:errors path="kontoOd" cssClass="help-block" element="label"/>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-3">
+					<div class="form-group">
+						<form:label path="kontoDo">Konto do</form:label>
+						<form:select path="kontoDo" class="form-control" items="${konta}" itemLabel="naziv" itemValue="id"/>
+						<div class="has-error">
+							<form:errors path="kontoDo" cssClass="help-block" element="label"/>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-3">
+					<div class="form-group">
+						<form:label path="datumOd" class="required">Datum od</form:label>
+						<form:input path="datumOd" type="text" class="form-control datepicker"/>
+						<div class="has-error">
+							<form:errors path="datumOd" cssClass="help-block" element="label"/>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-3">
+					<div class="form-group">
+						<form:label path="datumDo" class="required">Datum do</form:label>
+						<form:input path="datumDo" type="text" class="form-control datepicker"/>
+						<div class="has-error">
+							<form:errors path="datumDo" cssClass="help-block" element="label"/>
+						</div>
+					</div>
+				</div>				
+			</div>		
+			<div class="row" align="right">
+				<button type="submit" class="btn btn btn-success">Pretraga</button>
+				<a class="btn btn-primary" href="nalogs"><spring:message code="button.cancel"/></a>
+			</div>
+		</form:form>
+	<p>&nbsp;</p>					
+	<table class="table table-striped table-bordered">
+		<thead class="thead-light">
 			<tr>
 				<th class="text-center" scope="col">#</th>
 				<th class="text-center" scope="col">Broj</th>
 				<th class="text-center" scope="col">Vrsta dokumenta</th>
 				<th class="text-center" scope="col">Datum</th>
-				<th class="text-center" scope="col">Opis</th>
 				<th class="text-center" scope="col">Konto</th>
 				<th class="text-center" scope="col">Duguje</th>
 				<th class="text-center" scope="col">Potrazuje</th>
-				<th class="text-center" scope="col">Akcija</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -32,20 +69,13 @@
 					<td align="center">${nalog.broj}</td>
 					<td align="center">${nalog.vrstaDokumenta.naziv}</td>
 					<td align="center"><fmt:formatDate pattern = "dd.MM.yyyy." value = "${nalog.datum}" /></td>
-					<td align="center">${nalog.opis}</td>
 					<td align="center">${nalog.konto.naziv}</td>
 					<td align="right">${nalog.duguje}</td>
 					<td align="right">${nalog.potrazuje}</td>
-					<td align="center">
-						<a href="foods/edit/${food.id}" title="Edit"><i class="glyphicon glyphicon-pencil"></i></a>
-						&nbsp;
-						<a href="#" data-href="foods/delete/${food.id}" data-toggle="modal" data-target="#confirmDeleteId" title="Delete"><i class="glyphicon glyphicon-remove"></i></a>
-					</td>
 				</tr>
 			</c:forEach>
-			<tr><td colspan="9">&nbsp;</td></tr>
+			<tr><td colspan="7">&nbsp;</td></tr>
 			<tr>
-				<td class="active">&nbsp;</td>
 				<td class="active">&nbsp;</td>
 				<td class="active">&nbsp;</td>
 				<td class="active">&nbsp;</td>
@@ -53,7 +83,6 @@
 				<td class="active" align="center">Saldo:</td>
 				<td class="danger" align="right"><b>${duguje}</b></td>
 				<td class="success" align="right"><b>${potrazuje}</b></td>
-				<td class="active">&nbsp;</td>	
 			</tr>			
 		</tbody>
     </table>
@@ -71,6 +100,10 @@
     </div>
 </div>
 <script type="text/javascript">
+	$(document).ready(function() {
+		makeInputDate();
+		setActiveHeader("#analitika");
+	});
 	$('#confirmDeleteId').on('show.bs.modal', function(e) {
 	    $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
 	});

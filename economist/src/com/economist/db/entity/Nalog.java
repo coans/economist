@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,8 +25,6 @@ public class Nalog implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String broj;
-	@Column(name = "vrsta_dokumenta")
-	private String vrstaDokumenta;
 	private Date datum;
 	private String opis;
 	private String napomena;
@@ -41,6 +38,9 @@ public class Nalog implements Serializable {
 	//bi-directional many-to-one association to Preduzece
 	@ManyToOne
 	private Preduzece preduzece;
+	
+	@ManyToOne
+	private VrstaDokumenta vrstaDokumenta;
 
 	public Nalog() {
 	}
@@ -59,14 +59,6 @@ public class Nalog implements Serializable {
 
 	public void setBroj(String broj) {
 		this.broj = broj;
-	}
-
-	public String getVrstaDokumenta() {
-		return vrstaDokumenta;
-	}
-
-	public void setVrstaDokumenta(String vrstaDokumenta) {
-		this.vrstaDokumenta = vrstaDokumenta;
 	}
 
 	public Date getDatum() {
@@ -123,5 +115,13 @@ public class Nalog implements Serializable {
 
 	public void setPreduzece(Preduzece preduzece) {
 		this.preduzece = preduzece;
+	}
+
+	public VrstaDokumenta getVrstaDokumenta() {
+		return vrstaDokumenta;
+	}
+
+	public void setVrstaDokumenta(VrstaDokumenta vrstaDokumenta) {
+		this.vrstaDokumenta = vrstaDokumenta;
 	}
 }

@@ -1,10 +1,6 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@page import="java.util.*" %>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   
 <div class="container">
 	<div class="row">
@@ -42,7 +38,7 @@
 				</div>
 				<div class="form-group">
 					<form:label path="vrstaDokumenta" class="required">Vrsta dokumenta</form:label>
-					<form:select path="vrstaDokumenta" class="form-control" id="vrstaDokumenta" items="${vrstaDokumenta}"/>
+					<form:select path="vrstaDokumenta" class="form-control" id="vrstaDokumenta" items="${vrstadokumentas}" itemLabel="naziv" itemValue="id"/>
 					<div class="has-error">
 						<form:errors path="vrstaDokumenta" cssClass="help-block" element="label"/>
 					</div>
@@ -71,8 +67,6 @@
 </div>
 <script>
 	$(document).ready(function() {
-		$( function() {
-			$("#datum").datepicker({ dateFormat: 'dd.mm.yy.', firstDay: 1,dayNamesMin: [ "Ne", "Po", "Ut", "Sr", "&#268;e", "Pe", "Su" ], monthNames: [ "Januar", "Februar", "Mart", "April", "Maj", "Juni", "Juli", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar" ] }).datepicker("setDate", new Date());
-		} );
+		makeInputDate();
 	});
 </script>

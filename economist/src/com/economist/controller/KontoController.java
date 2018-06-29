@@ -49,7 +49,7 @@ public class KontoController extends BaseController {
 //		List<Category> categories = categoryRepository.findAll();
 //		categories.add(0, new Category("Select category..."));
 //		model.addAttribute("categories", categories);
-		model.addAttribute("kontos", kontoRepository.findAll());
+		model.addAttribute("kontos", kontoRepository.findByUser(getUser()));
 		
 		return VIEW_DEFAULT;
 	}

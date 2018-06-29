@@ -60,7 +60,6 @@ CREATE TABLE IF NOT EXISTS `economist`.`konto` (
 CREATE TABLE IF NOT EXISTS `economist`.`nalog` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `broj` VARCHAR(45) NOT NULL,
-  `vrsta_dokumenta` VARCHAR(100) NOT NULL,
   `datum` DATE NOT NULL,
   `opis` VARCHAR(50) NOT NULL,
   `duguje` DECIMAL(10,2) NOT NULL,
@@ -68,19 +67,43 @@ CREATE TABLE IF NOT EXISTS `economist`.`nalog` (
   `napomena` VARCHAR(50) NULL,
   `konto_id` INT NOT NULL,
   `preduzece_id` INT NOT NULL,
+  `vrstadokumenta_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `nalog_konto_idx` (`konto_id` ASC),
   INDEX `nalog_preduzece_idx` (`preduzece_id` ASC),
+  INDEX `nalog_vrstadokumenta_idx` (`vrstadokumenta_id` ASC),
   CONSTRAINT `nalog_konto`
     FOREIGN KEY (`konto_id`)
     REFERENCES `economist`.`konto` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-   CONSTRAINT `nalog_preduzece`
+  CONSTRAINT `nalog_preduzece`
   FOREIGN KEY (`preduzece_id`)
   REFERENCES `economist`.`preduzece` (`id`)
   ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+  CONSTRAINT `nalog_vrstadokumenta`
+  FOREIGN KEY (`vrstadokumenta_id`)
+  REFERENCES `economist`.`vrstadokumenta` (`id`)
+  ON DELETE NO ACTION
   ON UPDATE NO ACTION );
+
+  CREATE TABLE IF NOT EXISTS `economist`.`vrstadokumenta` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `sifra` INT NOT NULL,
+  `naziv` VARCHAR(45) NOT NULL,
+  `user_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `vrstadokumenta_user_idx` (`user_id` ASC),
+  CONSTRAINT `vrstadokumenta_user`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `economist`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+  ALTER TABLE `economist`.`vrstadokumenta` ADD UNIQUE INDEX `sifra_user_unique` (`sifra` ASC, `user_id` ASC);
+ 
+  INSERT INTO `economist`.`user` (`email`, `password`, `first_name`, `last_name`, `gender`, `created`, `status`) VALUES ('coa', '89ec8da57db1f394906736ce9224fb9d99841c288572c3ada3018db668aff0d6fa5bf098b0a35072', 'admin', 'admin', '1', '2018-03-16 11:06:25', 'Active');
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
