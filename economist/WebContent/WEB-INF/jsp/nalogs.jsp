@@ -31,7 +31,7 @@
 					<td align="center">${loop.count}</td>
 					<td align="center">${nalog.broj}</td>
 					<td align="center">${nalog.vrstaDokumenta.naziv}</td>
-					<td align="center"><fmt:formatDate pattern = "dd.MM.yyyy." value = "${nalog.datum}" /></td>
+					<td align="center"><fmt:formatDate pattern = "${datumPattern}" value = "${nalog.datum}" /></td>
 					<td align="center">${nalog.opis}</td>
 					<td align="center">${nalog.konto.naziv}</td>
 					<td align="right">${nalog.duguje}</td>

@@ -1,6 +1,8 @@
 package com.economist.controller;
 
 import java.beans.PropertyEditorSupport;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -20,13 +22,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.economist.config.BaseController;
 import com.economist.db.entity.Konto;
-import com.economist.db.entity.Nalog;
 import com.economist.db.entity.Preduzece;
 import com.economist.db.repository.KontoRepository;
 import com.economist.db.repository.NalogRepository;
 import com.economist.db.repository.PreduzeceRepository;
 import com.economist.db.repository.UserRepository;
 import com.economist.model.AnalitikaSearchBean;
+import com.economist.model.BilansResultBean;
 
 
 @Controller
@@ -51,7 +53,8 @@ public class BilansController extends BaseController {
 	public String defaultView(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale) {
 		model.addAttribute("search", new AnalitikaSearchBean());
 		model.addAttribute("action", CONTROLLER + "/generate");
-		model.addAttribute("konta", kontoRepository.findByUser(getUser()));
+		model.addAttribute("showTable", false);
+//		model.addAttribute("konta", kontoRepository.findByUser(getUser()));
 		return VIEW_DEFAULT;
 	}
 	
@@ -61,12 +64,31 @@ public class BilansController extends BaseController {
 		model.addAttribute("search", new AnalitikaSearchBean());
 		model.addAttribute("action", CONTROLLER + "/generate");
 		model.addAttribute("konta", kontoRepository.findByUser(getUser()));
+		model.addAttribute("showTable", true);
 		Preduzece p = preduzeceRepository.findOne(1);
-		Konto kontoOd = kontoRepository.findOne(search.getKontoOd().getId());
-		Konto kontoDo = kontoRepository.findOne(search.getKontoDo().getId());
-		List<Nalog> result = nalogRepository.bilans(p, kontoOd.getSifra(), kontoDo.getSifra(), search.getDatumOd(), search.getDatumDo());
-		model.addAttribute("nalogs", result);
-		getSaldo(result, model);
+		
+		for (int i = Integer.valueOf(search.getKontoOdBilans()); i <= Integer.valueOf(search.getKontoDoBilans());i ++) {
+			List<Object> result = kontoRepository.bilans(p, String.valueOf(i), search.getDatumOd(), search.getDatumDo());
+			List<BilansResultBean> kontos = new ArrayList<BilansResultBean>();
+			BigDecimal duguje = BigDecimal.ZERO;
+			BigDecimal potrazuje = BigDecimal.ZERO;
+			
+			for (Object object : result) {
+				BilansResultBean bean = new BilansResultBean();
+				Object[] objectArray = (Object[]) object;
+				bean.setKonto((Konto)objectArray[0]);
+				bean.setDuguje((BigDecimal)objectArray[1]);
+				bean.setPotrazuje((BigDecimal) objectArray[2]);
+				
+				kontos.add(bean);
+				
+				duguje = duguje.add((BigDecimal)objectArray[1]);
+				potrazuje = potrazuje.add((BigDecimal) objectArray[2]);
+			}
+			model.addAttribute("konto" + i, kontos);
+			model.addAttribute("dugujeKonto" + i, duguje);
+			model.addAttribute("potrazujeKonto" + i, potrazuje);
+		}
 		
 		return VIEW_DEFAULT;
 	}

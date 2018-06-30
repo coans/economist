@@ -38,7 +38,11 @@ public class BaseController {
 	private static final String BASEURL = "baseurl";
 	private static final String VERISON = "verison";
 	
-	private static final String VRSTA_DOKUMENTA = "vrstaDokumenta";
+	private static final String KONTA_KRATKO = "kontaKratko";
+	private static final String DATUM_PATTERN = "datumPattern";
+	private static final String POTRAZUJE = "potrazuje";
+	private static final String DUGUJE = "duguje";
+	
 	
 	@Value("${base.url}")
 	protected String baseUrl;
@@ -46,9 +50,12 @@ public class BaseController {
 	@Value("${product.version}")
 	protected String productVersion;
 	
+	@Value("${datum.format}")
+	protected String datumFormat;
+	
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy.");
+		SimpleDateFormat dateFormat = new SimpleDateFormat(datumFormat);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 	
@@ -66,10 +73,15 @@ public class BaseController {
 	public String getProductVersion() {
 		return productVersion;
 	}
+
+	@ModelAttribute(KONTA_KRATKO)
+	public List<Integer> getKontaKratko() {
+		return Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+	}
 	
-	@ModelAttribute(VRSTA_DOKUMENTA)
-	public List<String> getQuantity() {
-		return Arrays.asList("Ulazni", "Izlazni");
+	@ModelAttribute(DATUM_PATTERN)
+	public String getDatumPattern() {
+		return datumFormat;
 	}
 	
 	public void getSaldo(List<Nalog> nalogs, ModelMap model) {
@@ -79,8 +91,8 @@ public class BaseController {
 			duguje = duguje.add(nalog.getDuguje());
 			potrazuje = potrazuje.add(nalog.getPotrazuje());
 		}
-		model.addAttribute("duguje", duguje);
-		model.addAttribute("potrazuje", potrazuje);
+		model.addAttribute(DUGUJE, duguje);
+		model.addAttribute(POTRAZUJE, potrazuje);
 	}
 	
 	public long getTimeZoneOffset(HttpServletRequest request) {

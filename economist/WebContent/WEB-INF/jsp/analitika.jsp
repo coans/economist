@@ -68,19 +68,19 @@
 					<td align="center">${loop.count}</td>
 					<td align="center">${nalog.broj}</td>
 					<td align="center">${nalog.vrstaDokumenta.naziv}</td>
-					<td align="center"><fmt:formatDate pattern = "dd.MM.yyyy." value = "${nalog.datum}" /></td>
+					<td align="center"><fmt:formatDate pattern = "${datumPattern}" value = "${nalog.datum}" /></td>
 					<td align="center">${nalog.konto.naziv}</td>
 					<td align="right">${nalog.duguje}</td>
 					<td align="right">${nalog.potrazuje}</td>
 				</tr>
 			</c:forEach>
-			<tr><td colspan="7">&nbsp;</td></tr>
+			<!-- <tr><td colspan="7">&nbsp;</td></tr> -->
 			<tr>
 				<td class="active">&nbsp;</td>
 				<td class="active">&nbsp;</td>
 				<td class="active">&nbsp;</td>
 				<td class="active">&nbsp;</td>
-				<td class="active" align="center">Saldo:</td>
+				<td class="active" align="right"><b>Saldo:</b></td>
 				<td class="danger" align="right"><b>${duguje}</b></td>
 				<td class="success" align="right"><b>${potrazuje}</b></td>
 			</tr>			

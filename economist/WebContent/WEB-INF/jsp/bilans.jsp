@@ -9,19 +9,19 @@
 			<h3>Bruto bilans (po datumu i kontu)</h3>
 				<div class="col-xs-3">
 					<div class="form-group">
-						<form:label path="kontoOd">Konto od</form:label>
-						<form:select path="kontoOd" class="form-control" items="${konta}" itemLabel="naziv" itemValue="id"/>
+						<form:label path="kontoOdBilans">Konto od</form:label>
+						<form:select path="kontoOdBilans" class="form-control" items="${kontaKratko}"/>
 						<div class="has-error">
-							<form:errors path="kontoOd" cssClass="help-block" element="label"/>
+							<form:errors path="kontoOdBilans" cssClass="help-block" element="label"/>
 						</div>
 					</div>
 				</div>
 				<div class="col-xs-3">
 					<div class="form-group">
-						<form:label path="kontoDo">Konto do</form:label>
-						<form:select path="kontoDo" class="form-control" items="${konta}" itemLabel="naziv" itemValue="id"/>
+						<form:label path="kontoDoBilans">Konto do</form:label>
+						<form:select path="kontoDoBilans" class="form-control" items="${kontaKratko}"/>
 						<div class="has-error">
-							<form:errors path="kontoDo" cssClass="help-block" element="label"/>
+							<form:errors path="kontoDoBilans" cssClass="help-block" element="label"/>
 						</div>
 					</div>
 				</div>
@@ -54,36 +54,30 @@
 		<thead class="thead-light">
 			<tr>
 				<th class="text-center" scope="col">#</th>
-				<th class="text-center" scope="col">Broj</th>
-				<th class="text-center" scope="col">Vrsta dokumenta</th>
-				<th class="text-center" scope="col">Datum</th>
 				<th class="text-center" scope="col">Konto</th>
+				<th class="text-center" scope="col">Naziv konta</th>
 				<th class="text-center" scope="col">Duguje</th>
 				<th class="text-center" scope="col">Potrazuje</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${nalogs}" var="nalog" varStatus="loop">	
-				<tr>
-					<td align="center">${loop.count}</td>
-					<td align="center">${nalog.broj}</td>
-					<td align="center">${nalog.vrstaDokumenta.naziv}</td>
-					<td align="center"><fmt:formatDate pattern = "dd.MM.yyyy." value = "${nalog.datum}" /></td>
-					<td align="center">${nalog.konto.naziv}</td>
-					<td align="right">${nalog.duguje}</td>
-					<td align="right">${nalog.potrazuje}</td>
-				</tr>
-			</c:forEach>
-			<tr><td colspan="7">&nbsp;</td></tr>
-			<tr>
-				<td class="active">&nbsp;</td>
-				<td class="active">&nbsp;</td>
-				<td class="active">&nbsp;</td>
-				<td class="active">&nbsp;</td>
-				<td class="active" align="center">Saldo:</td>
-				<td class="danger" align="right"><b>${duguje}</b></td>
-				<td class="success" align="right"><b>${potrazuje}</b></td>
-			</tr>			
+  					<c:forEach items="${konto1}" var="bilans" varStatus="loop">	
+						<tr>
+							<td align="center">${loop.count}</td>
+							<td align="center">${bilans.konto.sifra}</td>
+							<td align="center">${bilans.konto.naziv}</td>
+							<td align="right">${bilans.duguje}</td>
+							<td align="right">${bilans.potrazuje}</td>
+						</tr>
+					</c:forEach>
+					<tr>
+						<td class="active">&nbsp;</td>
+						<td class="active">&nbsp;</td>
+						<td class="active" align="right"><b>Saldo:</b></td>
+						<td class="danger" align="right"><b>${dugujeKonto1}</b></td>
+						<td class="success" align="right"><b>${potrazujeKonto1}</b></td>
+					</tr>
+					
 		</tbody>
     </table>
 </div>

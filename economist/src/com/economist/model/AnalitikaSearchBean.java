@@ -9,6 +9,8 @@ public class AnalitikaSearchBean {
 	private Konto kontoDo;
 	private Date datumOd;
 	private Date datumDo;
+	private String kontoOdBilans;
+	private String kontoDoBilans;
 	
 	public Konto getKontoOd() {
 		return kontoOd;
@@ -33,5 +35,17 @@ public class AnalitikaSearchBean {
 	}
 	public void setDatumDo(Date datumDo) {
 		this.datumDo = datumDo;
+	}
+	public String getKontoOdBilans() {
+		return kontoOdBilans;
+	}
+	public void setKontoOdBilans(String kontoOdBilans) {
+		this.kontoOdBilans = kontoOdBilans;
+	}
+	public String getKontoDoBilans() {
+		return kontoDoBilans;
+	}
+	public void setKontoDoBilans(String kontoDoBilans) {
+		this.kontoDoBilans = kontoDoBilans;
 	}
 }
