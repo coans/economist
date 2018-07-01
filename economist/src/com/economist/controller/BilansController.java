@@ -61,7 +61,7 @@ public class BilansController extends BaseController {
 	@RequestMapping(value = "generate", method = RequestMethod.POST)
 	public String generate(@ModelAttribute("search") AnalitikaSearchBean search, Errors errors, ModelMap model) {
 		
-		model.addAttribute("search", new AnalitikaSearchBean());
+		model.addAttribute("search", search);
 		model.addAttribute("action", CONTROLLER + "/generate");
 		model.addAttribute("konta", kontoRepository.findByUser(getUser()));
 		model.addAttribute("showTable", true);
