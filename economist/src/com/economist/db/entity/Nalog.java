@@ -30,6 +30,7 @@ public class Nalog implements Serializable {
 	private String napomena;
 	private BigDecimal duguje;
 	private BigDecimal potrazuje;
+	private BigDecimal saldo;
 
 	//bi-directional many-to-one association to Konto
 	@ManyToOne
@@ -42,6 +43,10 @@ public class Nalog implements Serializable {
 	@ManyToOne
 	private VrstaDokumenta vrstaDokumenta;
 
+	
+	@ManyToOne
+	private Komitent komitent;
+	
 	public Nalog() {
 	}
 
@@ -123,5 +128,21 @@ public class Nalog implements Serializable {
 
 	public void setVrstaDokumenta(VrstaDokumenta vrstaDokumenta) {
 		this.vrstaDokumenta = vrstaDokumenta;
+	}
+
+	public Komitent getKomitent() {
+		return komitent;
+	}
+
+	public void setKomitent(Komitent komitent) {
+		this.komitent = komitent;
+	}
+
+	public BigDecimal getSaldo() {
+		return saldo;
+	}
+
+	public void setSaldo(BigDecimal saldo) {
+		this.saldo = saldo;
 	}
 }

@@ -11,17 +11,19 @@
             <option value="${category.id}" ${category.id == selectedCategoryId ? 'selected' : ''}>${category.name}</option>
 	    </c:forEach>
 	</select> --%>
-	<table class="table table-striped">
+	<table class="${tableClass}">
 		<thead>
 			<tr>
 				<th class="text-center" scope="col">#</th>
 				<th class="text-center" scope="col">Broj</th>
 				<th class="text-center" scope="col">Vrsta dokumenta</th>
+				<th class="text-center" scope="col">Komitent</th>
 				<th class="text-center" scope="col">Datum</th>
 				<th class="text-center" scope="col">Opis</th>
 				<th class="text-center" scope="col">Konto</th>
 				<th class="text-center" scope="col">Duguje</th>
 				<th class="text-center" scope="col">Potrazuje</th>
+				<th class="text-center" scope="col">Saldo</th>
 				<th class="text-center" scope="col">Akcija</th>
 			</tr>
 		</thead>
@@ -31,11 +33,13 @@
 					<td align="center">${loop.count}</td>
 					<td align="center">${nalog.broj}</td>
 					<td align="center">${nalog.vrstaDokumenta.naziv}</td>
+					<td align="center">${nalog.komitent.naziv}</td>
 					<td align="center"><fmt:formatDate pattern = "${datumPattern}" value = "${nalog.datum}" /></td>
 					<td align="center">${nalog.opis}</td>
-					<td align="center">${nalog.konto.naziv}</td>
+					<td align="center">${nalog.konto.sifra} - ${nalog.konto.naziv}</td>
 					<td align="right">${nalog.duguje}</td>
 					<td align="right">${nalog.potrazuje}</td>
+					<td align="right">${nalog.saldo}</td>
 					<td align="center">
 						<a href="foods/edit/${food.id}" title="Edit"><i class="glyphicon glyphicon-pencil"></i></a>
 						&nbsp;
@@ -43,16 +47,18 @@
 					</td>
 				</tr>
 			</c:forEach>
-			<tr><td colspan="9">&nbsp;</td></tr>
+			<tr><td colspan="11">&nbsp;</td></tr>
 			<tr>
 				<td class="active">&nbsp;</td>
 				<td class="active">&nbsp;</td>
 				<td class="active">&nbsp;</td>
 				<td class="active">&nbsp;</td>
 				<td class="active">&nbsp;</td>
-				<td class="active" align="center">Saldo:</td>
+				<td class="active">&nbsp;</td>
+				<td class="active" align="center">Ukupno:</td>
 				<td class="danger" align="right"><b>${duguje}</b></td>
 				<td class="success" align="right"><b>${potrazuje}</b></td>
+				<td class="success" align="right"><b>${saldo}</b></td>
 				<td class="active">&nbsp;</td>	
 			</tr>			
 		</tbody>

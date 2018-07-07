@@ -44,6 +44,13 @@
 					</div>
 				</div>
 				<div class="form-group">
+					<form:label path="komitent">Komitent</form:label>
+					<form:select path="komitent" class="form-control" id="komitent" items="${komitents}" itemLabel="naziv" itemValue="id"/>
+					<div class="has-error">
+						<form:errors path="komitent" cssClass="help-block" element="label"/>
+					</div>
+				</div>				
+				<div class="form-group">
 					<form:label path="duguje" class="required">Duguje</form:label>
 					<form:input path="duguje" type="text" class="form-control" />
 					<div class="has-error">

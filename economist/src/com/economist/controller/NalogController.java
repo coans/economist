@@ -21,10 +21,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.economist.config.BaseController;
+import com.economist.db.entity.Komitent;
 import com.economist.db.entity.Konto;
 import com.economist.db.entity.Nalog;
 import com.economist.db.entity.Preduzece;
 import com.economist.db.entity.VrstaDokumenta;
+import com.economist.db.repository.KomitentRepository;
 import com.economist.db.repository.KontoRepository;
 import com.economist.db.repository.NalogRepository;
 import com.economist.db.repository.PreduzeceRepository;
@@ -51,6 +53,8 @@ public class NalogController extends BaseController {
 	private PreduzeceRepository preduzeceRepository;
 	@Autowired
 	private VrstaDokumentaRepository vrstaDokumentaRepository;
+	@Autowired
+	private KomitentRepository komitentRepository;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String defaultView(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale/*, @RequestParam(required = false) Integer preduzeceId*/) {
@@ -64,7 +68,7 @@ public class NalogController extends BaseController {
 //		categories.add(0, new Category("Select category..."));
 //		model.addAttribute("categories", categories);
 		final List<Nalog> nalogs = nalogRepository.findAll();
-		getSaldo(nalogs, model);
+		getZbirniRed(nalogs, model);
 		model.addAttribute("nalogs", nalogRepository.findAll());//TODO by preduzece
 		
 		return VIEW_DEFAULT;
@@ -81,6 +85,9 @@ public class NalogController extends BaseController {
 		model.addAttribute("title", TITLE);
 		model.addAttribute("konta", kontoRepository.findByUser(getUser()));
 		model.addAttribute("vrstadokumentas", vrstaDokumentaRepository.findByUser(getUser()));
+		List<Komitent> komitents = komitentRepository.findByUser(getUser());
+		komitents.add(0, new Komitent());
+		model.addAttribute("komitents", komitents);
 		
 		return VIEW_NEW;
 	}
@@ -90,19 +97,26 @@ public class NalogController extends BaseController {
 			final RedirectAttributes redirectAttributes) {
 
 //		validator.validate(food, errors);
-		
+		if (nalog.getKomitent().getId() == 0) {
+			nalog.setKomitent(null);
+		}
 		if (errors.hasErrors()) {
 			model.addAttribute("nalog", nalog);
 			model.addAttribute("action", CONTROLLER + "/create");
 			model.addAttribute("title", TITLE);
 			model.addAttribute("konta", kontoRepository.findByUser(getUser()));
 			model.addAttribute("vrstadokumentas", vrstaDokumentaRepository.findByUser(getUser()));
+			List<Komitent> komitents = komitentRepository.findByUser(getUser());
+			komitents.add(0, new Komitent());
+			model.addAttribute("komitents", komitents);
 			return VIEW_NEW;
 		}
 		
 		Preduzece p = preduzeceRepository.findOne(1);
 		nalog.setPreduzece(p);
 		
+		//set saldo
+		nalog.setSaldo(nalog.getDuguje().subtract(nalog.getPotrazuje()));
 		nalogRepository.save(nalog);
 		
 		return "redirect:/" + NalogController.CONTROLLER;
@@ -190,6 +204,15 @@ public class NalogController extends BaseController {
 				VrstaDokumenta vd = new VrstaDokumenta();
 				vd.setId(Integer.parseInt(id));
 				setValue(vd);
+			}
+		});
+		
+		binder.registerCustomEditor(Komitent.class, new PropertyEditorSupport() {
+			@Override
+			public void setAsText(String id) {
+				Komitent komitent = new Komitent();
+				komitent.setId(Integer.parseInt(id));
+				setValue(komitent);
 			}
 		});
 	}

@@ -2,10 +2,12 @@ package com.economist.model;
 
 import java.math.BigDecimal;
 
+import com.economist.db.entity.Komitent;
 import com.economist.db.entity.Konto;
 
-public class BilansResultBean {
+public class AnalitikaKontoKomitentResultBean {
 	private Konto konto;
+	private Komitent komitent;
 	private BigDecimal duguje;
 	private BigDecimal potrazuje;
 	private BigDecimal saldo;
@@ -27,6 +29,12 @@ public class BilansResultBean {
 	}
 	public void setPotrazuje(BigDecimal potrazuje) {
 		this.potrazuje = potrazuje;
+	}
+	public Komitent getKomitent() {
+		return komitent;
+	}
+	public void setKomitent(Komitent komitent) {
+		this.komitent = komitent;
 	}
 	public BigDecimal getSaldo() {
 		return saldo;

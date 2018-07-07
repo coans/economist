@@ -11,7 +11,7 @@
             <option value="${category.id}" ${category.id == selectedCategoryId ? 'selected' : ''}>${category.name}</option>
 	    </c:forEach>
 	</select> --%>
-	<table class="table table-striped">
+	<table class="${tableClass}">
 		<thead>
 			<tr>
 				<th class="text-center" scope="col">#</th>

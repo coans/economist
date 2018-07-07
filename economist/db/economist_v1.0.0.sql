@@ -64,14 +64,17 @@ CREATE TABLE IF NOT EXISTS `economist`.`nalog` (
   `opis` VARCHAR(50) NOT NULL,
   `duguje` DECIMAL(10,2) NOT NULL,
   `potrazuje` DECIMAL(10,2) NOT NULL,
+  `saldo` DECIMAL(10,2) NOT NULL,
   `napomena` VARCHAR(50) NULL,
   `konto_id` INT NOT NULL,
   `preduzece_id` INT NOT NULL,
   `vrstadokumenta_id` INT NOT NULL,
+  `komitent_id` INT(11) NULL,
   PRIMARY KEY (`id`),
   INDEX `nalog_konto_idx` (`konto_id` ASC),
   INDEX `nalog_preduzece_idx` (`preduzece_id` ASC),
   INDEX `nalog_vrstadokumenta_idx` (`vrstadokumenta_id` ASC),
+  INDEX `nalog_komitent_idx` (`komitent_id` ASC),
   CONSTRAINT `nalog_konto`
     FOREIGN KEY (`konto_id`)
     REFERENCES `economist`.`konto` (`id`)
@@ -86,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `economist`.`nalog` (
   FOREIGN KEY (`vrstadokumenta_id`)
   REFERENCES `economist`.`vrstadokumenta` (`id`)
   ON DELETE NO ACTION
-  ON UPDATE NO ACTION );
+  ON UPDATE NO ACTION);
 
   CREATE TABLE IF NOT EXISTS `economist`.`vrstadokumenta` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -100,6 +103,24 @@ CREATE TABLE IF NOT EXISTS `economist`.`nalog` (
     REFERENCES `economist`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+ 
+  CREATE TABLE `economist`.`komitent` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `naziv` VARCHAR(100) NOT NULL,
+  `mesto` VARCHAR(100) NOT NULL,
+  `adresa` VARCHAR(200) NOT NULL,
+  `ziroracun` VARCHAR(50) NOT NULL,
+  `napomena` VARCHAR(200) NULL,
+  `telefon` VARCHAR(45) NULL,
+  `user_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `komitent_user_idx` (`user_id` ASC),
+  CONSTRAINT `komitent_user`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `economist`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
     
   ALTER TABLE `economist`.`vrstadokumenta` ADD UNIQUE INDEX `sifra_user_unique` (`sifra` ASC, `user_id` ASC);
  

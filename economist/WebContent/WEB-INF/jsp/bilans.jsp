@@ -13,7 +13,7 @@
 				<div class="col-xs-3">
 					<div class="form-group">
 						<form:label path="kontoOdBilans">Konto od</form:label>
-						<form:select path="kontoOdBilans" class="form-control" items="${kontaKratko}"/>
+						<form:select path="kontoOdBilans" class="form-control" items="${klaseKonta}"/>
 						<div class="has-error">
 							<form:errors path="kontoOdBilans" cssClass="help-block" element="label"/>
 						</div>
@@ -22,7 +22,7 @@
 				<div class="col-xs-3">
 					<div class="form-group">
 						<form:label path="kontoDoBilans">Konto do</form:label>
-						<form:select path="kontoDoBilans" class="form-control" items="${kontaKratko}"/>
+						<form:select path="kontoDoBilans" class="form-control" items="${klaseKonta}"/>
 						<div class="has-error">
 							<form:errors path="kontoDoBilans" cssClass="help-block" element="label"/>
 						</div>
@@ -65,6 +65,7 @@
 					<th class="text-center" scope="col">Naziv konta</th>
 					<th class="text-center" scope="col">Duguje</th>
 					<th class="text-center" scope="col">Potrazuje</th>
+					<th class="text-center" scope="col">Saldo</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -75,6 +76,7 @@
 						<td align="center">${bilans.konto.naziv}</td>
 						<td align="right">${bilans.duguje}</td>
 						<td align="right">${bilans.potrazuje}</td>
+						<td align="right">${bilans.saldo}</td>
 					</tr>
 				</c:forEach>
 				<tr>
@@ -82,6 +84,7 @@
 					<!-- <td class="active" align="right"><b>Saldo:</b></td> -->
 					<td class="danger" align="right"><b>${dugujeKonto0}</b></td>
 					<td class="success" align="right"><b>${potrazujeKonto0}</b></td>
+					<td class="success" align="right"><b>${saldoKonto0}</b></td>
 				</tr>
 			</tbody>
 		</table>				
@@ -95,6 +98,7 @@
 					<th class="text-center" scope="col">Naziv konta</th>
 					<th class="text-center" scope="col">Duguje</th>
 					<th class="text-center" scope="col">Potrazuje</th>
+					<th class="text-center" scope="col">Saldo</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -105,12 +109,14 @@
 						<td align="center">${bilans.konto.naziv}</td>
 						<td align="right">${bilans.duguje}</td>
 						<td align="right">${bilans.potrazuje}</td>
+						<td align="right">${bilans.saldo}</td>
 					</tr>
 				</c:forEach>
 				<tr>
 					<td class="active" colspan="3" align="center"><b>Ukupno za klasu	1</b></td>
 					<td class="danger" align="right"><b>${dugujeKonto1}</b></td>
 					<td class="success" align="right"><b>${potrazujeKonto1}</b></td>
+					<td class="success" align="right"><b>${saldoKonto1}</b></td>
 				</tr>
 			</tbody>
 		</table>				
@@ -124,6 +130,7 @@
 					<th class="text-center" scope="col">Naziv konta</th>
 					<th class="text-center" scope="col">Duguje</th>
 					<th class="text-center" scope="col">Potrazuje</th>
+					<th class="text-center" scope="col">Saldo</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -134,12 +141,14 @@
 						<td align="center">${bilans.konto.naziv}</td>
 						<td align="right">${bilans.duguje}</td>
 						<td align="right">${bilans.potrazuje}</td>
+						<td align="right">${bilans.saldo}</td>
 					</tr>
 				</c:forEach>
 				<tr>
 					<td class="active" colspan="3" align="center"><b>Ukupno za klasu	2</b></td>
 					<td class="danger" align="right"><b>${dugujeKonto2}</b></td>
 					<td class="success" align="right"><b>${potrazujeKonto2}</b></td>
+					<td class="success" align="right"><b>${saldoKonto2}</b></td>
 				</tr>
 			</tbody>
 		</table> 				
@@ -153,6 +162,7 @@
 					<th class="text-center" scope="col">Naziv konta</th>
 					<th class="text-center" scope="col">Duguje</th>
 					<th class="text-center" scope="col">Potrazuje</th>
+					<th class="text-center" scope="col">Saldo</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -163,12 +173,14 @@
 						<td align="center">${bilans.konto.naziv}</td>
 						<td align="right">${bilans.duguje}</td>
 						<td align="right">${bilans.potrazuje}</td>
+						<td align="right">${bilans.saldo}</td>
 					</tr>
 				</c:forEach>
 				<tr>
 					<td class="active" colspan="3" align="center"><b>Ukupno za klasu	3</b></td>
 					<td class="danger" align="right"><b>${dugujeKonto3}</b></td>
 					<td class="success" align="right"><b>${potrazujeKonto3}</b></td>
+					<td class="success" align="right"><b>${saldoKonto3}</b></td>
 				</tr>
 			</tbody>
 		</table> 				
@@ -182,6 +194,7 @@
 					<th class="text-center" scope="col">Naziv konta</th>
 					<th class="text-center" scope="col">Duguje</th>
 					<th class="text-center" scope="col">Potrazuje</th>
+					<th class="text-center" scope="col">Saldo</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -192,12 +205,14 @@
 						<td align="center">${bilans.konto.naziv}</td>
 						<td align="right">${bilans.duguje}</td>
 						<td align="right">${bilans.potrazuje}</td>
+						<td align="right">${bilans.saldo}</td>
 					</tr>
 				</c:forEach>
 				<tr>
 					<td class="active" colspan="3" align="center"><b>Ukupno za klasu	4</b></td>
 					<td class="danger" align="right"><b>${dugujeKonto4}</b></td>
 					<td class="success" align="right"><b>${potrazujeKonto4}</b></td>
+					<td class="success" align="right"><b>${saldoKonto4}</b></td>
 				</tr>
 			</tbody>
 		</table> 				
@@ -211,6 +226,7 @@
 					<th class="text-center" scope="col">Naziv konta</th>
 					<th class="text-center" scope="col">Duguje</th>
 					<th class="text-center" scope="col">Potrazuje</th>
+					<th class="text-center" scope="col">Saldo</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -221,12 +237,14 @@
 						<td align="center">${bilans.konto.naziv}</td>
 						<td align="right">${bilans.duguje}</td>
 						<td align="right">${bilans.potrazuje}</td>
+						<td align="right">${bilans.saldo}</td>
 					</tr>
 				</c:forEach>
 				<tr>
 					<td class="active" colspan="3" align="center"><b>Ukupno za klasu	5</b></td>
 					<td class="danger" align="right"><b>${dugujeKonto5}</b></td>
 					<td class="success" align="right"><b>${potrazujeKonto5}</b></td>
+					<td class="success" align="right"><b>${saldoKonto5}</b></td>
 				</tr>
 			</tbody>
 		</table> 				
@@ -240,6 +258,7 @@
 					<th class="text-center" scope="col">Naziv konta</th>
 					<th class="text-center" scope="col">Duguje</th>
 					<th class="text-center" scope="col">Potrazuje</th>
+					<th class="text-center" scope="col">Saldo</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -250,12 +269,14 @@
 						<td align="center">${bilans.konto.naziv}</td>
 						<td align="right">${bilans.duguje}</td>
 						<td align="right">${bilans.potrazuje}</td>
+						<td align="right">${bilans.saldo}</td>
 					</tr>
 				</c:forEach>
 				<tr>
 					<td class="active" colspan="3" align="center"><b>Ukupno za klasu	6</b></td>
 					<td class="danger" align="right"><b>${dugujeKonto6}</b></td>
 					<td class="success" align="right"><b>${potrazujeKonto6}</b></td>
+					<td class="success" align="right"><b>${saldoKonto6}</b></td>
 				</tr>
 			</tbody>
 		</table> 				
@@ -269,6 +290,7 @@
 					<th class="text-center" scope="col">Naziv konta</th>
 					<th class="text-center" scope="col">Duguje</th>
 					<th class="text-center" scope="col">Potrazuje</th>
+					<th class="text-center" scope="col">Saldo</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -279,12 +301,14 @@
 						<td align="center">${bilans.konto.naziv}</td>
 						<td align="right">${bilans.duguje}</td>
 						<td align="right">${bilans.potrazuje}</td>
+						<td align="right">${bilans.saldo}</td>
 					</tr>
 				</c:forEach>
 				<tr>
 					<td class="active" colspan="3" align="center"><b>Ukupno za klasu	7</b></td>
 					<td class="danger" align="right"><b>${dugujeKonto7}</b></td>
 					<td class="success" align="right"><b>${potrazujeKonto7}</b></td>
+					<td class="success" align="right"><b>${saldoKonto7}</b></td>
 				</tr>
 			</tbody>
 		</table> 				
@@ -298,6 +322,7 @@
 					<th class="text-center" scope="col">Naziv konta</th>
 					<th class="text-center" scope="col">Duguje</th>
 					<th class="text-center" scope="col">Potrazuje</th>
+					<th class="text-center" scope="col">Saldo</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -308,12 +333,14 @@
 						<td align="center">${bilans.konto.naziv}</td>
 						<td align="right">${bilans.duguje}</td>
 						<td align="right">${bilans.potrazuje}</td>
+						<td align="right">${bilans.saldo}</td>
 					</tr>
 				</c:forEach>
 				<tr>
 					<td class="active" colspan="3" align="center"><b>Ukupno za klasu	8</b></td>
 					<td class="danger" align="right"><b>${dugujeKonto8}</b></td>
 					<td class="success" align="right"><b>${potrazujeKonto8}</b></td>
+					<td class="success" align="right"><b>${saldoKonto8}</b></td>
 				</tr>
 			</tbody>
 		</table> 				
@@ -327,6 +354,7 @@
 					<th class="text-center" scope="col">Naziv konta</th>
 					<th class="text-center" scope="col">Duguje</th>
 					<th class="text-center" scope="col">Potrazuje</th>
+					<th class="text-center" scope="col">Saldo</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -337,12 +365,14 @@
 						<td align="center">${bilans.konto.naziv}</td>
 						<td align="right">${bilans.duguje}</td>
 						<td align="right">${bilans.potrazuje}</td>
+						<td align="right">${bilans.saldo}</td>
 					</tr>
 				</c:forEach>
 				<tr>
 					<td class="active" colspan="3" align="center"><b>Ukupno za klasu	9</b></td>
 					<td class="danger" align="right"><b>${dugujeKonto9}</b></td>
 					<td class="success" align="right"><b>${potrazujeKonto9}</b></td>
+					<td class="success" align="right"><b>${saldoKonto9}</b></td>
 				</tr>
 			</tbody>
 		</table> 				

@@ -38,10 +38,12 @@ public class BaseController {
 	private static final String BASEURL = "baseurl";
 	private static final String VERISON = "verison";
 	
-	private static final String KONTA_KRATKO = "kontaKratko";
+	private static final String KLASE_KONTA = "klaseKonta";
 	private static final String DATUM_PATTERN = "datumPattern";
 	private static final String POTRAZUJE = "potrazuje";
 	private static final String DUGUJE = "duguje";
+	private static final String SALDO = "saldo";
+	private static final String TABLE_CLASS = "tableClass";
 	
 	
 	@Value("${base.url}")
@@ -74,8 +76,8 @@ public class BaseController {
 		return productVersion;
 	}
 
-	@ModelAttribute(KONTA_KRATKO)
-	public List<Integer> getKontaKratko() {
+	@ModelAttribute(KLASE_KONTA)
+	public List<Integer> getKlaseKonta() {
 		return Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
 	}
 	
@@ -84,15 +86,22 @@ public class BaseController {
 		return datumFormat;
 	}
 	
-	public void getSaldo(List<Nalog> nalogs, ModelMap model) {
+	@ModelAttribute(TABLE_CLASS)
+	public String getTableClass() {
+		return "table table-striped table-bordered";
+	}
+	
+	public void getZbirniRed(List<Nalog> nalogs, ModelMap model) {
 		BigDecimal duguje = BigDecimal.ZERO;
 		BigDecimal potrazuje = BigDecimal.ZERO;
+		
 		for (Nalog nalog : nalogs) {
 			duguje = duguje.add(nalog.getDuguje());
 			potrazuje = potrazuje.add(nalog.getPotrazuje());
 		}
 		model.addAttribute(DUGUJE, duguje);
 		model.addAttribute(POTRAZUJE, potrazuje);
+		model.addAttribute(SALDO, duguje.subtract(potrazuje));
 	}
 	
 	public long getTimeZoneOffset(HttpServletRequest request) {

@@ -79,6 +79,7 @@ public class BilansController extends BaseController {
 				bean.setKonto((Konto)objectArray[0]);
 				bean.setDuguje((BigDecimal)objectArray[1]);
 				bean.setPotrazuje((BigDecimal) objectArray[2]);
+				bean.setSaldo((BigDecimal) objectArray[3]);
 				
 				kontos.add(bean);
 				
@@ -88,6 +89,7 @@ public class BilansController extends BaseController {
 			model.addAttribute("konto" + i, kontos);
 			model.addAttribute("dugujeKonto" + i, duguje);
 			model.addAttribute("potrazujeKonto" + i, potrazuje);
+			model.addAttribute("saldoKonto" + i, duguje.subtract(potrazuje));
 		}
 		
 		return VIEW_DEFAULT;

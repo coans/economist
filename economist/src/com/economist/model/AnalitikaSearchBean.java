@@ -2,6 +2,7 @@ package com.economist.model;
 
 import java.util.Date;
 
+import com.economist.db.entity.Komitent;
 import com.economist.db.entity.Konto;
 
 public class AnalitikaSearchBean {
@@ -11,6 +12,7 @@ public class AnalitikaSearchBean {
 	private Date datumDo;
 	private String kontoOdBilans;
 	private String kontoDoBilans;
+	private Komitent komitent;
 	
 	public Konto getKontoOd() {
 		return kontoOd;
@@ -47,5 +49,11 @@ public class AnalitikaSearchBean {
 	}
 	public void setKontoDoBilans(String kontoDoBilans) {
 		this.kontoDoBilans = kontoDoBilans;
+	}
+	public Komitent getKomitent() {
+		return komitent;
+	}
+	public void setKomitent(Komitent komitent) {
+		this.komitent = komitent;
 	}
 }
