@@ -70,6 +70,7 @@ CREATE TABLE IF NOT EXISTS `economist`.`nalog` (
   `preduzece_id` INT NOT NULL,
   `vrstadokumenta_id` INT NOT NULL,
   `komitent_id` INT(11) NULL,
+  `parent_id` INT(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   INDEX `nalog_konto_idx` (`konto_id` ASC),
   INDEX `nalog_preduzece_idx` (`preduzece_id` ASC),

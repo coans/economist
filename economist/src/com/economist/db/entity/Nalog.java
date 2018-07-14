@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,6 +32,8 @@ public class Nalog implements Serializable {
 	private BigDecimal duguje;
 	private BigDecimal potrazuje;
 	private BigDecimal saldo;
+	@Column(name = "parent_id")
+	private Integer parentId;
 
 	//bi-directional many-to-one association to Konto
 	@ManyToOne
@@ -144,5 +147,13 @@ public class Nalog implements Serializable {
 
 	public void setSaldo(BigDecimal saldo) {
 		this.saldo = saldo;
+	}
+
+	public Integer getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
 	}
 }

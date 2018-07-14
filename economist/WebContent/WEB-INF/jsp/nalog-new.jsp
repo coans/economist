@@ -8,9 +8,10 @@
 			<h3>${title}</h3>
 			<form:form modelAttribute="nalog" method="POST" action="${action}">
 				<form:hidden path="id" />
+				<form:hidden path="parentId" />
 				<div class="form-group">
 					<form:label path="broj" class="required">Broj</form:label>
-					<form:input path="broj" type="text" class="form-control" />
+					<form:input path="broj" type="text" class="form-control" readonly="${disabled}"/>
 					<div class="has-error">
 						<form:errors path="broj" cssClass="help-block" element="label"/>
 					</div>
@@ -37,10 +38,10 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<form:label path="vrstaDokumenta" class="required">Vrsta dokumenta</form:label>
-					<form:select path="vrstaDokumenta" class="form-control" id="vrstaDokumenta" items="${vrstadokumentas}" itemLabel="naziv" itemValue="id"/>
+					<form:label path="vrstaDokumenta.id" class="required">Vrsta dokumenta</form:label>
+					<form:select path="vrstaDokumenta.id" class="form-control" id="vrstaDokumenta" items="${vrstadokumentas}" itemLabel="naziv" itemValue="id"  readonly="${disabled}"/>
 					<div class="has-error">
-						<form:errors path="vrstaDokumenta" cssClass="help-block" element="label"/>
+						<form:errors path="vrstaDokumenta.id" cssClass="help-block" element="label"/>
 					</div>
 				</div>
 				<div class="form-group">

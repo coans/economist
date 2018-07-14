@@ -4,7 +4,7 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="container">
-	<p><a href="nalogs/new" class="btn btn-info">Novi nalog</a></p>
+	<p><a href="nalogs/add/${nalogId}" class="btn btn-info">Nova stavka</a></p>
 <%-- 	<label>Filter by category</label>
 	<select id="category" onchange="filterFoodByCategory()">
 	    <c:forEach items="${categories}" var="category">
@@ -31,7 +31,7 @@
 			<c:forEach items="${nalogs}" var="nalog" varStatus="loop">	
 				<tr>
 					<td align="center">${loop.count}</td>
-					<td align="center"><a href="nalogs/details/${nalog.id}" title="Detalji">${nalog.broj}</a></td>
+					<td align="center">${nalog.broj}</td>
 					<td align="center">${nalog.vrstaDokumenta.naziv}</td>
 					<td align="center">${nalog.komitent.naziv}</td>
 					<td align="center"><fmt:formatDate pattern = "${datumPattern}" value = "${nalog.datum}" /></td>
@@ -40,11 +40,11 @@
 					<td align="right">${nalog.duguje}</td>
 					<td align="right">${nalog.potrazuje}</td>
 					<td align="right">${nalog.saldo}</td>
-					<td align="center">
+<%-- 					<td align="center">
 						<a href="nalogs/add/${nalog.id}" title="Dodaj stavku"><i class="glyphicon glyphicon-plus"></i></a>
 						&nbsp;
 						<a href="#" data-href="foods/delete/${food.id}" data-toggle="modal" data-target="#confirmDeleteId" title="Delete"><i class="glyphicon glyphicon-remove"></i></a>
-					</td>
+					</td> --%>
 				</tr>
 			</c:forEach>
 			<tr><td colspan="11">&nbsp;</td></tr>
