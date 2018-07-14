@@ -11,6 +11,8 @@
 				<th class="text-center" scope="col">#</th>
 				<th class="text-center" scope="col">&#352;ifra</th>
 				<th class="text-center" scope="col">Naziv</th>
+				<th class="text-center" scope="col">Prikazi u KIF</th>
+				<th class="text-center" scope="col">Prikazi u KUF</th>
 				<th class="text-center" scope="col">Akcija</th>
 			</tr>
 		</thead>
@@ -20,6 +22,20 @@
 					<td align="center">${loop.count}</td>
 					<td align="center">${vrstadokumenta.sifra}</td>
 					<td align="center">${vrstadokumenta.naziv}</td>
+					<c:if test="${vrstadokumenta.prikaziukif}">
+						<td align="center">Da</td>
+					</c:if>
+					<c:if test="${ not vrstadokumenta.prikaziukif}">
+						<td align="center">Ne</td>
+					</c:if>
+
+					<c:if test="${vrstadokumenta.prikaziukuf}">
+						<td align="center">Da</td>
+					</c:if>
+					<c:if test="${ not vrstadokumenta.prikaziukuf}">
+						<td align="center">Ne</td>
+					</c:if>
+															
 					<td align="center">
 						<a href="vrstadokumentas/edit/${vrstadokumenta.id}" title="Izmijeni"><i class="glyphicon glyphicon-pencil"></i></a>
 						&nbsp;

@@ -95,6 +95,8 @@ CREATE TABLE IF NOT EXISTS `economist`.`nalog` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `sifra` INT NOT NULL,
   `naziv` VARCHAR(45) NOT NULL,
+  `prikaziukif` TINYINT(1) NULL DEFAULT 0 ,
+  `prikaziukuf` TINYINT(1) NULL DEFAULT 0,
   `user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `vrstadokumenta_user_idx` (`user_id` ASC),

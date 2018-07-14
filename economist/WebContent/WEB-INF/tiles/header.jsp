@@ -21,6 +21,8 @@
 							<li><a href="analitika">Analitika</a></li>
 							<li><a href="analitika-konta-komitenti">Analitika konto komitent</a></li>
 							<li><a href="bilans">Bilans</a></li>
+							<li><a href="kif-kuf/kif">KIF</a></li>
+							<li><a href="kif-kuf/kuf">KUF</a></li>
 						</ul>
 					</li>
 				</sec:authorize>	

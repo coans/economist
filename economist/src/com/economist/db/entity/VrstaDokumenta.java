@@ -25,6 +25,8 @@ public class VrstaDokumenta implements Serializable {
 
 	private int sifra;
 	private String naziv;
+	private boolean prikaziukif;
+	private boolean prikaziukuf;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
@@ -63,5 +65,21 @@ public class VrstaDokumenta implements Serializable {
 
 	public void setNaziv(String naziv) {
 		this.naziv = naziv;
+	}
+
+	public boolean isPrikaziukif() {
+		return prikaziukif;
+	}
+
+	public void setPrikaziukif(boolean prikaziukif) {
+		this.prikaziukif = prikaziukif;
+	}
+
+	public boolean isPrikaziukuf() {
+		return prikaziukuf;
+	}
+
+	public void setPrikaziukuf(boolean prikaziukuf) {
+		this.prikaziukuf = prikaziukuf;
 	}
 }
