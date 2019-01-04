@@ -16,9 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.economist.config.BaseController;
-import com.economist.db.entity.Konto;
-import com.economist.db.repository.KontoRepository;
 import com.economist.db.repository.UserRepository;
+import com.economist.dto.KontoDTO;
+import com.economist.service.KontoService;
+import com.economist.validator.KontoValidator;
 
 
 @Controller
@@ -34,9 +35,11 @@ public class KontoController extends BaseController {
 	private static final String VIEW_NEW = "konto-new";
 	
 	@Autowired
-	private KontoRepository kontoRepository;
+	private KontoService kontoService;
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private KontoValidator validator;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String defaultView(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale/*, @RequestParam(required = false) Integer preduzeceId*/) {
@@ -49,16 +52,16 @@ public class KontoController extends BaseController {
 //		List<Category> categories = categoryRepository.findAll();
 //		categories.add(0, new Category("Select category..."));
 //		model.addAttribute("categories", categories);
-		model.addAttribute("kontos", kontoRepository.findByUser(getUser()));
+		model.addAttribute("kontos", kontoService.findByAgencija(getUser().getAgencija()));
 		
 		return VIEW_DEFAULT;
 	}
 	
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public String add(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale) {
-		Konto konto = new Konto();
+		KontoDTO kontoDTO = new KontoDTO();
 //		nalog.setDatum(/*dateFormat.getInstance().getCalendar().getTime()*/new Date());
-		model.addAttribute("konto", konto);
+		model.addAttribute("konto", kontoDTO);
 		model.addAttribute("action", CONTROLLER + "/create");
 		model.addAttribute("title", TITLE);
 		
@@ -66,19 +69,19 @@ public class KontoController extends BaseController {
 	}
 	
 	@RequestMapping(value = "create", method = RequestMethod.POST)
-	public String create(@ModelAttribute("konto") Konto konto, Errors errors, ModelMap model,
+	public String create(@ModelAttribute("konto") KontoDTO kontoDTO, Errors errors, ModelMap model,
 			final RedirectAttributes redirectAttributes) {
 
-//		validator.validate(food, errors);
-		konto.setUser(getUser());		
+		kontoDTO.setAgencijaId(getUser().getAgencija().getId());		
+		validator.validate(kontoDTO, errors);
 		if (errors.hasErrors()) {
-			model.addAttribute("konto", konto);
+			model.addAttribute("konto", kontoDTO);
 			model.addAttribute("action", CONTROLLER + "/create");
 			model.addAttribute("title", TITLE);
 			return VIEW_NEW;
 		}
 		
-		kontoRepository.save(konto);
+		kontoService.save(kontoDTO);
 		
 		return "redirect:/" + KontoController.CONTROLLER;
 	}

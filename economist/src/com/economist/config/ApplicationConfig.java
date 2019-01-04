@@ -1,5 +1,7 @@
 package com.economist.config;
 
+import java.util.Locale;
+
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
@@ -17,6 +19,8 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import com.economist.db.entity.User;
 
@@ -60,5 +64,12 @@ public class ApplicationConfig {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
 		transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
 		return transactionManager;
+	}
+	
+	@Bean
+	public LocaleResolver localeResolver() {
+	    SessionLocaleResolver localeResolver = new SessionLocaleResolver();
+	    localeResolver.setDefaultLocale(new Locale("sr_RS")); // change this
+	    return localeResolver;
 	}
 }

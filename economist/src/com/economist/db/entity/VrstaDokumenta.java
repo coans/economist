@@ -1,6 +1,7 @@
 package com.economist.db.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 
 /**
@@ -22,7 +25,8 @@ public class VrstaDokumenta implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-
+	@CreationTimestamp
+	private Date created;
 	private int sifra;
 	private String naziv;
 	private boolean prikaziukif;
@@ -30,7 +34,7 @@ public class VrstaDokumenta implements Serializable {
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
-	private User user;
+	private Agencija agencija;
 
 	public VrstaDokumenta() {
 	}
@@ -41,14 +45,6 @@ public class VrstaDokumenta implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public User getUser() {
-		return this.user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public int getSifra() {
@@ -81,5 +77,21 @@ public class VrstaDokumenta implements Serializable {
 
 	public void setPrikaziukuf(boolean prikaziukuf) {
 		this.prikaziukuf = prikaziukuf;
+	}
+
+	public Agencija getAgencija() {
+		return agencija;
+	}
+
+	public void setAgencija(Agencija agencija) {
+		this.agencija = agencija;
+	}
+
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
 	}
 }

@@ -46,6 +46,10 @@ public class AuthorizationService implements UserDetailsService {
 	private List<GrantedAuthority> getGrantedAuthorities(com.economist.db.entity.User user) {
 		List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
 		grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+		//TODO change this
+		if ("coa".equals(user.getEmail())) {
+			grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+		}
 		return grantedAuthorities;
 	}
 

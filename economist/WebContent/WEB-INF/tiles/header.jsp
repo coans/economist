@@ -9,12 +9,17 @@
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="#home"><spring:message code="button.home"/></a></li>
+				<%-- <li><a href="#home"><spring:message code="button.home"/></a></li> --%>
 				<sec:authorize access="hasAnyRole('ROLE_USER')">
-					<li><a href="nalogs">Nalog</a></li>
-					<li><a href="kontos">Konto</a></li>
-					<li><a href="vrstadokumentas">Vrsta dokumenta</a></li>
-					<li><a href="komitents">Komitent</a></li>						
+					<li><a href="api/nalogs">Glavna knjiga</a></li>
+					<li>
+						<a class="dropdown-toggle"	data-toggle="dropdown" href="#sifarnici">&#352;ifarnici<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="kontos">Kontni plan</a></li>
+							<li><a href="vrstadokumentas">Vrsta dokumenta</a></li>
+							<li><a href="komitents">Komitent</a></li>
+						</ul>	
+					</li>						
 					<li>
 						<a class="dropdown-toggle"	data-toggle="dropdown" href="#analitika">Analitika<span class="caret"></span></a>
 						<ul class="dropdown-menu">
@@ -28,6 +33,16 @@
 				</sec:authorize>	
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
+				<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+					<li>
+						<a class="dropdown-toggle"	data-toggle="dropdown" href="#administration">Administracija<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="agencijas">Agencije</a></li>
+							<li><a href="preduzeces">Preduzeca</a></li>
+							<li><a href="users">Korisnici</a></li>
+						</ul>
+					</li>
+				</sec:authorize>
 				<c:choose>
 					<c:when test="${not empty user}">
 						<li class="dropdown"><a class="dropdown-toggle"	data-toggle="dropdown" href="#">

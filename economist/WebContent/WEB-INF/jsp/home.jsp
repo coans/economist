@@ -5,7 +5,7 @@
 	<div class="section-container">
 		<section class="section-home-background">
 			<div class="container text-center">
-				<h1>
+<%-- 				<h1>
 					<span class="h1grey">Welcome</span>
 					<span class="h1grey">to</span>
 				</h1>
@@ -29,7 +29,7 @@
 							<a href="login" class="orlogin">or log in</a>
 						</div>
 					</c:otherwise>
-				</c:choose>
+				</c:choose> --%>
 			</div>
 		</section>		
 <!-- 		<section id="about" class="section-white">

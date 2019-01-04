@@ -8,9 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 
 /**
@@ -26,7 +27,7 @@ public class User implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@CreationTimestamp
 	private Date created;
 
 	private String email;
@@ -44,6 +45,12 @@ public class User implements Serializable {
 	private String status;
 
 	private String uuid;
+	
+	@ManyToOne
+	private Agencija agencija;
+	
+	@ManyToOne
+	private Preduzece preduzece;
 
 	public User() {
 	}
@@ -120,4 +127,19 @@ public class User implements Serializable {
 		this.uuid = uuid;
 	}
 
+	public Agencija getAgencija() {
+		return agencija;
+	}
+
+	public void setAgencija(Agencija agencija) {
+		this.agencija = agencija;
+	}
+
+	public Preduzece getPreduzece() {
+		return preduzece;
+	}
+
+	public void setPreduzece(Preduzece preduzece) {
+		this.preduzece = preduzece;
+	}
 }

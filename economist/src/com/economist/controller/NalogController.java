@@ -1,7 +1,6 @@
 package com.economist.controller;
 
 import java.beans.PropertyEditorSupport;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -23,16 +22,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.economist.config.BaseController;
-import com.economist.db.entity.Komitent;
-import com.economist.db.entity.Konto;
-import com.economist.db.entity.Nalog;
-import com.economist.db.entity.Preduzece;
-import com.economist.db.entity.VrstaDokumenta;
 import com.economist.db.repository.KomitentRepository;
 import com.economist.db.repository.KontoRepository;
-import com.economist.db.repository.NalogRepository;
-import com.economist.db.repository.PreduzeceRepository;
-import com.economist.db.repository.VrstaDokumentaRepository;
+import com.economist.dto.NalogDTO;
+import com.economist.dto.PreduzeceDTO;
+import com.economist.dto.VrstaDokumentaDTO;
+import com.economist.service.NalogService;
+import com.economist.service.PreduzeceService;
+import com.economist.service.VrstaDokumentaService;
 
 
 @Controller
@@ -46,19 +43,19 @@ public class NalogController extends BaseController {
 
 	final static Logger logger = Logger.getLogger(NalogController.class);
 	
-	public static final String CONTROLLER = "nalogs";
+	public static final String CONTROLLER = "api/nalogs";
 	public static final String VIEW_DEFAULT = "nalogs";
 	private static final String VIEW_NEW = "nalog-new";
 	private static final String VIEW_DETAILS = "nalog-details";
 	
 	@Autowired
-	private NalogRepository nalogRepository;
+	private NalogService nalogService;
 	@Autowired
 	private KontoRepository kontoRepository;
 	@Autowired
-	private PreduzeceRepository preduzeceRepository;
+	private PreduzeceService preduzeceService;
 	@Autowired
-	private VrstaDokumentaRepository vrstaDokumentaRepository;
+	private VrstaDokumentaService vrstaDokumentaService;
 	@Autowired
 	private KomitentRepository komitentRepository;
 	
@@ -73,133 +70,118 @@ public class NalogController extends BaseController {
 //		List<Category> categories = categoryRepository.findAll();
 //		categories.add(0, new Category("Select category..."));
 //		model.addAttribute("categories", categories);
-		final List<Nalog> nalogs = nalogRepository.findAll();
-		getZbirniRed(nalogs, model);
-		Preduzece p = preduzeceRepository.findOne(1);//TODO fix this
-		model.addAttribute("nalogs", nalogRepository.findParentNalogByPreduzece(p));//TODO by preduzece
+		final List<NalogDTO> nalogs = nalogService.findByPreduzece(getUser().getPreduzece());
+		model.addAttribute("nalogs", nalogs);
 		
 		return VIEW_DEFAULT;
 	}
 	
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public String add(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale) {
-		Nalog nalog = new Nalog();
-		nalog.setDuguje(BigDecimal.ZERO);
-		nalog.setPotrazuje(BigDecimal.ZERO);
-		nalog.setDatum(new Date());
+		NalogDTO nalog = new NalogDTO();
 		setNalogModel(model, nalog, ACTION_CREATE, DODAJ_NOVI_NALOG_TITLE, false);
 		
 		return VIEW_NEW;
 	}
 
-	private void setNalogModel(final ModelMap model, final Nalog nalog, final String action, final String title, final boolean disabled) {
+	private void setNalogModel(final ModelMap model, final NalogDTO nalog, final String action, final String title, final boolean disabled) {
 		model.addAttribute("nalog", nalog);
 		model.addAttribute("action", CONTROLLER + "/" + action);
 		model.addAttribute("title", title);
-		model.addAttribute("konta", kontoRepository.findByUser(getUser()));
-		model.addAttribute("vrstadokumentas", vrstaDokumentaRepository.findByUser(getUser()));
-		List<Komitent> komitents = komitentRepository.findByUser(getUser());
-		komitents.add(0, new Komitent());
-		model.addAttribute("komitents", komitents);
-		model.addAttribute("disabled", disabled);
+		model.addAttribute("vrstadokumentas", vrstaDokumentaService.findByAgencija(getUser().getAgencija()));
+//		model.addAttribute("konta", kontoRepository.findByAgencija(getUser().getAgencija()));
+//		model.addAttribute("vrstadokumentas", vrstaDokumentaService.findByAgencija(getUser().getAgencija()));
+//		List<KomitentDTO> komitents = komitentRepository.findByAgencija(getUser().getAgencija());
+//		komitents.add(0, new KomitentDTO());
+//		model.addAttribute("komitents", komitents);
+//		model.addAttribute("disabled", disabled);
 	}
 	
 	@RequestMapping(value = ACTION_CREATE, method = RequestMethod.POST)
-	public String create(@ModelAttribute("nalog") Nalog nalog, Errors errors, ModelMap model,
+	public String create(@ModelAttribute("nalog") NalogDTO nalog, Errors errors, ModelMap model,
 			final RedirectAttributes redirectAttributes) {
 
 //		validator.validate(food, errors);
-		if (nalog.getKomitent().getId() == 0) {
-			nalog.setKomitent(null);
-		}
 		if (errors.hasErrors()) {
 			setNalogModel(model, nalog, ACTION_CREATE, DODAJ_NOVI_NALOG_TITLE, false);
 			return VIEW_NEW;
 		}
-		Preduzece p = preduzeceRepository.findOne(1);//TODO fix this
-		nalog.setPreduzece(p);
+		nalog.setPreduzece(new PreduzeceDTO(getUser().getPreduzece()));
+		nalog.setModified(new Date());
+		nalog.setZakljucan(Boolean.FALSE);
 		
-		//set saldo
-		nalog.setSaldo(nalog.getDuguje().subtract(nalog.getPotrazuje()));
-		nalogRepository.save(nalog);
+		nalogService.save(nalog);
 		
 		return "redirect:/" + NalogController.CONTROLLER;
 	}
 	
-	@RequestMapping(value = "/add/{id}", method = RequestMethod.GET)
-	public String edit(@PathVariable(value = "id") Integer nalogId, ModelMap model) {
-		Nalog parentNalog = nalogRepository.findOne(nalogId);
-		Nalog childNalog = new Nalog();
-		childNalog.setParentId(parentNalog.getId());
-		childNalog.setBroj(parentNalog.getBroj());
-		childNalog.setPreduzece(parentNalog.getPreduzece());
-		childNalog.setVrstaDokumenta(parentNalog.getVrstaDokumenta());
-		childNalog.setDuguje(BigDecimal.ZERO);
-		childNalog.setPotrazuje(BigDecimal.ZERO);
-
-		setNalogModel(model, childNalog, ACTION_ADD, DODAJ_NOVU_STAVKU_TITLE, true);
-		
-		return VIEW_NEW;
-	}
+//	@RequestMapping(value = "/add/{id}", method = RequestMethod.GET)
+//	public String novaStavkaNaloga(@PathVariable(value = "id") Integer nalogId, ModelMap model) {
+//		NalogDTO parentNalog = nalogService.findOne(nalogId);
+//		NalogDTO childNalog = new NalogDTO();
+//		childNalog.setParentId(parentNalog.getId());
+//		childNalog.setBroj(parentNalog.getBroj());
+//		childNalog.setPreduzece(new PreduzeceDTO(getUser().getPreduzece()));
+//		childNalog.setVrstaDokumenta(parentNalog.getVrstaDokumenta());
+//		childNalog.setDuguje(BigDecimal.ZERO);
+//		childNalog.setPotrazuje(BigDecimal.ZERO);
+//		childNalog.setDatum(new Date());
+//
+//		setNalogModel(model, childNalog, ACTION_ADD, DODAJ_NOVU_STAVKU_TITLE, true);
+//		
+//		return VIEW_NEW;
+//	}
 	
-	@RequestMapping(value = "add", method = RequestMethod.POST)
-	public String update(@ModelAttribute("nalog") Nalog nalog, Errors errors, ModelMap model) {
-
-//		validator.validate(food, errors);
-		if (nalog.getKomitent().getId() == 0) {
-			nalog.setKomitent(null);
-		}
-		if (errors.hasErrors()) {
-			setNalogModel(model, nalog, ACTION_ADD, DODAJ_NOVU_STAVKU_TITLE, true);
-			return VIEW_NEW;
-		}
-		Preduzece p = preduzeceRepository.findOne(1);//TODO fix this
-		nalog.setPreduzece(p);
-		
-		//set saldo
-		nalog.setSaldo(nalog.getDuguje().subtract(nalog.getPotrazuje()));
-		nalogRepository.save(nalog);
-		
-		return "redirect:/" + NalogController.CONTROLLER + "/details/" + nalog.getParentId();
-	}	
+//	@RequestMapping(value = "add", method = RequestMethod.POST)
+//	public String dodajStavkuNaloga(@ModelAttribute("nalog") NalogDTO nalog, Errors errors, ModelMap model) {
+//
+////		validator.validate(food, errors);
+//		if (errors.hasErrors()) {
+//			setNalogModel(model, nalog, ACTION_ADD, DODAJ_NOVU_STAVKU_TITLE, true);
+//			return VIEW_NEW;
+//		}
+//		nalog.setPreduzece(new PreduzeceDTO(getUser().getPreduzece()));
+//		nalog.setVrstaDokumenta(new VrstaDokumentaDTO(nalogService.find(nalog.getParentId()).getVrstaDokumenta()));
+//		
+//		//set saldo
+//		nalog.setSaldo(nalog.getDuguje().subtract(nalog.getPotrazuje()));
+//		nalogService.save(nalog);
+//		
+//		return "redirect:/" + NalogController.CONTROLLER + "/details/" + nalog.getParentId();
+//	}	
 	@RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
 	public String details(@PathVariable(value = "id") Integer nalogId, ModelMap model)
 	{
-		Preduzece p = preduzeceRepository.findOne(1);//TODO fix this
-		model.addAttribute("nalogs", nalogRepository.findByPreduzeceAndParent(p, nalogId));//TODO by preduzece
-		model.addAttribute("nalogId", nalogId);
+//		List<NalogDTO> nalogs = nalogService.findByPreduzeceAndParent(getUser().getPreduzece(), nalogId);
+//		model.addAttribute("nalogs", nalogs);
+//		model.addAttribute("nalogId", nalogId);
+//		setZbirniRed(nalogs, model);
 		
-		return VIEW_DETAILS;
+		return "redirect:/" + StavkaNalogaController.CONTROLLER + "/" + nalogId;
+	}
+	
+	@RequestMapping(value = "/zakljucaj/{id}", method = RequestMethod.GET)
+	public String zakljucaj(@PathVariable(value = "id") Integer nalogId, ModelMap model)
+	{
+		NalogDTO nalog = nalogService.findOne(nalogId);
+		nalog.setZakljucan(Boolean.TRUE);
+		
+		nalogService.save(nalog);
+		
+		return "redirect:/" + NalogController.CONTROLLER;
 	}
 	
 	@Override
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
 		super.initBinder(binder);
-		binder.registerCustomEditor(Konto.class, new PropertyEditorSupport() {
-			@Override
-			public void setAsText(String id) {
-				Konto konto = new Konto();
-				konto.setId(Integer.parseInt(id));
-				setValue(konto);
-			}
-		});
 		
-		binder.registerCustomEditor(VrstaDokumenta.class, new PropertyEditorSupport() {
+		binder.registerCustomEditor(VrstaDokumentaDTO.class, new PropertyEditorSupport() {
 			@Override
 			public void setAsText(String id) {
-				VrstaDokumenta vd = new VrstaDokumenta();
+				VrstaDokumentaDTO vd = new VrstaDokumentaDTO();
 				vd.setId(Integer.parseInt(id));
 				setValue(vd);
-			}
-		});
-		
-		binder.registerCustomEditor(Komitent.class, new PropertyEditorSupport() {
-			@Override
-			public void setAsText(String id) {
-				Komitent komitent = new Komitent();
-				komitent.setId(Integer.parseInt(id));
-				setValue(komitent);
 			}
 		});
 	}

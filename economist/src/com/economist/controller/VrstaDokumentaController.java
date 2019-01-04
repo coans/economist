@@ -42,7 +42,7 @@ public class VrstaDokumentaController extends BaseController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String defaultView(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale) {
-		model.addAttribute("vrstadokumentas", vrstaDokumentaRepository.findByUser(getUser()));
+		model.addAttribute("vrstadokumentas", vrstaDokumentaRepository.findByAgencija(getUser().getAgencija()));
 		
 		return VIEW_DEFAULT;
 	}
@@ -50,7 +50,7 @@ public class VrstaDokumentaController extends BaseController {
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public String add(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale) {
 		VrstaDokumenta vrstaDokumenta = new VrstaDokumenta();
-		final int sifra = vrstaDokumentaRepository.findNextSifra(getUser()) == null ? 1 : vrstaDokumentaRepository.findNextSifra(getUser()) + 1;
+		final int sifra = vrstaDokumentaRepository.findNextSifra(getUser().getAgencija()) == null ? 1 : vrstaDokumentaRepository.findNextSifra(getUser().getAgencija()) + 1;
 		
 		vrstaDokumenta.setSifra(sifra);
 		
@@ -65,7 +65,7 @@ public class VrstaDokumentaController extends BaseController {
 	public String create(@ModelAttribute("vrstadokumenta") VrstaDokumenta vrstaDokumenta, Errors errors, ModelMap model,
 			final RedirectAttributes redirectAttributes) {
 
-		vrstaDokumenta.setUser(getUser());
+		vrstaDokumenta.setAgencija(getUser().getAgencija());
 		
 //TODO		validator.validate(food, errors);
 		if (errors.hasErrors()) {
@@ -94,7 +94,7 @@ public class VrstaDokumentaController extends BaseController {
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public String update(@ModelAttribute("vrstadokumenta") VrstaDokumenta vrstaDokumenta, Errors errors, ModelMap model) {
 
-		vrstaDokumenta.setUser(getUser());		
+		vrstaDokumenta.setAgencija(getUser().getAgencija());		
 //TODO		validator.validate(food, errors);
 		
 		if (errors.hasErrors()) {

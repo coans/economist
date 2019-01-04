@@ -21,14 +21,14 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<form:label path="prikaziukif" style="padding-right: 20px;">Prikazi u KIF</form:label>
+					<form:label path="prikaziukif" style="padding-right: 20px;">Prika&#382;i u KIF</form:label>
 					<form:checkbox path="prikaziukif"/>
 					<div class="has-error">
 						<form:errors path="prikaziukif" cssClass="help-block" element="label"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<form:label path="prikaziukuf" style="padding-right: 20px;">Prikazi u KUF</form:label>
+					<form:label path="prikaziukuf" style="padding-right: 20px;">Prika&#382;i u KUF</form:label>
 					<form:checkbox path="prikaziukuf"/>
 					<div class="has-error">
 						<form:errors path="prikaziukuf" cssClass="help-block" element="label"/>

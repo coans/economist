@@ -57,8 +57,8 @@ public class AnalitikaKontaKomitentiController extends BaseController {
 	public String defaultView(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale) {
 		model.addAttribute("search", new AnalitikaSearchBean());
 		model.addAttribute("action", CONTROLLER + "/generate");
-		model.addAttribute("konta", kontoRepository.findByUser(getUser()));
-		model.addAttribute("komitents", komitentRepository.findByUser(getUser()));
+		model.addAttribute("konta", kontoRepository.findByAgencija(getUser().getAgencija()));
+		model.addAttribute("komitents", komitentRepository.findByAgencija(getUser().getAgencija()));
 		return VIEW_DEFAULT;
 	}
 	
@@ -67,8 +67,8 @@ public class AnalitikaKontaKomitentiController extends BaseController {
 		
 		model.addAttribute("search", search);
 		model.addAttribute("action", CONTROLLER + "/generate");
-		model.addAttribute("konta", kontoRepository.findByUser(getUser()));
-		model.addAttribute("komitents", komitentRepository.findByUser(getUser()));
+		model.addAttribute("konta", kontoRepository.findByAgencija(getUser().getAgencija()));
+		model.addAttribute("komitents", komitentRepository.findByAgencija(getUser().getAgencija()));
 		Preduzece p = preduzeceRepository.findOne(1);
 		
 		List<Object> result = kontoRepository.analitikaKontoKomitent(p, String.valueOf(search.getKontoOd().getId()), search.getDatumOd(), search.getDatumDo(), search.getKomitent());

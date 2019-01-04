@@ -1,6 +1,7 @@
 package com.economist.db.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 
 /**
@@ -22,7 +25,8 @@ public class Komitent implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-
+	@CreationTimestamp
+	private Date created;
 	private String naziv;
 	private String mesto;
 	private String ziroracun;
@@ -30,9 +34,8 @@ public class Komitent implements Serializable {
 	private String napomena;
 	private String telefon;
 
-	//bi-directional many-to-one association to User
 	@ManyToOne
-	private User user;
+	private Agencija agencija;
 
 	public Komitent() {
 	}
@@ -43,14 +46,6 @@ public class Komitent implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public User getUser() {
-		return this.user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public String getNaziv() {
@@ -99,5 +94,21 @@ public class Komitent implements Serializable {
 
 	public void setZiroracun(String ziroracun) {
 		this.ziroracun = ziroracun;
+	}
+
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+	public Agencija getAgencija() {
+		return agencija;
+	}
+
+	public void setAgencija(Agencija agencija) {
+		this.agencija = agencija;
 	}
 }

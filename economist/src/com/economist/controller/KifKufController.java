@@ -20,13 +20,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.economist.config.BaseController;
 import com.economist.db.entity.Komitent;
-import com.economist.db.entity.Nalog;
 import com.economist.db.entity.Preduzece;
 import com.economist.db.repository.KomitentRepository;
 import com.economist.db.repository.KontoRepository;
 import com.economist.db.repository.NalogRepository;
 import com.economist.db.repository.PreduzeceRepository;
 import com.economist.db.repository.UserRepository;
+import com.economist.dto.NalogDTO;
 import com.economist.model.KifKufSearchBean;
 
 
@@ -55,7 +55,7 @@ public class KifKufController extends BaseController {
 	public String kif(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale) {
 		model.addAttribute("search", new KifKufSearchBean());
 		model.addAttribute("action", CONTROLLER + "/generate-kif");
-		model.addAttribute("komitents", komitentRepository.findByUser(getUser()));
+		model.addAttribute("komitents", komitentRepository.findByAgencija(getUser().getAgencija()));
 		return KIF;
 	}
 	
@@ -64,12 +64,12 @@ public class KifKufController extends BaseController {
 		
 		model.addAttribute("search", search);
 		model.addAttribute("action", CONTROLLER + "/generate-kif");
-		model.addAttribute("komitents", komitentRepository.findByUser(getUser()));
+		model.addAttribute("komitents", komitentRepository.findByAgencija(getUser().getAgencija()));
 		Preduzece p = preduzeceRepository.findOne(1);//TODO
 		Komitent komitent = komitentRepository.findOne(search.getKomitent().getId());
-		List<Nalog> result = nalogRepository.kif(p, search.getDatumOd(), search.getDatumDo(), komitent);
+		List<NalogDTO> result = nalogRepository.kif(p, search.getDatumOd(), search.getDatumDo(), komitent);
 		model.addAttribute("nalogs", result);
-		getZbirniRed(result, model);
+		setZbirniRed(result, model);
 		
 		return KIF;
 	}
@@ -78,7 +78,7 @@ public class KifKufController extends BaseController {
 	public String kuf(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale) {
 		model.addAttribute("search", new KifKufSearchBean());
 		model.addAttribute("action", CONTROLLER + "/generate-kuf");
-		model.addAttribute("komitents", komitentRepository.findByUser(getUser()));
+		model.addAttribute("komitents", komitentRepository.findByAgencija(getUser().getAgencija()));
 		return KUF;
 	}
 	
@@ -87,12 +87,12 @@ public class KifKufController extends BaseController {
 		
 		model.addAttribute("search", search);
 		model.addAttribute("action", CONTROLLER + "/generate-kuf");
-		model.addAttribute("komitents", komitentRepository.findByUser(getUser()));
+		model.addAttribute("komitents", komitentRepository.findByAgencija(getUser().getAgencija()));
 		Preduzece p = preduzeceRepository.findOne(1);//TODO
 		Komitent komitent = komitentRepository.findOne(search.getKomitent().getId());
-		List<Nalog> result = nalogRepository.kuf(p, search.getDatumOd(), search.getDatumDo(), komitent);
+		List<NalogDTO> result = nalogRepository.kuf(p, search.getDatumOd(), search.getDatumDo(), komitent);
 		model.addAttribute("nalogs", result);
-		getZbirniRed(result, model);
+		setZbirniRed(result, model);
 		
 		return KIF;
 	}

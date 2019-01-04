@@ -1,3 +1,6 @@
 # edit nalog select ne radi dobro posle greske
 # sifra kod v. dokum
-# dijalog za potvrdu brisanja ne radi
+
+# na dodavanju konta da li obavezan komitent
+
+#za select-e u path dodati id da bi dobro selektovali u edit modu(nalog-new vrsta dok.)

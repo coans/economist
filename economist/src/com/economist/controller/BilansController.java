@@ -63,7 +63,7 @@ public class BilansController extends BaseController {
 		
 		model.addAttribute("search", search);
 		model.addAttribute("action", CONTROLLER + "/generate");
-		model.addAttribute("konta", kontoRepository.findByUser(getUser()));
+		model.addAttribute("konta", kontoRepository.findByAgencija(getUser().getAgencija()));
 		model.addAttribute("showTable", true);
 		Preduzece p = preduzeceRepository.findOne(1);
 		

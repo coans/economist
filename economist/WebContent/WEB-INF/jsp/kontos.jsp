@@ -4,6 +4,7 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="container">
+	<h3 align="center">Kontni plan</h3>
 	<p><a href="kontos/new" class="btn btn-info">Novi konto</a></p>
 <%-- 	<label>Filter by category</label>
 	<select id="category" onchange="filterFoodByCategory()">
@@ -14,25 +15,25 @@
 	<table class="${tableClass}">
 		<thead>
 			<tr>
-				<th class="text-center" scope="col">#</th>
+				<!-- <th class="text-center" scope="col">#</th> -->
 				<th class="text-center" scope="col">Sifra</th>
 				<th class="text-center" scope="col">Naziv</th>
-				<th class="text-center" scope="col">Napomena</th>
-				<th class="text-center" scope="col">Akcija</th>
+				<!-- <th class="text-center" scope="col">Napomena</th> -->
+				<!-- <th class="text-center" scope="col">Akcija</th> -->
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach items="${kontos}" var="konto" varStatus="loop">	
 				<tr>
-					<td align="center">${loop.count}</td>
+					<%-- <td align="center">${loop.count}</td> --%>
 					<td align="center">${konto.sifra}</td>
 					<td align="center">${konto.naziv}</td>
-					<td align="center">${konto.napomena}</td>
-					<td align="center">
+					<%-- <td align="center">${konto.napomena}</td> --%>
+					<%-- <td align="center">
 						<a href="kontos/edit/${konto.id}" title="Edit"><i class="glyphicon glyphicon-pencil"></i></a>
 						&nbsp;
 						<a href="#" data-href="kontos/delete/${konto.id}" data-toggle="modal" data-target="#confirmDeleteId" title="Delete"><i class="glyphicon glyphicon-remove"></i></a>
-					</td>
+					</td> --%>
 				</tr>
 			</c:forEach>
 		</tbody>

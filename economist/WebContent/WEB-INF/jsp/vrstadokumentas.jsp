@@ -4,22 +4,23 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="container">
+	<h3 align="center"> Lista vrsta dokumenata</h3>
 	<p><a href="vrstadokumentas/new" class="btn btn-info">Nova vrsta dokumenta</a></p>
-	<table class="table table-striped">
+	<table class="${tableClass}">
 		<thead>
 			<tr>
-				<th class="text-center" scope="col">#</th>
+				<!-- <th class="text-center" scope="col">#</th> -->
 				<th class="text-center" scope="col">&#352;ifra</th>
 				<th class="text-center" scope="col">Naziv</th>
-				<th class="text-center" scope="col">Prikazi u KIF</th>
-				<th class="text-center" scope="col">Prikazi u KUF</th>
-				<th class="text-center" scope="col">Akcija</th>
+				<th class="text-center" scope="col">Prika&#382;i u KIF</th>
+				<th class="text-center" scope="col">Prika&#382;i u KUF</th>
+				<!-- <th class="text-center" scope="col">Akcija</th> -->
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach items="${vrstadokumentas}" var="vrstadokumenta" varStatus="loop">	
 				<tr>
-					<td align="center">${loop.count}</td>
+					<%-- <td align="center">${loop.count}</td> --%>
 					<td align="center">${vrstadokumenta.sifra}</td>
 					<td align="center">${vrstadokumenta.naziv}</td>
 					<c:if test="${vrstadokumenta.prikaziukif}">
@@ -36,11 +37,11 @@
 						<td align="center">Ne</td>
 					</c:if>
 															
-					<td align="center">
+					<%-- <td align="center">
 						<a href="vrstadokumentas/edit/${vrstadokumenta.id}" title="Izmijeni"><i class="glyphicon glyphicon-pencil"></i></a>
 						&nbsp;
 						<a href="#" data-href="vrstadokumentas/delete/${vrstadokumenta.id}" data-toggle="modal" data-target="#confirmDeleteId" title="Obri&#353;i"><i class="glyphicon glyphicon-remove"></i></a>
-					</td>
+					</td> --%>
 				</tr>
 			</c:forEach>
 		</tbody>

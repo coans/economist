@@ -53,9 +53,9 @@
 			</div>
 		</form:form>
 	<p>&nbsp;</p>	
-<%-- 	<jsp:include page="bilans-tabela.jsp">
+ <!-- <jsp:include page="bilans-tabela.jsp">
         <jsp:param name="myVar" value="konto1"/>
-    </jsp:include> --%>
+    </jsp:include> -->
 	<c:if test="${not empty konto0}">
 		<table class="table table-striped table-bordered">
 			<thead class="thead-light">
@@ -376,7 +376,7 @@
 				</tr>
 			</tbody>
 		</table> 				
-	</c:if>		
+	</c:if>
 </div>
 <div class="modal fade" id="confirmDeleteId" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">

@@ -34,7 +34,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<form:label path="ziroracun" class="required">Ziroracun</form:label>
+					<form:label path="ziroracun" class="required">&#381;iro-ra&#269;un</form:label>
 					<form:input path="ziroracun" type="text" class="form-control" />
 					<div class="has-error">
 						<form:errors path="ziroracun" cssClass="help-block" element="label"/>

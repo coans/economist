@@ -4,15 +4,16 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="container">
+	<h3 align="center">Lista komitenata</h3>
 	<p><a href="komitents/new" class="btn btn-info">Novi komitent</a></p>
-	<table class="table table-striped">
+	<table class="${tableClass}">
 		<thead>
 			<tr>
 				<th class="text-center" scope="col">#</th>
 				<th class="text-center" scope="col">Naziv</th>
 				<th class="text-center" scope="col">Mjesto</th>
 				<th class="text-center" scope="col">Adresa</th>
-				<th class="text-center" scope="col">Ziroracun</th>
+				<th class="text-center" scope="col">&#381;iro-ra&#269;un</th>
 				<th class="text-center" scope="col">Telefon</th>
 				<th class="text-center" scope="col">Napomena</th>
 				<th class="text-center" scope="col">Akcije</th>
@@ -31,7 +32,7 @@
 					<td align="center">
 						<a href="komitents/edit/${komitent.id}" title="Izmijeni"><i class="glyphicon glyphicon-pencil"></i></a>
 						&nbsp;
-						<a href="#" data-href="komitents/delete/${komitent.id}" data-toggle="modal" data-target="#confirmDeleteId" title="Obri&#353;i"><i class="glyphicon glyphicon-remove"></i></a>
+						<%-- <a href="#" data-href="komitents/delete/${komitent.id}" data-toggle="modal" data-target="#confirmDeleteId" title="Obri&#353;i"><i class="glyphicon glyphicon-remove"></i></a> --%>
 					</td>
 				</tr>
 			</c:forEach>

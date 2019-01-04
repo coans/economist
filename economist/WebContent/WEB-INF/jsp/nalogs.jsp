@@ -4,7 +4,9 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="container">
-	<p><a href="nalogs/new" class="btn btn-info">Novi nalog</a></p>
+	<h3 align="center" style="padding-bottom: 0px;">${user.preduzece.naziv}</h3>
+	<h4 align="center"><b>Pregled svih naloga</b></h4>
+	<p><a href="api/nalogs/new" class="btn btn-info">Dodaj nalog</a></p>
 <%-- 	<label>Filter by category</label>
 	<select id="category" onchange="filterFoodByCategory()">
 	    <c:forEach items="${categories}" var="category">
@@ -16,11 +18,11 @@
 			<tr>
 				<th class="text-center" scope="col">#</th>
 				<th class="text-center" scope="col">Broj</th>
-				<th class="text-center" scope="col">Vrsta dokumenta</th>
-				<th class="text-center" scope="col">Komitent</th>
-				<th class="text-center" scope="col">Datum</th>
+				<th class="text-center" scope="col">Datum kreiranja</th>
+				<th class="text-center" scope="col">Datum modifikovanja</th>
 				<th class="text-center" scope="col">Opis</th>
-				<th class="text-center" scope="col">Konto</th>
+				<th class="text-center" scope="col">Napomena</th>
+				<th class="text-center" scope="col">Status</th>
 				<th class="text-center" scope="col">Duguje</th>
 				<th class="text-center" scope="col">Potrazuje</th>
 				<th class="text-center" scope="col">Saldo</th>
@@ -31,36 +33,30 @@
 			<c:forEach items="${nalogs}" var="nalog" varStatus="loop">	
 				<tr>
 					<td align="center">${loop.count}</td>
-					<td align="center"><a href="nalogs/details/${nalog.id}" title="Detalji">${nalog.broj}</a></td>
-					<td align="center">${nalog.vrstaDokumenta.naziv}</td>
-					<td align="center">${nalog.komitent.naziv}</td>
-					<td align="center"><fmt:formatDate pattern = "${datumPattern}" value = "${nalog.datum}" /></td>
+					<c:if test="${not nalog.zakljucan}">
+						<td align="center"><a href="api/stavkes/details/${nalog.id}" title="Detalji">${nalog.broj}</a></td>
+					</c:if>
+					<c:if test="${nalog.zakljucan}">
+						<td align="center">${nalog.broj}</td>
+					</c:if>
+					<td align="center"><fmt:formatDate pattern = "${datumPattern}" value = "${nalog.created}" /></td>
+					<td align="center"><fmt:formatDate pattern = "${datumPattern}" value = "${nalog.modified}" /></td>
 					<td align="center">${nalog.opis}</td>
-					<td align="center">${nalog.konto.sifra} - ${nalog.konto.naziv}</td>
+					<td align="center">${nalog.napomena}</td>
+					<c:if test="${nalog.zakljucan}"><td align="center">Zaklju&#269;an</td></c:if>
+					<c:if test="${not nalog.zakljucan}"><td align="center">Aktivan</td></c:if>
 					<td align="right">${nalog.duguje}</td>
 					<td align="right">${nalog.potrazuje}</td>
 					<td align="right">${nalog.saldo}</td>
 					<td align="center">
-						<a href="nalogs/add/${nalog.id}" title="Dodaj stavku"><i class="glyphicon glyphicon-plus"></i></a>
-						&nbsp;
-						<a href="#" data-href="foods/delete/${food.id}" data-toggle="modal" data-target="#confirmDeleteId" title="Delete"><i class="glyphicon glyphicon-remove"></i></a>
+						<c:if test="${not nalog.zakljucan}">
+							<a href="api/stavkes/new/${nalog.id}" title="Dodaj stavku"><i class="glyphicon glyphicon-plus"></i></a>
+							 &nbsp;
+							<a href="#" data-href="api/nalogs/zakljucaj/${nalog.id}" data-toggle="modal" data-target="#confirmDeleteId" title="Delete"><i class="glyphicon glyphicon-remove"></i></a>
+						</c:if>
 					</td>
 				</tr>
-			</c:forEach>
-			<tr><td colspan="11">&nbsp;</td></tr>
-			<tr>
-				<td class="active">&nbsp;</td>
-				<td class="active">&nbsp;</td>
-				<td class="active">&nbsp;</td>
-				<td class="active">&nbsp;</td>
-				<td class="active">&nbsp;</td>
-				<td class="active">&nbsp;</td>
-				<td class="active" align="center">Ukupno:</td>
-				<td class="danger" align="right"><b>${duguje}</b></td>
-				<td class="success" align="right"><b>${potrazuje}</b></td>
-				<td class="success" align="right"><b>${saldo}</b></td>
-				<td class="active">&nbsp;</td>	
-			</tr>			
+			</c:forEach>			
 		</tbody>
     </table>
 </div>

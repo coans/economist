@@ -24,7 +24,7 @@
 				<th class="text-center" scope="col">Duguje</th>
 				<th class="text-center" scope="col">Potrazuje</th>
 				<th class="text-center" scope="col">Saldo</th>
-				<th class="text-center" scope="col">Akcija</th>
+				<!-- <th class="text-center" scope="col">Akcija</th> -->
 			</tr>
 		</thead>
 		<tbody>
@@ -47,7 +47,7 @@
 					</td> --%>
 				</tr>
 			</c:forEach>
-			<tr><td colspan="11">&nbsp;</td></tr>
+			<tr><td colspan="10">&nbsp;</td></tr>
 			<tr>
 				<td class="active">&nbsp;</td>
 				<td class="active">&nbsp;</td>
@@ -59,7 +59,7 @@
 				<td class="danger" align="right"><b>${duguje}</b></td>
 				<td class="success" align="right"><b>${potrazuje}</b></td>
 				<td class="success" align="right"><b>${saldo}</b></td>
-				<td class="active">&nbsp;</td>	
+				<!-- <td class="active">&nbsp;</td> -->	
 			</tr>			
 		</tbody>
     </table>

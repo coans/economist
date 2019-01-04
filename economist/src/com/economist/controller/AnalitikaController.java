@@ -20,12 +20,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.economist.config.BaseController;
 import com.economist.db.entity.Konto;
-import com.economist.db.entity.Nalog;
 import com.economist.db.entity.Preduzece;
 import com.economist.db.repository.KontoRepository;
 import com.economist.db.repository.NalogRepository;
 import com.economist.db.repository.PreduzeceRepository;
 import com.economist.db.repository.UserRepository;
+import com.economist.dto.NalogDTO;
 import com.economist.model.AnalitikaSearchBean;
 
 
@@ -51,7 +51,7 @@ public class AnalitikaController extends BaseController {
 	public String defaultView(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale) {
 		model.addAttribute("search", new AnalitikaSearchBean());
 		model.addAttribute("action", CONTROLLER + "/generate");
-		model.addAttribute("konta", kontoRepository.findByUser(getUser()));
+		model.addAttribute("konta", kontoRepository.findByAgencija(getUser().getAgencija()));
 		return VIEW_DEFAULT;
 	}
 	
@@ -60,13 +60,13 @@ public class AnalitikaController extends BaseController {
 		
 		model.addAttribute("search", new AnalitikaSearchBean());
 		model.addAttribute("action", CONTROLLER + "/generate");
-		model.addAttribute("konta", kontoRepository.findByUser(getUser()));
+		model.addAttribute("konta", kontoRepository.findByAgencija(getUser().getAgencija()));
 		Preduzece p = preduzeceRepository.findOne(1);
 		Konto kontoOd = kontoRepository.findOne(search.getKontoOd().getId());
 		Konto kontoDo = kontoRepository.findOne(search.getKontoDo().getId());
-		List<Nalog> result = nalogRepository.analitika(p, kontoOd.getSifra(), kontoDo.getSifra(), search.getDatumOd(), search.getDatumDo());
+		List<NalogDTO> result = nalogRepository.analitika(p, kontoOd.getSifra(), kontoDo.getSifra(), search.getDatumOd(), search.getDatumDo());
 		model.addAttribute("nalogs", result);
-		getZbirniRed(result, model);
+		setZbirniRed(result, model);
 		
 		return VIEW_DEFAULT;
 	}

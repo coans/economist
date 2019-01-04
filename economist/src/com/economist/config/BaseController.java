@@ -26,8 +26,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.economist.auth.AuthorizationService;
-import com.economist.db.entity.Nalog;
 import com.economist.db.entity.User;
+import com.economist.dto.StavkaNalogaDTO;
 
 @Controller("/" + BaseController.CONTROLLER)
 public class BaseController {
@@ -91,13 +91,13 @@ public class BaseController {
 		return "table table-striped table-bordered";
 	}
 	
-	public void getZbirniRed(List<Nalog> nalogs, ModelMap model) {
+	public void setZbirniRed(List<StavkaNalogaDTO> stavke, ModelMap model) {
 		BigDecimal duguje = BigDecimal.ZERO;
 		BigDecimal potrazuje = BigDecimal.ZERO;
 		
-		for (Nalog nalog : nalogs) {
-			duguje = duguje.add(nalog.getDuguje());
-			potrazuje = potrazuje.add(nalog.getPotrazuje());
+		for (StavkaNalogaDTO stavka : stavke) {
+			duguje = duguje.add(stavka.getDuguje());
+			potrazuje = potrazuje.add(stavka.getPotrazuje());
 		}
 		model.addAttribute(DUGUJE, duguje);
 		model.addAttribute(POTRAZUJE, potrazuje);
