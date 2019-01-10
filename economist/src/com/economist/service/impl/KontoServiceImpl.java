@@ -1,5 +1,6 @@
 package com.economist.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class KontoServiceImpl implements KontoService {
 	
 	@Override
 	public List<KontoDTO> findByAgencija(Agencija agencija) {
-		return kontoRepository.findByAgencija(agencija);
+		return mapToDTO(kontoRepository.findByAgencija(agencija));
 	}
 
 	@Override
@@ -50,11 +51,27 @@ public class KontoServiceImpl implements KontoService {
 
 	@Override
 	public KontoDTO findBySifraAndAgencija(String sifra, Agencija agencija) {
-		return kontoRepository.findBySifraAndAgencija(sifra, agencija);
+		return new KontoDTO(kontoRepository.findBySifraAndAgencija(sifra, agencija));
 	}
 
 	@Override
 	public Konto find(Integer id) {
 		return kontoRepository.findOne(id);
+	}
+
+	@Override
+	public List<KontoDTO> findSintetickaKonta(Agencija agencija) {
+		return mapToDTO(kontoRepository.findSintetickaKonta(agencija));
+	}
+	
+	private List<KontoDTO> mapToDTO(List<Konto> kontos) {
+		if (kontos != null) {
+			List<KontoDTO> result = new ArrayList<KontoDTO>();
+			for (Konto konto : kontos) {
+				result.add(new KontoDTO(konto));
+			}
+			return result;
+		}
+		return null;
 	}
 }

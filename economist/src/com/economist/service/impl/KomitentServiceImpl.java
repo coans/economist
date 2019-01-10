@@ -47,6 +47,8 @@ public class KomitentServiceImpl implements KomitentService {
 		bean.setNaziv(komitentDTO.getNaziv());
 		bean.setTelefon(komitentDTO.getTelefon());
 		bean.setZiroracun(komitentDTO.getZiroracun());
+		bean.setUsistemupdv(komitentDTO.getUsistemupdv());
+		bean.setLokacija(komitentDTO.getLokacija());
 		
 		komitentRepository.save(bean);
 	}

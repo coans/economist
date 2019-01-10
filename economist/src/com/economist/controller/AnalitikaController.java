@@ -1,7 +1,6 @@
 package com.economist.controller;
 
 import java.beans.PropertyEditorSupport;
-import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,12 +20,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.economist.config.BaseController;
 import com.economist.db.entity.Konto;
 import com.economist.db.entity.Preduzece;
-import com.economist.db.repository.KontoRepository;
 import com.economist.db.repository.NalogRepository;
 import com.economist.db.repository.PreduzeceRepository;
 import com.economist.db.repository.UserRepository;
-import com.economist.dto.NalogDTO;
-import com.economist.model.AnalitikaSearchBean;
+import com.economist.model.SearchBean;
+import com.economist.service.KontoService;
 
 
 @Controller
@@ -35,13 +33,13 @@ public class AnalitikaController extends BaseController {
 	
 	final static Logger logger = Logger.getLogger(AnalitikaController.class);
 	
-	public static final String CONTROLLER = "analitika";
-	public static final String VIEW_DEFAULT = "analitika";
+	public static final String CONTROLLER = "api/analitika";
+	public static final String VIEW_DEFAULT = "api/analitika";
 	
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
-	private KontoRepository kontoRepository;
+	private KontoService kontoService;
 	@Autowired
 	private NalogRepository nalogRepository;
 	@Autowired
@@ -49,24 +47,24 @@ public class AnalitikaController extends BaseController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String defaultView(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale) {
-		model.addAttribute("search", new AnalitikaSearchBean());
+		model.addAttribute("search", new SearchBean());
 		model.addAttribute("action", CONTROLLER + "/generate");
-		model.addAttribute("konta", kontoRepository.findByAgencija(getUser().getAgencija()));
+		model.addAttribute("konta", kontoService.findSintetickaKonta(getUser().getAgencija()));
 		return VIEW_DEFAULT;
 	}
 	
 	@RequestMapping(value = "generate", method = RequestMethod.POST)
-	public String generate(@ModelAttribute("search") AnalitikaSearchBean search, Errors errors, ModelMap model) {
+	public String generate(@ModelAttribute("search") SearchBean search, Errors errors, ModelMap model) {
 		
-		model.addAttribute("search", new AnalitikaSearchBean());
+		model.addAttribute("search", new SearchBean());
 		model.addAttribute("action", CONTROLLER + "/generate");
-		model.addAttribute("konta", kontoRepository.findByAgencija(getUser().getAgencija()));
-		Preduzece p = preduzeceRepository.findOne(1);
-		Konto kontoOd = kontoRepository.findOne(search.getKontoOd().getId());
-		Konto kontoDo = kontoRepository.findOne(search.getKontoDo().getId());
-		List<NalogDTO> result = nalogRepository.analitika(p, kontoOd.getSifra(), kontoDo.getSifra(), search.getDatumOd(), search.getDatumDo());
-		model.addAttribute("nalogs", result);
-		setZbirniRed(result, model);
+		model.addAttribute("konta", kontoService.findSintetickaKonta(getUser().getAgencija()));
+		Preduzece p = getUser().getPreduzece();
+//		Konto kontoOd = kontoRepository.findOne(search.getKontoOd().getId());
+//		Konto kontoDo = kontoRepository.findOne(search.getKontoDo().getId());
+//		List<NalogDTO> result = nalogRepository.analitika(p, kontoOd.getSifra(), kontoDo.getSifra(), search.getDatumOd(), search.getDatumDo());
+//		model.addAttribute("nalogs", result);
+//		setZbirniRed(result, model);
 		
 		return VIEW_DEFAULT;
 	}

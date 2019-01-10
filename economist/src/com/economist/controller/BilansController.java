@@ -27,7 +27,7 @@ import com.economist.db.repository.KontoRepository;
 import com.economist.db.repository.NalogRepository;
 import com.economist.db.repository.PreduzeceRepository;
 import com.economist.db.repository.UserRepository;
-import com.economist.model.AnalitikaSearchBean;
+import com.economist.model.SearchBean;
 import com.economist.model.BilansResultBean;
 
 
@@ -51,7 +51,7 @@ public class BilansController extends BaseController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String defaultView(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale) {
-		model.addAttribute("search", new AnalitikaSearchBean());
+		model.addAttribute("search", new SearchBean());
 		model.addAttribute("action", CONTROLLER + "/generate");
 		model.addAttribute("showTable", false);
 //		model.addAttribute("konta", kontoRepository.findByUser(getUser()));
@@ -59,7 +59,7 @@ public class BilansController extends BaseController {
 	}
 	
 	@RequestMapping(value = "generate", method = RequestMethod.POST)
-	public String generate(@ModelAttribute("search") AnalitikaSearchBean search, Errors errors, ModelMap model) {
+	public String generate(@ModelAttribute("search") SearchBean search, Errors errors, ModelMap model) {
 		
 		model.addAttribute("search", search);
 		model.addAttribute("action", CONTROLLER + "/generate");

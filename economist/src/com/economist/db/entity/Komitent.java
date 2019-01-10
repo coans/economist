@@ -33,6 +33,8 @@ public class Komitent implements Serializable {
 	private String adresa;
 	private String napomena;
 	private String telefon;
+	private Boolean usistemupdv;
+	private String lokacija;
 
 	@ManyToOne
 	private Agencija agencija;
@@ -110,5 +112,21 @@ public class Komitent implements Serializable {
 
 	public void setAgencija(Agencija agencija) {
 		this.agencija = agencija;
+	}
+
+	public Boolean getUsistemupdv() {
+		return usistemupdv;
+	}
+
+	public void setUsistemupdv(Boolean usistemupdv) {
+		this.usistemupdv = usistemupdv;
+	}
+
+	public String getLokacija() {
+		return lokacija;
+	}
+
+	public void setLokacija(String lokacija) {
+		this.lokacija = lokacija;
 	}
 }

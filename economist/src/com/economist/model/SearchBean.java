@@ -5,7 +5,7 @@ import java.util.Date;
 import com.economist.db.entity.Komitent;
 import com.economist.db.entity.Konto;
 
-public class AnalitikaSearchBean {
+public class SearchBean {
 	private Konto kontoOd;
 	private Konto kontoDo;
 	private Date datumOd;

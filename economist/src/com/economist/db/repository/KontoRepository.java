@@ -10,12 +10,14 @@ import com.economist.db.entity.Agencija;
 import com.economist.db.entity.Komitent;
 import com.economist.db.entity.Konto;
 import com.economist.db.entity.Preduzece;
-import com.economist.dto.KontoDTO;
 
 public interface KontoRepository extends JpaRepository<Konto, Integer> {
 //	public List<Konto> findByUser(User user);
-	public List<KontoDTO> findByAgencija(Agencija agencija);
-	public KontoDTO findBySifraAndAgencija(String sifra, Agencija agencija);
+	public List<Konto> findByAgencija(Agencija agencija);
+	public Konto findBySifraAndAgencija(String sifra, Agencija agencija);
+	@Query("SELECT k FROM Konto k WHERE length(k.sifra) = 3 AND k.agencija = ?")
+	public List<Konto> findSintetickaKonta(Agencija agencija);
+	
 	
 	/**
 	 * 

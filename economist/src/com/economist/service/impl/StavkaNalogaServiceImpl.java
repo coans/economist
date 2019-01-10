@@ -2,12 +2,15 @@ package com.economist.service.impl;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.economist.db.entity.Komitent;
 import com.economist.db.entity.Nalog;
+import com.economist.db.entity.Preduzece;
 import com.economist.db.entity.StavkaNaloga;
 import com.economist.db.repository.StavkaNalogaRepository;
 import com.economist.dto.StavkaNalogaDTO;
@@ -91,5 +94,17 @@ public class StavkaNalogaServiceImpl implements StavkaNalogaService {
 	@Override
 	public BigDecimal getSaldoByNalog(Nalog nalog) {
 		return stavkaNalogaRepository.getSaldoByNalog(nalog);
+	}
+
+	@Override
+	public List<StavkaNalogaDTO> sintetika(String kontoOd, String kontoDo,
+			Date datumOd, Date datumDo, Preduzece preduzece) {
+		return mapToDTO(stavkaNalogaRepository.sintetika(kontoOd, kontoDo, datumOd, datumDo, preduzece));
+	}
+
+	@Override
+	public List<StavkaNalogaDTO> sintetika(String kontoOd, String kontoDo,
+			Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent) {
+		return mapToDTO(stavkaNalogaRepository.sintetika(kontoOd, kontoDo, datumOd, datumDo, preduzece, komitent));
 	}
 }

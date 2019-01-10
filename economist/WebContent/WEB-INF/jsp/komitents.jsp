@@ -13,6 +13,8 @@
 				<th class="text-center" scope="col">Naziv</th>
 				<th class="text-center" scope="col">Mjesto</th>
 				<th class="text-center" scope="col">Adresa</th>
+				<th class="text-center" scope="col">U sistemu PDV-a</th>
+				<th class="text-center" scope="col">Lokacija</th>
 				<th class="text-center" scope="col">&#381;iro-ra&#269;un</th>
 				<th class="text-center" scope="col">Telefon</th>
 				<th class="text-center" scope="col">Napomena</th>
@@ -26,6 +28,9 @@
 					<td align="center">${komitent.naziv}</td>
 					<td align="center">${komitent.mesto}</td>
 					<td align="center">${komitent.adresa}</td>
+					<c:if test="${komitent.usistemupdv}"><td align="center">Da</td></c:if>
+					<c:if test="${not komitent.usistemupdv}"><td align="center">Ne</td></c:if>
+					<td align="center">${komitent.lokacija}</td>
 					<td align="center">${komitent.ziroracun}</td>
 					<td align="center">${komitent.telefon}</td>
 					<td align="center">${komitent.napomena}</td>

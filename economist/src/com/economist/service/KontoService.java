@@ -14,4 +14,5 @@ public interface KontoService {
 	KontoDTO findBySifraAndAgencija(String sifra, Agencija agencija);
 	List<KontoDTO> findByAgencija(Agencija agencija);
 	void save(KontoDTO konto);
+	List<KontoDTO> findSintetickaKonta(Agencija agencija);
 }

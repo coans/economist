@@ -1,6 +1,7 @@
 package com.economist.controller;
 
 import java.beans.PropertyEditorSupport;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -72,6 +73,7 @@ public class NalogController extends BaseController {
 //		model.addAttribute("categories", categories);
 		final List<NalogDTO> nalogs = nalogService.findByPreduzece(getUser().getPreduzece());
 		model.addAttribute("nalogs", nalogs);
+		setUkupno(nalogs, model);
 		
 		return VIEW_DEFAULT;
 	}
@@ -169,6 +171,30 @@ public class NalogController extends BaseController {
 		nalogService.save(nalog);
 		
 		return "redirect:/" + NalogController.CONTROLLER;
+	}
+
+	@RequestMapping(value = "/otkljucaj/{id}", method = RequestMethod.GET)
+	public String otkljucaj(@PathVariable(value = "id") Integer nalogId, ModelMap model)
+	{
+		NalogDTO nalog = nalogService.findOne(nalogId);
+		nalog.setZakljucan(Boolean.FALSE);
+		
+		nalogService.save(nalog);
+		
+		return "redirect:/" + NalogController.CONTROLLER;
+	}
+	
+	public void setUkupno(List<NalogDTO> stavke, ModelMap model) {
+		BigDecimal duguje = BigDecimal.ZERO;
+		BigDecimal potrazuje = BigDecimal.ZERO;
+		
+		for (NalogDTO stavka : stavke) {
+			duguje = duguje.add(stavka.getDuguje());
+			potrazuje = potrazuje.add(stavka.getPotrazuje());
+		}
+		model.addAttribute("duguje", duguje);
+		model.addAttribute("potrazuje", potrazuje);
+		model.addAttribute("saldo", duguje.subtract(potrazuje));
 	}
 	
 	@Override

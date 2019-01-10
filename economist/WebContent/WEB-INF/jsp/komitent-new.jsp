@@ -34,7 +34,21 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<form:label path="ziroracun" class="required">&#381;iro-ra&#269;un</form:label>
+					<form:label path="usistemupdv" style="padding-right: 20px;">U sistemu PDV-a</form:label>
+					<form:checkbox path="usistemupdv"/>
+					<div class="has-error">
+						<form:errors path="usistemupdv" cssClass="help-block" element="label"/>
+					</div>
+				</div>
+				<div class="form-group">
+						<form:label path="lokacija" class="required">Lokacija</form:label>
+						<form:select path="lokacija" class="form-control" items="${lokacije}"/>
+						<div class="has-error">
+							<form:errors path="lokacija" cssClass="help-block" element="label"/>
+						</div>
+					</div>
+				<div class="form-group">
+					<form:label path="ziroracun">&#381;iro-ra&#269;un</form:label>
 					<form:input path="ziroracun" type="text" class="form-control" />
 					<div class="has-error">
 						<form:errors path="ziroracun" cssClass="help-block" element="label"/>

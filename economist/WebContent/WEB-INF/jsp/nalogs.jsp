@@ -54,9 +54,21 @@
 							 &nbsp;
 							<a href="#" data-href="api/nalogs/zakljucaj/${nalog.id}" data-toggle="modal" data-target="#confirmDeleteId" title="Delete"><i class="glyphicon glyphicon-remove"></i></a>
 						</c:if>
+						<c:if test="${nalog.zakljucan}">	
+							&nbsp;
+							<a href="api/nalogs/otkljucaj/${nalog.id}" title="Otklju&#269;aj nalog"><i class="glyphicon glyphicon-plus"></i></a>
+						</c:if>
 					</td>
 				</tr>
-			</c:forEach>			
+			</c:forEach>
+			<tr><td colspan="11">&nbsp;</td></tr>
+			<tr>
+				<td class="active" colspan="6">&nbsp;</td>
+				<td class="active" align="center"><b>Ukupno:</b></td>
+				<td class="danger" align="right"><b>${duguje}</b></td>
+				<td class="success" align="right"><b>${potrazuje}</b></td>
+				<td class="info" align="right"><b>${saldo}</b></td>
+			</tr>		
 		</tbody>
     </table>
 </div>

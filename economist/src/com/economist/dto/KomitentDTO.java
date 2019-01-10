@@ -18,6 +18,9 @@ public class KomitentDTO implements Serializable {
 	private String napomena;
 	private String telefon;
 	private Integer agencijaId;
+	private Boolean usistemupdv;
+	private String lokacija;
+	
 	
 	public KomitentDTO() {
 		super();
@@ -25,7 +28,7 @@ public class KomitentDTO implements Serializable {
 	
 	public KomitentDTO(Integer id, Date created, String naziv, String mesto,
 			String ziroracun, String adresa, String napomena, String telefon,
-			Integer agencijaId) {
+			Integer agencijaId, Boolean usistemupdv, String lokacija) {
 		super();
 		this.id = id;
 		this.created = created;
@@ -36,6 +39,8 @@ public class KomitentDTO implements Serializable {
 		this.napomena = napomena;
 		this.telefon = telefon;
 		this.agencijaId = agencijaId;
+		this.usistemupdv = usistemupdv;
+		this.lokacija = lokacija;
 	}
 
 	public KomitentDTO(Komitent bean) {
@@ -49,6 +54,8 @@ public class KomitentDTO implements Serializable {
 			this.napomena = bean.getNapomena();
 			this.telefon = bean.getTelefon();
 			this.agencijaId = bean.getAgencija().getId();
+			this.usistemupdv = bean.getUsistemupdv();
+			this.lokacija = bean.getLokacija();
 		}
 	}
 
@@ -122,5 +129,21 @@ public class KomitentDTO implements Serializable {
 
 	public void setAgencijaId(Integer agencijaId) {
 		this.agencijaId = agencijaId;
-	}	
+	}
+
+	public Boolean getUsistemupdv() {
+		return usistemupdv;
+	}
+
+	public void setUsistemupdv(Boolean usistemupdv) {
+		this.usistemupdv = usistemupdv;
+	}
+
+	public String getLokacija() {
+		return lokacija;
+	}
+
+	public void setLokacija(String lokacija) {
+		this.lokacija = lokacija;
+	}
 }

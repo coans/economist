@@ -44,6 +44,7 @@ public class BaseController {
 	private static final String DUGUJE = "duguje";
 	private static final String SALDO = "saldo";
 	private static final String TABLE_CLASS = "tableClass";
+	private static final String LOKACIJE = "lokacije";
 	
 	
 	@Value("${base.url}")
@@ -79,6 +80,11 @@ public class BaseController {
 	@ModelAttribute(KLASE_KONTA)
 	public List<Integer> getKlaseKonta() {
 		return Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+	}
+	
+	@ModelAttribute(LOKACIJE)
+	public List<String> getLokacije() {
+		return Arrays.asList("RS", "FBIH", "Brcko D.");
 	}
 	
 	@ModelAttribute(DATUM_PATTERN)
