@@ -6,7 +6,7 @@
 <div class="container">
 	<h3 align="center" style="padding-bottom: 0px;">${user.preduzece.naziv}</h3>
 	<h4 align="center"><b>Pregled svih naloga</b></h4>
-	<p><a href="api/nalogs/new" class="btn btn-info">Dodaj nalog</a></p>
+	<p><a href="api/nalogs/new" class="btn btn-info">Novi nalog</a></p>
 <%-- 	<label>Filter by category</label>
 	<select id="category" onchange="filterFoodByCategory()">
 	    <c:forEach items="${categories}" var="category">
@@ -24,7 +24,7 @@
 				<th class="text-center" scope="col">Napomena</th>
 				<th class="text-center" scope="col">Status</th>
 				<th class="text-center" scope="col">Duguje</th>
-				<th class="text-center" scope="col">Potrazuje</th>
+				<th class="text-center" scope="col">Potra&#382;uje</th>
 				<th class="text-center" scope="col">Saldo</th>
 				<th class="text-center" scope="col">Akcija</th>
 			</tr>
@@ -52,11 +52,12 @@
 						<c:if test="${not nalog.zakljucan}">
 							<a href="api/stavkes/new/${nalog.id}" title="Dodaj stavku"><i class="glyphicon glyphicon-plus"></i></a>
 							 &nbsp;
-							<a href="#" data-href="api/nalogs/zakljucaj/${nalog.id}" data-toggle="modal" data-target="#confirmDeleteId" title="Delete"><i class="glyphicon glyphicon-remove"></i></a>
+							<%-- <a href="#" data-href="api/nalogs/zakljucaj/${nalog.id}" data-toggle="modal" data-target="#confirmDeleteId" title="Delete"><i class="glyphicon glyphicon-remove"></i></a> --%>
+							<a href="api/nalogs/zakljucaj/${nalog.id}" title="Zaklju&#269;aj nalog"><i class="glyphicon glyphicon-ban-circle"></i></a>
 						</c:if>
 						<c:if test="${nalog.zakljucan}">	
 							&nbsp;
-							<a href="api/nalogs/otkljucaj/${nalog.id}" title="Otklju&#269;aj nalog"><i class="glyphicon glyphicon-plus"></i></a>
+							<a href="api/nalogs/otkljucaj/${nalog.id}" title="Otklju&#269;aj nalog"><i class="glyphicon glyphicon-ok"></i></a>
 						</c:if>
 					</td>
 				</tr>
@@ -72,7 +73,7 @@
 		</tbody>
     </table>
 </div>
-<div class="modal fade" id="confirmDeleteId" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="confirmDeleteId" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" align="center"><b>Confirm Delete</b></div>
@@ -83,17 +84,17 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <script type="text/javascript">
 	$(document).ready(function() {
 		setActiveHeader("api/nalogs");
 	});
-	$('#confirmDeleteId').on('show.bs.modal', function(e) {
+/* 	$('#confirmDeleteId').on('show.bs.modal', function(e) {
 	    $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-	});
+	}); */
 	
-	function filterFoodByCategory() {
+/* 	function filterFoodByCategory() {
 		var baseUrl = "${baseurl}";
 		location.href = baseUrl + "foods?categoryId=" + $("#category").val();
-	}
+	} */
 </script>
