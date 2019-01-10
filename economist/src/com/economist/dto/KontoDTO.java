@@ -1,11 +1,13 @@
 package com.economist.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import com.economist.db.entity.Konto;
 
-public class KontoDTO {
+public class KontoDTO implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private Date created;
 	private String sifra;
@@ -99,4 +101,21 @@ public class KontoDTO {
 	public String getSifraNaziv() {
 		return this.sifra + " - " + this.naziv;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj != null) {
+			if (obj instanceof KontoDTO) {
+				KontoDTO konto = (KontoDTO)obj;
+				if (this.id.equals(konto.getId())) {
+					return true;
+				}
+			}
+			if (this.id.equals(obj)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }
