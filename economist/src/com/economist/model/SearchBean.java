@@ -2,30 +2,18 @@ package com.economist.model;
 
 import java.util.Date;
 
-import com.economist.db.entity.Komitent;
-import com.economist.db.entity.Konto;
+import com.economist.dto.KomitentDTO;
+import com.economist.dto.KontoDTO;
 
 public class SearchBean {
-	private Konto kontoOd;
-	private Konto kontoDo;
+	private KontoDTO kontoOd;
+	private KontoDTO kontoDo;
 	private Date datumOd;
 	private Date datumDo;
 	private String kontoOdBilans;
 	private String kontoDoBilans;
-	private Komitent komitent;
+	private KomitentDTO komitent;
 	
-	public Konto getKontoOd() {
-		return kontoOd;
-	}
-	public void setKontoOd(Konto kontoOd) {
-		this.kontoOd = kontoOd;
-	}
-	public Konto getKontoDo() {
-		return kontoDo;
-	}
-	public void setKontoDo(Konto kontoDo) {
-		this.kontoDo = kontoDo;
-	}
 	public Date getDatumOd() {
 		return datumOd;
 	}
@@ -50,10 +38,22 @@ public class SearchBean {
 	public void setKontoDoBilans(String kontoDoBilans) {
 		this.kontoDoBilans = kontoDoBilans;
 	}
-	public Komitent getKomitent() {
+	public KontoDTO getKontoOd() {
+		return kontoOd;
+	}
+	public void setKontoOd(KontoDTO kontoOd) {
+		this.kontoOd = kontoOd;
+	}
+	public KontoDTO getKontoDo() {
+		return kontoDo;
+	}
+	public void setKontoDo(KontoDTO kontoDo) {
+		this.kontoDo = kontoDo;
+	}
+	public KomitentDTO getKomitent() {
 		return komitent;
 	}
-	public void setKomitent(Komitent komitent) {
+	public void setKomitent(KomitentDTO komitent) {
 		this.komitent = komitent;
 	}
 }

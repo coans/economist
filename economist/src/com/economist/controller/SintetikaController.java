@@ -21,7 +21,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.economist.config.BaseController;
 import com.economist.db.entity.Komitent;
 import com.economist.db.entity.Konto;
-import com.economist.db.repository.NalogRepository;
+import com.economist.dto.KomitentDTO;
+import com.economist.dto.KontoDTO;
 import com.economist.dto.StavkaNalogaDTO;
 import com.economist.model.SearchBean;
 import com.economist.service.KomitentService;
@@ -45,35 +46,35 @@ public class SintetikaController extends BaseController {
 	@Autowired
 	private StavkaNalogaService stavkaNalogaService;
 	
-	@Autowired
-	private NalogRepository nalogRepository;
-	
 	@RequestMapping(method = RequestMethod.GET)
 	public String defaultView(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale) {
 		model.addAttribute("search", new SearchBean());
 		model.addAttribute("action", CONTROLLER + "/generate");
 		model.addAttribute("kontos", kontoService.findSintetickaKonta(getUser().getAgencija()));
-		model.addAttribute("komitents", komitentService.findByAgencija(getUser().getAgencija()));
+		List<KomitentDTO> komitents = komitentService.findByAgencija(getUser().getAgencija());
+		komitents.add(0, new KomitentDTO());
+		model.addAttribute("komitents", komitents);
 		return VIEW_DEFAULT;
 	}
 	
 	@RequestMapping(value = "generate", method = RequestMethod.POST)
 	public String generate(@ModelAttribute("search") SearchBean search, Errors errors, ModelMap model) {
-		
-		model.addAttribute("search", new SearchBean());
-		model.addAttribute("action", CONTROLLER + "/generate");
-		model.addAttribute("kontos", kontoService.findSintetickaKonta(getUser().getAgencija()));
-		model.addAttribute("komitents", komitentService.findByAgencija(getUser().getAgencija()));
 		Konto kontoOd = kontoService.find(search.getKontoOd().getId());
 		Konto kontoDo = kontoService.find(search.getKontoDo().getId());
 		List<StavkaNalogaDTO> result = null;
 		if (search.getKomitent() != null) {
 			Komitent komitent = komitentService.find(search.getKomitent().getId());
-			result = stavkaNalogaService.sintetika(kontoOd.getSifra() + "00", kontoDo.getSifra() + "99", search.getDatumOd(), search.getDatumDo(), getUser().getPreduzece(), komitent);
+			result = stavkaNalogaService.sintetika(kontoOd.getSifra(), kontoDo.getSifra() + "99", search.getDatumOd(), search.getDatumDo(), getUser().getPreduzece(), komitent);
 		} else {
-			result = stavkaNalogaService.sintetika(kontoOd.getSifra() + "00", kontoDo.getSifra() + "99", search.getDatumOd(), search.getDatumDo(), getUser().getPreduzece());
+			result = stavkaNalogaService.sintetika(kontoOd.getSifra(), kontoDo.getSifra() + "99", search.getDatumOd(), search.getDatumDo(), getUser().getPreduzece());
 		}
 		
+		model.addAttribute("search", search);
+		model.addAttribute("action", CONTROLLER + "/generate");
+		model.addAttribute("kontos", kontoService.findSintetickaKonta(getUser().getAgencija()));
+		List<KomitentDTO> komitents = komitentService.findByAgencija(getUser().getAgencija());
+		komitents.add(0, new KomitentDTO());
+		model.addAttribute("komitents", komitents);
 		model.addAttribute("stavkes", result);
 		setZbirniRed(result, model);
 		
@@ -84,21 +85,23 @@ public class SintetikaController extends BaseController {
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
 		super.initBinder(binder);
-		binder.registerCustomEditor(Konto.class, new PropertyEditorSupport() {
+		binder.registerCustomEditor(KontoDTO.class, new PropertyEditorSupport() {
 			@Override
 			public void setAsText(String id) {
-				Konto konto = new Konto();
+				KontoDTO konto = new KontoDTO();
 				konto.setId(Integer.parseInt(id));
 				setValue(konto);
 			}
 		});
 		
-		binder.registerCustomEditor(Komitent.class, new PropertyEditorSupport() {
+		binder.registerCustomEditor(KomitentDTO.class, new PropertyEditorSupport() {
 			@Override
 			public void setAsText(String id) {
-				Komitent komitent = new Komitent();
-				komitent.setId(Integer.parseInt(id));
-				setValue(komitent);
+				if (!id.isEmpty()) {
+					KomitentDTO komitent = new KomitentDTO();
+					komitent.setId(Integer.parseInt(id));
+					setValue(komitent);
+				}
 			}
 		});
 	}
