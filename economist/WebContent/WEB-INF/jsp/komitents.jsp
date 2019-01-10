@@ -57,6 +57,10 @@
     </div>
 </div>
 <script type="text/javascript">
+	$(document).ready(function() {
+		setActiveHeader("#sifarnici");
+		setActiveHeader("komitents");
+	});
 	$('#confirmDeleteId').on('show.bs.modal', function(e) {
 	    $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
 	});

@@ -76,3 +76,8 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		setActiveHeader("#sifarnici");
+	});
+</script>

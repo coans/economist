@@ -6,7 +6,7 @@
 <div class="container">
 	<form:form modelAttribute="search" method="POST" action="${action}">
 		<div class="row">
-			<h3>Sintetika od konta do konta</h3>
+			<h3 align="center"><i>Sintetika od konta do konta</i></h3>
 				<div class="col-xs-3">
 					<div class="form-group">
 						<form:label path="kontoOd">Konto od</form:label>
@@ -55,7 +55,7 @@
 			</div>		
 			<div class="row" align="right">
 				<button type="submit" class="btn btn btn-success">Pretraga</button>
-				<a class="btn btn-primary" href="nalogs"><spring:message code="button.cancel"/></a>
+				<a class="btn btn-primary" href="api/nalogs"><spring:message code="button.cancel"/></a>
 			</div>
 		</form:form>
 	<p>&nbsp;</p>					
@@ -124,7 +124,8 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		makeInputDate();
-		setActiveHeader("#analitika");
+		setActiveHeader("#izvjestaji");
+		setActiveHeader("api/sintetika");
 	});
 	$('#confirmDeleteId').on('show.bs.modal', function(e) {
 	    $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));

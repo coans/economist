@@ -13,14 +13,6 @@
 				<sec:authorize access="hasAnyRole('ROLE_USER')">
 					<li><a href="api/nalogs">Glavna knjiga</a></li>
 					<li>
-						<a class="dropdown-toggle"	data-toggle="dropdown" href="#sifarnici">&#352;ifarnici<span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="kontos">Kontni plan</a></li>
-							<li><a href="vrstadokumentas">Vrsta dokumenta</a></li>
-							<li><a href="komitents">Komitent</a></li>
-						</ul>	
-					</li>						
-					<li>
 						<a class="dropdown-toggle"	data-toggle="dropdown" href="#izvjestaji">Izvje&#353;taji<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="api/sintetika">Sintetika</a></li>
@@ -30,7 +22,15 @@
 							<li><a href="kif-kuf/kif">KIF</a></li>
 							<li><a href="kif-kuf/kuf">KUF</a></li>
 						</ul>
-					</li>
+					</li>					
+					<li>
+						<a class="dropdown-toggle"	data-toggle="dropdown" href="#sifarnici">&#352;ifarnici<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="kontos">Kontni plan</a></li>
+							<li><a href="vrstadokumentas">Vrsta dokumenta</a></li>
+							<li><a href="komitents">Komitent</a></li>
+						</ul>	
+					</li>						
 				</sec:authorize>	
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
