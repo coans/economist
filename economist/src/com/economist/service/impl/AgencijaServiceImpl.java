@@ -1,5 +1,6 @@
 package com.economist.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,11 @@ public class AgencijaServiceImpl implements AgencijaService {
 
 	@Override
 	public AgencijaDTO findOneDTO(int id) {
-		//TODO check null pointer
-		return new AgencijaDTO(agencijaRepository.findOne(id));
+		Agencija agencija = agencijaRepository.findOne(id);
+		if (agencija != null) {
+			return new AgencijaDTO(agencija);
+		}
+		return null;
 	}
 
 	@Override
@@ -34,7 +38,7 @@ public class AgencijaServiceImpl implements AgencijaService {
 
 	@Override
 	public List<AgencijaDTO> findAllDTO() {
-		return null;
+		return mapToDTO(agencijaRepository.findAll());
 	}
 
 	@Override
@@ -44,5 +48,16 @@ public class AgencijaServiceImpl implements AgencijaService {
 		bean.setId(agencijaDTO.getId());
 		
 		agencijaRepository.save(bean);
+	}
+	
+	private List<AgencijaDTO> mapToDTO(List<Agencija> agencijas) {
+		if (agencijas != null) {
+			List<AgencijaDTO> result = new ArrayList<AgencijaDTO>();
+			for (Agencija agencija : agencijas) {
+				result.add(new AgencijaDTO(agencija));
+			}
+			return result;
+		}
+		return null;
 	}
 }

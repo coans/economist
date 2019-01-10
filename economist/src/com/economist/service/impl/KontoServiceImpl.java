@@ -51,7 +51,11 @@ public class KontoServiceImpl implements KontoService {
 
 	@Override
 	public KontoDTO findBySifraAndAgencija(String sifra, Agencija agencija) {
-		return new KontoDTO(kontoRepository.findBySifraAndAgencija(sifra, agencija));
+		Konto konto = kontoRepository.findBySifraAndAgencija(sifra, agencija);
+		if (konto != null) {
+			return new KontoDTO(konto);
+		}
+		return null;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.economist.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class PreduzeceServiceImpl implements PreduzeceService {
 
 	@Override
 	public List<PreduzeceDTO> findByAgencija(Agencija agencija) {
-		return preduzeceRepository.findByAgencija(agencija);
+		return mapToDTO(preduzeceRepository.findByAgencija(agencija));
 	}
 
 	@Override
@@ -48,5 +49,16 @@ public class PreduzeceServiceImpl implements PreduzeceService {
 		bean.setZiroracun(dto.getZiroracun());
 		
 		preduzeceRepository.save(bean);
+	}
+	
+	private List<PreduzeceDTO> mapToDTO(List<Preduzece> preuzeces) {
+		if (preuzeces != null) {
+			List<PreduzeceDTO> result = new ArrayList<PreduzeceDTO>();
+			for (Preduzece preduzece : preuzeces) {
+				result.add(new PreduzeceDTO(preduzece));
+			}
+			return result;
+		}
+		return null;
 	}
 }

@@ -1,5 +1,6 @@
 package com.economist.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class KomitentServiceImpl implements KomitentService {
 
 	@Override
 	public List<KomitentDTO> findByAgencija(Agencija agencija) {
-		return komitentRepository.findByAgencija(agencija);
+		return mapToDTO(komitentRepository.findByAgencija(agencija));
 	}
 
 	@Override
@@ -58,4 +59,14 @@ public class KomitentServiceImpl implements KomitentService {
 		return komitentRepository.findOne(id);
 	}
 
+	private List<KomitentDTO> mapToDTO(List<Komitent> komitents) {
+		if (komitents != null) {
+			List<KomitentDTO> result = new ArrayList<KomitentDTO>();
+			for (Komitent komitent : komitents) {
+				result.add(new KomitentDTO(komitent));
+			}
+			return result;
+		}
+		return null;
+	}
 }
