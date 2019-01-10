@@ -107,11 +107,15 @@ public class StavkaNalogaController extends BaseController {
 			setNalogModel(model, ACTION_CREATE, DODAJ_NOVU_STAVKU_TITLE, stavka);
 			return VIEW_NEW;
 		}
-		stavka.setNalog(nalogService.findOne(stavka.getNalog().getId()));
+		NalogDTO nalog = nalogService.findOne(stavka.getNalog().getId());
+		stavka.setNalog(nalog);
 		
 		//set saldo
 		stavka.setSaldo(stavka.getDuguje().subtract(stavka.getPotrazuje()));
 		stavkaNalogaService.save(stavka);
+		
+		nalog.setModified(new Date());
+		nalogService.save(nalog);
 		
 		return "redirect:/" + StavkaNalogaController.CONTROLLER + "/details/" + stavka.getNalog().getId();
 	}

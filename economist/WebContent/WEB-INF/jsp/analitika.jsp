@@ -9,19 +9,19 @@
 			<h3 align="center">Analitika od konta do konta</h3>
 				<div class="col-xs-3">
 					<div class="form-group">
-						<form:label path="kontoOd">Konto od</form:label>
-						<form:select path="kontoOd" class="form-control" items="${konta}" itemLabel="sifraNaziv" itemValue="id"/>
+						<form:label path="kontoOd.id">Konto od</form:label>
+						<form:select path="kontoOd.id" class="form-control" items="${konta}" itemLabel="sifraNaziv" itemValue="id"/>
 						<div class="has-error">
-							<form:errors path="kontoOd" cssClass="help-block" element="label"/>
+							<form:errors path="kontoOd.id" cssClass="help-block" element="label"/>
 						</div>
 					</div>
 				</div>
 				<div class="col-xs-3">
 					<div class="form-group">
-						<form:label path="kontoDo">Konto do</form:label>
-						<form:select path="kontoDo" class="form-control" items="${konta}" itemLabel="sifraNaziv" itemValue="id"/>
+						<form:label path="kontoDo.id">Konto do</form:label>
+						<form:select path="kontoDo.id" class="form-control" items="${konta}" itemLabel="sifraNaziv" itemValue="id"/>
 						<div class="has-error">
-							<form:errors path="kontoDo" cssClass="help-block" element="label"/>
+							<form:errors path="kontoDo.id" cssClass="help-block" element="label"/>
 						</div>
 					</div>
 				</div>
@@ -45,10 +45,10 @@
 				</div>
 				<div class="col-xs-3">
 					<div class="form-group">
-						<form:label path="komitent">Komitent</form:label>
-						<form:select path="komitent" class="form-control" items="${komitents}" itemLabel="naziv" itemValue="id"/>
+						<form:label path="komitent.id">Komitent</form:label>
+						<form:select path="komitent.id" class="form-control" items="${komitents}" itemLabel="naziv" itemValue="id"/>
 						<div class="has-error">
-							<form:errors path="komitent" cssClass="help-block" element="label"/>
+							<form:errors path="komitent.id" cssClass="help-block" element="label"/>
 						</div>
 					</div>
 				</div>							

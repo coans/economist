@@ -146,22 +146,4 @@ public class KomitentDTO implements Serializable {
 	public void setLokacija(String lokacija) {
 		this.lokacija = lokacija;
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (obj != null) {
-			if (obj instanceof KomitentDTO) {
-				KomitentDTO komitentDTO = (KomitentDTO)obj;
-				if (this.id.equals(komitentDTO.getId())) {
-					return true;
-				}
-			}
-			if (this.id.equals(obj)) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	
 }
