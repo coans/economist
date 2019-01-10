@@ -19,4 +19,6 @@ public interface StavkaNalogaService {
 	BigDecimal getSaldoByNalog(Nalog nalog);
 	List<StavkaNalogaDTO> sintetika(String kontoOd, String kontoDo, Date datumOd, Date datumDo, Preduzece preduzece);
 	List<StavkaNalogaDTO> sintetika(String kontoOd, String kontoDo, Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent);
+	List<StavkaNalogaDTO> analitika(String kontoOd, String kontoDo, Date datumOd, Date datumDo, Preduzece preduzece);
+	List<StavkaNalogaDTO> analitika(String kontoOd, String kontoDo, Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent);
 }

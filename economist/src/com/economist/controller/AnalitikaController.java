@@ -1,6 +1,7 @@
 package com.economist.controller;
 
 import java.beans.PropertyEditorSupport;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,13 +19,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.economist.config.BaseController;
+import com.economist.db.entity.Komitent;
 import com.economist.db.entity.Konto;
-import com.economist.db.entity.Preduzece;
-import com.economist.db.repository.NalogRepository;
-import com.economist.db.repository.PreduzeceRepository;
-import com.economist.db.repository.UserRepository;
+import com.economist.dto.KomitentDTO;
+import com.economist.dto.KontoDTO;
+import com.economist.dto.StavkaNalogaDTO;
 import com.economist.model.SearchBean;
+import com.economist.service.KomitentService;
 import com.economist.service.KontoService;
+import com.economist.service.StavkaNalogaService;
 
 
 @Controller
@@ -34,37 +37,46 @@ public class AnalitikaController extends BaseController {
 	final static Logger logger = Logger.getLogger(AnalitikaController.class);
 	
 	public static final String CONTROLLER = "api/analitika";
-	public static final String VIEW_DEFAULT = "api/analitika";
+	public static final String VIEW_DEFAULT = "analitika";
 	
-	@Autowired
-	private UserRepository userRepository;
 	@Autowired
 	private KontoService kontoService;
 	@Autowired
-	private NalogRepository nalogRepository;
+	private KomitentService komitentService;
 	@Autowired
-	private PreduzeceRepository preduzeceRepository;
+	private StavkaNalogaService stavkaNalogaService;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String defaultView(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale) {
 		model.addAttribute("search", new SearchBean());
 		model.addAttribute("action", CONTROLLER + "/generate");
-		model.addAttribute("konta", kontoService.findSintetickaKonta(getUser().getAgencija()));
+		model.addAttribute("konta", kontoService.findAnalitickaKonta(getUser().getAgencija()));
+		List<KomitentDTO> komitents = komitentService.findByAgencija(getUser().getAgencija());
+		komitents.add(0, new KomitentDTO());
+		model.addAttribute("komitents", komitents);
 		return VIEW_DEFAULT;
 	}
 	
 	@RequestMapping(value = "generate", method = RequestMethod.POST)
 	public String generate(@ModelAttribute("search") SearchBean search, Errors errors, ModelMap model) {
+		Konto kontoOd = kontoService.find(search.getKontoOd().getId());
+		Konto kontoDo = kontoService.find(search.getKontoDo().getId());
+		List<StavkaNalogaDTO> result = null;
+		if (search.getKomitent() != null) {
+			Komitent komitent = komitentService.find(search.getKomitent().getId());
+			result = stavkaNalogaService.analitika(kontoOd.getSifra(), kontoDo.getSifra(), search.getDatumOd(), search.getDatumDo(), getUser().getPreduzece(), komitent);
+		} else {
+			result = stavkaNalogaService.analitika(kontoOd.getSifra(), kontoDo.getSifra(), search.getDatumOd(), search.getDatumDo(), getUser().getPreduzece());
+		}
 		
-		model.addAttribute("search", new SearchBean());
+		model.addAttribute("search", search);
 		model.addAttribute("action", CONTROLLER + "/generate");
-		model.addAttribute("konta", kontoService.findSintetickaKonta(getUser().getAgencija()));
-		Preduzece p = getUser().getPreduzece();
-//		Konto kontoOd = kontoRepository.findOne(search.getKontoOd().getId());
-//		Konto kontoDo = kontoRepository.findOne(search.getKontoDo().getId());
-//		List<NalogDTO> result = nalogRepository.analitika(p, kontoOd.getSifra(), kontoDo.getSifra(), search.getDatumOd(), search.getDatumDo());
-//		model.addAttribute("nalogs", result);
-//		setZbirniRed(result, model);
+		model.addAttribute("konta", kontoService.findAnalitickaKonta(getUser().getAgencija()));
+		List<KomitentDTO> komitents = komitentService.findByAgencija(getUser().getAgencija());
+		komitents.add(0, new KomitentDTO());
+		model.addAttribute("komitents", komitents);
+		model.addAttribute("stavkes", result);
+		setZbirniRed(result, model);
 		
 		return VIEW_DEFAULT;
 	}
@@ -73,12 +85,23 @@ public class AnalitikaController extends BaseController {
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
 		super.initBinder(binder);
-		binder.registerCustomEditor(Konto.class, new PropertyEditorSupport() {
+		binder.registerCustomEditor(KontoDTO.class, new PropertyEditorSupport() {
 			@Override
 			public void setAsText(String id) {
-				Konto konto = new Konto();
+				KontoDTO konto = new KontoDTO();
 				konto.setId(Integer.parseInt(id));
 				setValue(konto);
+			}
+		});
+		
+		binder.registerCustomEditor(KomitentDTO.class, new PropertyEditorSupport() {
+			@Override
+			public void setAsText(String id) {
+				if (!id.isEmpty()) {
+					KomitentDTO komitent = new KomitentDTO();
+					komitent.setId(Integer.parseInt(id));
+					setValue(komitent);
+				}
 			}
 		});
 	}

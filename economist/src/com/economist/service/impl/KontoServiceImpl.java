@@ -78,4 +78,9 @@ public class KontoServiceImpl implements KontoService {
 		}
 		return null;
 	}
+
+	@Override
+	public List<KontoDTO> findAnalitickaKonta(Agencija agencija) {
+		return mapToDTO(kontoRepository.findAnalitickaKonta(agencija));
+	}
 }

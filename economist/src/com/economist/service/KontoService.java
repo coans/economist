@@ -15,4 +15,5 @@ public interface KontoService {
 	List<KontoDTO> findByAgencija(Agencija agencija);
 	void save(KontoDTO konto);
 	List<KontoDTO> findSintetickaKonta(Agencija agencija);
+	List<KontoDTO> findAnalitickaKonta(Agencija agencija);
 }

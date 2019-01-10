@@ -6,7 +6,7 @@
 <div class="container">
 	<form:form modelAttribute="search" method="POST" action="${action}">
 		<div class="row">
-			<h3 align="center"><i>Sintetika od konta do konta</i></h3>
+			<h3 align="center">Sintetika od konta do konta</h3>
 				<div class="col-xs-3">
 					<div class="form-group">
 						<form:label path="kontoOd">Konto od</form:label>
@@ -71,7 +71,6 @@
 				<th class="text-center" scope="col">Duguje</th>
 				<th class="text-center" scope="col">Potrazuje</th>
 				<th class="text-center" scope="col">Saldo</th>
-				<!-- <th class="text-center" scope="col">Akcija</th> -->
 			</tr>
 		</thead>
 		<tbody>
@@ -86,40 +85,18 @@
 					<td align="right">${stavka.duguje}</td>
 					<td align="right">${stavka.potrazuje}</td>
 					<td align="right">${stavka.saldo}</td>
-					<%-- <td align="center">
-						<a href="nalogs/add/${nalog.id}" title="Dodaj stavku"><i class="glyphicon glyphicon-plus"></i></a>
-						&nbsp;
-						<a href="#" data-href="foods/delete/${food.id}" data-toggle="modal" data-target="#confirmDeleteId" title="Delete"><i class="glyphicon glyphicon-remove"></i></a>
-					</td> --%>
 				</tr>
 			</c:forEach>
 			<tr><td colspan="9">&nbsp;</td></tr>
 			<tr>
-				<td class="active">&nbsp;</td>
-				<td class="active">&nbsp;</td>
-				<td class="active">&nbsp;</td>
-				<td class="active">&nbsp;</td>
-				<td class="active">&nbsp;</td>
+				<td colspan="5" class="active">&nbsp;</td>
 				<td class="active" align="center"><b>Ukupno:</b></td>
 				<td class="danger" align="right"><b>${duguje}</b></td>
 				<td class="success" align="right"><b>${potrazuje}</b></td>
 				<td class="info" align="right"><b>${saldo}</b></td>
-				<!-- <td class="active">&nbsp;</td> -->	
 			</tr>			
 		</tbody>
     </table>
-</div>
-<div class="modal fade" id="confirmDeleteId" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header" align="center"><b>Confirm Delete</b></div>
-            <div class="modal-body" align="center">Are you sure you want to delete this item?</div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-danger btn-ok">Delete</a>
-            </div>
-        </div>
-    </div>
 </div>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -127,12 +104,4 @@
 		setActiveHeader("#izvjestaji");
 		setActiveHeader("api/sintetika");
 	});
-	$('#confirmDeleteId').on('show.bs.modal', function(e) {
-	    $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-	});
-	
-	function filterFoodByCategory() {
-		var baseUrl = "${baseurl}";
-		location.href = baseUrl + "foods?categoryId=" + $("#category").val();
-	}
 </script>

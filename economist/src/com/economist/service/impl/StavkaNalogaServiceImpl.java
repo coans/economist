@@ -107,4 +107,16 @@ public class StavkaNalogaServiceImpl implements StavkaNalogaService {
 			Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent) {
 		return mapToDTO(stavkaNalogaRepository.sintetika(kontoOd, kontoDo, datumOd, datumDo, preduzece, komitent));
 	}
+
+	@Override
+	public List<StavkaNalogaDTO> analitika(String kontoOd, String kontoDo,
+			Date datumOd, Date datumDo, Preduzece preduzece) {
+		return mapToDTO(stavkaNalogaRepository.analitika(kontoOd, kontoDo, datumOd, datumDo, preduzece));
+	}
+
+	@Override
+	public List<StavkaNalogaDTO> analitika(String kontoOd, String kontoDo,
+			Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent) {
+		return mapToDTO(stavkaNalogaRepository.analitika(kontoOd, kontoDo, datumOd, datumDo, preduzece, komitent));
+	}
 }

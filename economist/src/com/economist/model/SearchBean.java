@@ -10,8 +10,8 @@ public class SearchBean {
 	private KontoDTO kontoDo;
 	private Date datumOd;
 	private Date datumDo;
-	private String kontoOdBilans;
-	private String kontoDoBilans;
+//	private String kontoOdBilans;
+//	private String kontoDoBilans;
 	private KomitentDTO komitent;
 	
 	public Date getDatumOd() {
@@ -25,7 +25,7 @@ public class SearchBean {
 	}
 	public void setDatumDo(Date datumDo) {
 		this.datumDo = datumDo;
-	}
+	}/*
 	public String getKontoOdBilans() {
 		return kontoOdBilans;
 	}
@@ -37,7 +37,7 @@ public class SearchBean {
 	}
 	public void setKontoDoBilans(String kontoDoBilans) {
 		this.kontoDoBilans = kontoDoBilans;
-	}
+	}*/
 	public KontoDTO getKontoOd() {
 		return kontoOd;
 	}
