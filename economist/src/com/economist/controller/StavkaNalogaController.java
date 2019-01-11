@@ -34,6 +34,7 @@ import com.economist.service.KontoService;
 import com.economist.service.NalogService;
 import com.economist.service.StavkaNalogaService;
 import com.economist.service.VrstaDokumentaService;
+import com.economist.validator.StavkaNalogaValidator;
 
 
 @Controller
@@ -41,7 +42,6 @@ import com.economist.service.VrstaDokumentaService;
 public class StavkaNalogaController extends BaseController {
 	
 	private static final String ACTION_CREATE = "create";
-	private static final String ACTION_ADD = "add";
 	private static final String DODAJ_NOVU_STAVKU_TITLE = "Dodaj novu stavku";
 
 	final static Logger logger = Logger.getLogger(StavkaNalogaController.class);
@@ -49,7 +49,6 @@ public class StavkaNalogaController extends BaseController {
 	public static final String CONTROLLER = "api/stavkes";
 	public static final String VIEW_DEFAULT = "stavkes";
 	private static final String VIEW_NEW = "stavke-new";
-	private static final String VIEW_DETAILS = "nalog-details";
 	
 	@Autowired
 	private NalogService nalogService;
@@ -57,12 +56,12 @@ public class StavkaNalogaController extends BaseController {
 	private StavkaNalogaService stavkaNalogaService;
 	@Autowired
 	private KontoService kontoService;
-//	@Autowired
-//	private PreduzeceService preduzeceService;
 	@Autowired
 	private VrstaDokumentaService vrstaDokumentaService;
 	@Autowired
 	private KomitentService komitentService;
+	@Autowired
+	private StavkaNalogaValidator validator;
 	
 	@RequestMapping(value = "/details/{nalogId}", method = RequestMethod.GET)
 	public String defaultView(@PathVariable(value = "nalogId") Integer nalogId, ModelMap model, HttpServletRequest request, HttpSession session, Locale locale/*, @RequestParam(required = false) Integer preduzeceId*/) {
@@ -101,16 +100,15 @@ public class StavkaNalogaController extends BaseController {
 	@RequestMapping(value = ACTION_CREATE, method = RequestMethod.POST)
 	public String create(@ModelAttribute("stavka") StavkaNalogaDTO stavka, Errors errors, ModelMap model,
 			final RedirectAttributes redirectAttributes) {
+		NalogDTO nalog = nalogService.findOne(stavka.getNalog().getId());
+		stavka.setNalog(nalog);
 
-//		validator.validate(food, errors);
+		validator.validate(stavka, errors);
 		if (errors.hasErrors()) {
 			setNalogModel(model, ACTION_CREATE, DODAJ_NOVU_STAVKU_TITLE, stavka);
 			return VIEW_NEW;
 		}
-		NalogDTO nalog = nalogService.findOne(stavka.getNalog().getId());
-		stavka.setNalog(nalog);
-		
-		//set saldo
+
 		stavka.setSaldo(stavka.getDuguje().subtract(stavka.getPotrazuje()));
 		stavkaNalogaService.save(stavka);
 		
@@ -119,52 +117,7 @@ public class StavkaNalogaController extends BaseController {
 		
 		return "redirect:/" + StavkaNalogaController.CONTROLLER + "/details/" + stavka.getNalog().getId();
 	}
-	
-	@RequestMapping(value = "/add/{id}", method = RequestMethod.GET)
-	public String novaStavkaNaloga(@PathVariable(value = "id") Integer nalogId, ModelMap model) {
-//		NalogDTO parentNalog = nalogService.findOne(nalogId);
-//		NalogDTO childNalog = new NalogDTO();
-//		childNalog.setParentId(parentNalog.getId());
-//		childNalog.setBroj(parentNalog.getBroj());
-//		childNalog.setPreduzece(new PreduzeceDTO(getUser().getPreduzece()));
-//		childNalog.setVrstaDokumenta(parentNalog.getVrstaDokumenta());
-//		childNalog.setDuguje(BigDecimal.ZERO);
-//		childNalog.setPotrazuje(BigDecimal.ZERO);
-//		childNalog.setDatum(new Date());
-//
-//		setNalogModel(model, childNalog, ACTION_ADD, DODAJ_NOVU_STAVKU_TITLE, true);
-		
-		return VIEW_NEW;
-	}
-	
-	@RequestMapping(value = "add", method = RequestMethod.POST)
-	public String dodajStavkuNaloga(@ModelAttribute("nalog") NalogDTO nalog, Errors errors, ModelMap model) {
 
-//		validator.validate(food, errors);
-//		if (errors.hasErrors()) {
-//			setNalogModel(model, nalog, ACTION_ADD, DODAJ_NOVU_STAVKU_TITLE, true);
-//			return VIEW_NEW;
-//		}
-//		nalog.setPreduzece(new PreduzeceDTO(getUser().getPreduzece()));
-//		nalog.setVrstaDokumenta(new VrstaDokumentaDTO(nalogService.find(nalog.getParentId()).getVrstaDokumenta()));
-//		
-//		//set saldo
-//		nalog.setSaldo(nalog.getDuguje().subtract(nalog.getPotrazuje()));
-//		nalogService.save(nalog);
-		
-		return "redirect:/" + StavkaNalogaController.CONTROLLER + "/details/";// + nalog.getParentId();
-	}	
-//	@RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
-//	public String details(@PathVariable(value = "id") Integer nalogId, ModelMap model)
-//	{
-////		List<NalogDTO> nalogs = nalogService.findByPreduzeceAndParent(getUser().getPreduzece(), nalogId);
-////		model.addAttribute("nalogs", nalogs);
-////		model.addAttribute("nalogId", nalogId);
-////		setZbirniRed(nalogs, model);
-//		
-//		return VIEW_DETAILS;
-//	}
-	
 	@Override
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {

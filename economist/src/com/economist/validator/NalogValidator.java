@@ -1,26 +1,17 @@
 package com.economist.validator;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import com.economist.db.entity.Konto;
 import com.economist.dto.NalogDTO;
-import com.economist.service.AgencijaService;
-import com.economist.service.KontoService;
 
 @Component
 public class NalogValidator implements Validator {
 	
-	@Autowired
-	private KontoService kontoService;
-	@Autowired
-	private AgencijaService agencijaService;
-
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return Konto.class.equals(clazz);
+		return NalogDTO.class.equals(clazz);
 	}
 
 	@Override
