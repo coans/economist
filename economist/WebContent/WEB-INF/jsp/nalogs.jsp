@@ -24,7 +24,9 @@
 				<th class="text-center" scope="col"><spring:message code="napomena"/></th>
 				<th class="text-center" scope="col"><spring:message code="status"/></th>
 				<th class="text-center" scope="col"><spring:message code="duguje"/></th>
+				<th class="text-center" scope="col"><spring:message code="pdv"/></th>
 				<th class="text-center" scope="col"><spring:message code="potrazuje"/></th>
+				<th class="text-center" scope="col"><spring:message code="pdv"/></th>
 				<th class="text-center" scope="col"><spring:message code="saldo"/></th>
 				<th class="text-center" scope="col"><spring:message code="akcije"/></th>
 			</tr>
@@ -34,7 +36,7 @@
 				<tr>
 					<td align="center">${loop.count}</td>
 					<c:if test="${not nalog.zakljucan}">
-						<td align="center"><a href="api/stavkes/details/${nalog.id}" title="<spring:message code='detalji'/>">${nalog.broj}</a></td>
+						<td align="center"><a href="api/stavkas/details/${nalog.id}" title="<spring:message code='detalji'/>">${nalog.broj}</a></td>
 					</c:if>
 					<c:if test="${nalog.zakljucan}">
 						<td align="center">${nalog.broj}</td>
@@ -46,11 +48,13 @@
 					<c:if test="${nalog.zakljucan}"><td align="center"><spring:message code="zakljucan"/></td></c:if>
 					<c:if test="${not nalog.zakljucan}"><td align="center"><spring:message code="aktivan"/></td></c:if>
 					<td align="right">${nalog.duguje}</td>
+					<td align="right">${nalog.pdvduguje}</td>
 					<td align="right">${nalog.potrazuje}</td>
+					<td align="right">${nalog.pdvpotrazuje}</td>
 					<td align="right">${nalog.saldo}</td>
 					<td align="center">
 						<c:if test="${not nalog.zakljucan}">
-							<a href="api/stavkes/new/${nalog.id}" title="<spring:message code='dodaj.stavku'/>"><i class="glyphicon glyphicon-plus"></i></a>
+							<a href="api/stavkas/new/${nalog.id}" title="<spring:message code='dodaj.stavku'/>"><i class="glyphicon glyphicon-plus"></i></a>
 							 &nbsp;
 							<%-- <a href="#" data-href="api/nalogs/zakljucaj/${nalog.id}" data-toggle="modal" data-target="#confirmDeleteId" title="Delete"><i class="glyphicon glyphicon-remove"></i></a> --%>
 							<a href="api/nalogs/zakljucaj/${nalog.id}" title="<spring:message code='zakljucaj.nalog'/>"><i class="glyphicon glyphicon-ban-circle"></i></a>
@@ -62,12 +66,14 @@
 					</td>
 				</tr>
 			</c:forEach>
-			<tr><td colspan="11">&nbsp;</td></tr>
+			<tr><td colspan="13">&nbsp;</td></tr>
 			<tr>
 				<td class="active" colspan="6">&nbsp;</td>
 				<td class="active" align="center"><b><spring:message code="ukupno"/></b></td>
 				<td class="danger" align="right"><b>${duguje}</b></td>
+				<td class="danger" align="right"><b>${pdvduguje}</b></td>
 				<td class="success" align="right"><b>${potrazuje}</b></td>
+				<td class="success" align="right"><b>${pdvpotrazuje}</b></td>
 				<td class="info" align="right"><b>${saldo}</b></td>
 			</tr>		
 		</tbody>

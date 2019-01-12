@@ -7,7 +7,7 @@
 	<h3 align="center" style="padding-bottom: 0px;">${user.preduzece.naziv}</h3>
 	<h4 align="center"><b><spring:message code="nalog.broj"/> ${nalogBroj}</b></h4>
 	<h4 align="center"><b><spring:message code="pregled.svih.stavki"/></b></h4>
-	<p><a href="api/stavkes/new/${nalogId}" class="btn btn-info"><spring:message code="dodaj.stavku"/></a>&nbsp;<a href="api/nalogs" class="btn btn-primary"><spring:message code="povratak"/></a></p>
+	<p><a href="api/stavkas/new/${nalogId}" class="btn btn-info"><spring:message code="dodaj.stavku"/></a>&nbsp;<a href="api/nalogs" class="btn btn-primary"><spring:message code="povratak"/></a></p>
 	<table class="${tableClass}">
 		<thead>
 			<tr>
@@ -18,7 +18,9 @@
 				<th class="text-center" scope="col"><spring:message code="konto"/></th>
 				<th class="text-center" scope="col"><spring:message code="komitent"/></th>
 				<th class="text-center" scope="col"><spring:message code="duguje"/></th>
+				<th class="text-center" scope="col"><spring:message code="pdv"/></th>
 				<th class="text-center" scope="col"><spring:message code="potrazuje"/></th>
+				<th class="text-center" scope="col"><spring:message code="pdv"/></th>
 				<th class="text-center" scope="col"><spring:message code="saldo"/></th>
 			</tr>
 		</thead>
@@ -32,16 +34,20 @@
 					<td align="center">${stavka.konto.sifra} - ${stavka.konto.naziv}</td>
 					<td align="center">${stavka.komitent.naziv}</td>
 					<td align="right">${stavka.duguje}</td>
+					<td align="right">${stavka.pdvduguje}</td>
 					<td align="right">${stavka.potrazuje}</td>
+					<td align="right">${stavka.pdvpotrazuje}</td>
 					<td align="right">${stavka.saldo}</td>
 				</tr>
 			</c:forEach>
-			<tr><td colspan="9">&nbsp;</td></tr>
+			<tr><td colspan="11">&nbsp;</td></tr>
 			<tr>
 				<td colspan="5" class="active">&nbsp;</td>
 				<td class="active" align="center"><b><spring:message code="ukupno"/></b></td>
 				<td class="danger" align="right"><b>${duguje}</b></td>
+				<td class="danger" align="right"><b>${pdvduguje}</b></td>
 				<td class="success" align="right"><b>${potrazuje}</b></td>
+				<td class="success" align="right"><b>${pdvpotrazuje}</b></td>
 				<td class="info" align="right"><b>${saldo}</b></td>
 			</tr>			
 		</tbody>

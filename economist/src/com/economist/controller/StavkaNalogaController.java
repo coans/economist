@@ -46,9 +46,9 @@ public class StavkaNalogaController extends BaseController {
 
 	final static Logger logger = Logger.getLogger(StavkaNalogaController.class);
 	
-	public static final String CONTROLLER = "api/stavkes";
-	public static final String VIEW_DEFAULT = "stavkes";
-	private static final String VIEW_NEW = "stavke-new";
+	public static final String CONTROLLER = "api/stavkas";
+	public static final String VIEW_DEFAULT = "stavkas";
+	private static final String VIEW_NEW = "stavka-new";
 	
 	@Autowired
 	private NalogService nalogService;
@@ -80,6 +80,8 @@ public class StavkaNalogaController extends BaseController {
 		StavkaNalogaDTO stavka = new StavkaNalogaDTO();
 		stavka.setDuguje(BigDecimal.ZERO);
 		stavka.setPotrazuje(BigDecimal.ZERO);
+		stavka.setPdvduguje(BigDecimal.ZERO);
+		stavka.setPdvpotrazuje(BigDecimal.ZERO);
 		stavka.setDatum(new Date());
 		stavka.setNalog(nalogService.findOne(nalogId));
 		setNalogModel(model, ACTION_CREATE, DODAJ_NOVU_STAVKU_TITLE, stavka);
@@ -100,9 +102,13 @@ public class StavkaNalogaController extends BaseController {
 	@RequestMapping(value = ACTION_CREATE, method = RequestMethod.POST)
 	public String create(@ModelAttribute("stavka") StavkaNalogaDTO stavka, Errors errors, ModelMap model,
 			final RedirectAttributes redirectAttributes) {
+		try {
 		NalogDTO nalog = nalogService.findOne(stavka.getNalog().getId());
 		stavka.setNalog(nalog);
-
+		if (stavka.getKomitent() != null && stavka.getKomitent().getId() != null) {
+			KomitentDTO komitent = komitentService.findOne(stavka.getKomitent().getId());
+			stavka.setKomitent(komitent);
+		}
 		validator.validate(stavka, errors);
 		if (errors.hasErrors()) {
 			setNalogModel(model, ACTION_CREATE, DODAJ_NOVU_STAVKU_TITLE, stavka);
@@ -114,7 +120,11 @@ public class StavkaNalogaController extends BaseController {
 		
 		nalog.setModified(new Date());
 		nalogService.save(nalog);
-		
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "redirect:/" + StavkaNalogaController.CONTROLLER + "/details/" + stavka.getNalog().getId();
 	}
 

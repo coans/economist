@@ -30,8 +30,8 @@ public class KontoValidator implements Validator {
 		if (konto.getSifra().isEmpty()) {
 			errors.rejectValue("sifra", "error.konto.sifra.empty");
 		}
-		if (konto.getSifra().length() > 5) {
-			errors.rejectValue("sifra", "error.konto.sifra.length", new Integer[] {5}, ValidatorUtil.DEFAULT_MESSAGE);
+		if (konto.getSifra().length() > 6) {
+			errors.rejectValue("sifra", "error.konto.sifra.length", new Integer[] {6}, ValidatorUtil.DEFAULT_MESSAGE);
 		}
 		try {
 			Integer.valueOf(konto.getSifra());

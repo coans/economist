@@ -1,5 +1,6 @@
 package com.economist.service.impl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,7 +34,13 @@ public class NalogServiceImpl implements NalogService {
 	public NalogDTO findOne(Integer id) {
 		Nalog nalog = nalogRepository.findOne(id);
 		if (nalog != null) {
-			return new NalogDTO(nalog, snService.getDugujeByNalog(nalog), snService.getPotrazujeByNalog(nalog), snService.getSaldoByNalog(nalog));
+			BigDecimal duguje = snService.getDugujeByNalog(nalog);
+			BigDecimal pdvduguje = snService.getPdvDugujeByNalog(nalog);
+			BigDecimal potrazuje = snService.getPotrazujeByNalog(nalog);
+			BigDecimal pdvpotrazuje = snService.getPdvPotrazujeByNalog(nalog);
+			BigDecimal saldo = snService.getSaldoByNalog(nalog);
+			
+			return new NalogDTO(nalog, duguje, pdvduguje, potrazuje, pdvpotrazuje, saldo);
 		}
 		return null;
 	}
@@ -93,7 +100,13 @@ public class NalogServiceImpl implements NalogService {
 		if (nalogs != null) {
 			List<NalogDTO> result = new ArrayList<NalogDTO>();
 			for (Nalog nalog : nalogs) {
-				result.add(new NalogDTO(nalog, snService.getDugujeByNalog(nalog), snService.getPotrazujeByNalog(nalog), snService.getSaldoByNalog(nalog)));
+				BigDecimal duguje = snService.getDugujeByNalog(nalog);
+				BigDecimal pdvduguje = snService.getPdvDugujeByNalog(nalog);
+				BigDecimal potrazuje = snService.getPotrazujeByNalog(nalog);
+				BigDecimal pdvpotrazuje = snService.getPdvPotrazujeByNalog(nalog);
+				BigDecimal saldo = snService.getSaldoByNalog(nalog);
+				
+				result.add(new NalogDTO(nalog, duguje, pdvduguje, potrazuje, pdvpotrazuje, saldo));
 			}
 			return result;
 		}

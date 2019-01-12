@@ -17,10 +17,10 @@
 					</div>
 				</div>				
 				<div class="form-group">
-					<form:label path="konto" class="required"><spring:message code="konto"/></form:label>
-					<form:select path="konto" class="form-control" id="konto" items="${konta}" itemLabel="sifraNaziv" itemValue="id"/>
+					<form:label path="konto.id" class="required"><spring:message code="konto"/></form:label>
+					<form:select path="konto.id" class="form-control" id="konto" items="${konta}" itemLabel="sifraNaziv" itemValue="id"/>
 					<div class="has-error">
-						<form:errors path="konto" cssClass="help-block" element="label"/>
+						<form:errors path="konto.id" cssClass="help-block" element="label"/>
 					</div>
 				</div>				
 				<div class="form-group">
@@ -31,10 +31,10 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<form:label path="komitent"><spring:message code="komitent"/></form:label>
-					<form:select path="komitent" class="form-control" id="komitent" items="${komitents}" itemLabel="naziv" itemValue="id"/>
+					<form:label path="komitent.id"><spring:message code="komitent"/></form:label>
+					<form:select path="komitent.id" class="form-control" items="${komitents}" itemLabel="naziv" itemValue="id"/>
 					<div class="has-error">
-						<form:errors path="komitent" cssClass="help-block" element="label"/>
+						<form:errors path="komitent.id" cssClass="help-block" element="label"/>
 					</div>
 				</div>				
 				<div class="form-group">
@@ -45,15 +45,29 @@
 					</div>
 				</div>					
 				<div class="form-group">
+					<form:label path="pdvduguje" class="required"><spring:message code="pdv"/></form:label>
+					<form:input path="pdvduguje" type="text" class="form-control" />
+					<div class="has-error">
+						<form:errors path="pdvduguje" cssClass="help-block" element="label"/>
+					</div>
+				</div>				
+				<div class="form-group">
 					<form:label path="potrazuje" class="required"><spring:message code="potrazuje"/></form:label>
 					<form:input path="potrazuje" type="text" class="form-control" />
 					<div class="has-error">
 						<form:errors path="potrazuje" cssClass="help-block" element="label"/>
 					</div>
 				</div>
+				<div class="form-group">
+					<form:label path="pdvpotrazuje" class="required"><spring:message code="pdv"/></form:label>
+					<form:input path="pdvpotrazuje" type="text" class="form-control" />
+					<div class="has-error">
+						<form:errors path="pdvpotrazuje" cssClass="help-block" element="label"/>
+					</div>
+				</div>				
 				<p>&nbsp;</p>					
 				<button type="submit" class="btn btn btn-success"><spring:message code="button.save"/></button>
-				<a class="btn btn-primary" href="api/stavkes/details/${stavka.nalog.id}"><spring:message code="button.cancel"/></a>
+				<a class="btn btn-primary" href="api/stavkas/details/${stavka.nalog.id}"><spring:message code="button.cancel"/></a>
 			</form:form>
 			<span class="form-group"><label class="required"><font size="2"><spring:message code="page.required.fields"/></font></label></span>
 		</div>

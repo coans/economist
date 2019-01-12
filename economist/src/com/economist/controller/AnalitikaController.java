@@ -62,7 +62,7 @@ public class AnalitikaController extends BaseController {
 		Konto kontoOd = kontoService.find(search.getKontoOd().getId());
 		Konto kontoDo = kontoService.find(search.getKontoDo().getId());
 		List<StavkaNalogaDTO> result = null;
-		if (search.getKomitent() != null) {
+		if (search.getKomitent() != null && search.getKomitent().getId() != null) {
 			Komitent komitent = komitentService.find(search.getKomitent().getId());
 			result = stavkaNalogaService.analitika(kontoOd.getSifra(), kontoDo.getSifra(), search.getDatumOd(), search.getDatumDo(), getUser().getPreduzece(), komitent);
 		} else {

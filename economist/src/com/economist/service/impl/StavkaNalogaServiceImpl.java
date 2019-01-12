@@ -56,7 +56,9 @@ public class StavkaNalogaServiceImpl implements StavkaNalogaService {
 		}
 		bean.setDatum(dto.getDatum());
 		bean.setDuguje(dto.getDuguje());
+		bean.setPdvduguje(dto.getPdvduguje());
 		bean.setPotrazuje(dto.getPotrazuje());
+		bean.setPdvpotrazuje(dto.getPdvpotrazuje());
 		bean.setSaldo(dto.getSaldo());
 		bean.setOpis(dto.getOpis());
 		if (dto.getKomitent() != null) {
@@ -118,5 +120,15 @@ public class StavkaNalogaServiceImpl implements StavkaNalogaService {
 	public List<StavkaNalogaDTO> analitika(String kontoOd, String kontoDo,
 			Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent) {
 		return mapToDTO(stavkaNalogaRepository.analitika(kontoOd, kontoDo, datumOd, datumDo, preduzece, komitent));
+	}
+
+	@Override
+	public BigDecimal getPdvDugujeByNalog(Nalog nalog) {
+		return stavkaNalogaRepository.getPdvDugujeByNalog(nalog);
+	}
+
+	@Override
+	public BigDecimal getPdvPotrazujeByNalog(Nalog nalog) {
+		return stavkaNalogaRepository.getPdvPotrazujeByNalog(nalog);
 	}
 }

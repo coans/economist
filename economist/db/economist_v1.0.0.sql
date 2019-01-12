@@ -112,6 +112,8 @@ CREATE TABLE IF NOT EXISTS `economist`.`nalog` (
   `duguje` DECIMAL(10,2) NOT NULL,
   `potrazuje` DECIMAL(10,2) NOT NULL,
   `saldo` DECIMAL(10,2) NOT NULL,
+  `pdvduguje` DECIMAL(10,2) NULL DEFAULT 0,
+  `pdvpotrazuje` DECIMAL(10,2) NULL DEFAULT 0,
   `nalog_id` INT NOT NULL,
   `konto_id` INT NOT NULL,
   `komitent_id` INT(11) NULL,

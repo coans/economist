@@ -27,7 +27,9 @@ public class StavkaNaloga implements Serializable {
 	private Date datum;
 	private String opis;
 	private BigDecimal duguje;
+	private BigDecimal pdvduguje;
 	private BigDecimal potrazuje;
+	private BigDecimal pdvpotrazuje;
 	private BigDecimal saldo;
 
 	//bi-directional many-to-one association to Konto
@@ -114,5 +116,21 @@ public class StavkaNaloga implements Serializable {
 
 	public void setNalog(Nalog nalog) {
 		this.nalog = nalog;
+	}
+
+	public BigDecimal getPdvduguje() {
+		return pdvduguje;
+	}
+
+	public void setPdvduguje(BigDecimal pdvduguje) {
+		this.pdvduguje = pdvduguje;
+	}
+
+	public BigDecimal getPdvpotrazuje() {
+		return pdvpotrazuje;
+	}
+
+	public void setPdvpotrazuje(BigDecimal pdvpotrazuje) {
+		this.pdvpotrazuje = pdvpotrazuje;
 	}
 }

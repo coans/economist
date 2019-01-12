@@ -120,14 +120,21 @@ public class NalogController extends BaseController {
 	
 	private void setUkupno(List<NalogDTO> stavke, ModelMap model) {
 		BigDecimal duguje = BigDecimal.ZERO;
+		BigDecimal pdvduguje = BigDecimal.ZERO;
 		BigDecimal potrazuje = BigDecimal.ZERO;
+		BigDecimal pdvpotrazuje = BigDecimal.ZERO;
+		
 		
 		for (NalogDTO stavka : stavke) {
 			duguje = duguje.add(stavka.getDuguje());
+			pdvduguje = pdvduguje.add(stavka.getPdvduguje());
 			potrazuje = potrazuje.add(stavka.getPotrazuje());
+			pdvpotrazuje = pdvpotrazuje.add(stavka.getPdvpotrazuje());
 		}
 		model.addAttribute("duguje", duguje);
+		model.addAttribute("pdvduguje", pdvduguje);
 		model.addAttribute("potrazuje", potrazuje);
+		model.addAttribute("pdvpotrazuje", pdvpotrazuje);
 		model.addAttribute("saldo", duguje.subtract(potrazuje));
 	}
 	

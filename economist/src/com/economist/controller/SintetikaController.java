@@ -62,7 +62,7 @@ public class SintetikaController extends BaseController {
 		Konto kontoOd = kontoService.find(search.getKontoOd().getId());
 		Konto kontoDo = kontoService.find(search.getKontoDo().getId());
 		List<StavkaNalogaDTO> result = null;
-		if (search.getKomitent() != null) {
+		if (search.getKomitent() != null && search.getKomitent().getId() != null) {
 			Komitent komitent = komitentService.find(search.getKomitent().getId());
 			result = stavkaNalogaService.sintetika(kontoOd.getSifra(), kontoDo.getSifra() + "99", search.getDatumOd(), search.getDatumDo(), getUser().getPreduzece(), komitent);
 		} else {
