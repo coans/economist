@@ -17,18 +17,18 @@
 						<ul class="dropdown-menu">
 							<li><a href="api/sintetika">Sintetika</a></li>
 							<li><a href="api/analitika">Analitika</a></li>
-							<li><a href="analitika-konta-komitenti">Analitika konto komitent</a></li>
+							<!-- <li><a href="analitika-konta-komitenti">Analitika konto komitent</a></li>
 							<li><a href="bilans">Bilans</a></li>
 							<li><a href="kif-kuf/kif">KIF</a></li>
-							<li><a href="kif-kuf/kuf">KUF</a></li>
+							<li><a href="kif-kuf/kuf">KUF</a></li> -->
 						</ul>
 					</li>					
 					<li>
 						<a class="dropdown-toggle"	data-toggle="dropdown" href="#sifarnici">&#352;ifarnici<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="kontos">Kontni plan</a></li>
-							<li><a href="vrstadokumentas">Vrsta dokumenta</a></li>
-							<li><a href="komitents">Komitent</a></li>
+							<li><a href="api/kontos">Kontni plan</a></li>
+							<li><a href="api/vrstadokumentas">Vrsta dokumenta</a></li>
+							<li><a href="api/komitents">Komitent</a></li>
 						</ul>	
 					</li>						
 				</sec:authorize>	
@@ -38,9 +38,9 @@
 					<li>
 						<a class="dropdown-toggle"	data-toggle="dropdown" href="#administration">Administracija<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="agencijas">Agencije</a></li>
-							<li><a href="preduzeces">Preduzeca</a></li>
-							<li><a href="users">Korisnici</a></li>
+							<li><a href="admin/agencijas">Agencije</a></li>
+							<li><a href="admin/preduzeces">Preduzeca</a></li>
+							<li><a href="admin/users">Korisnici</a></li>
 						</ul>
 					</li>
 				</sec:authorize>
