@@ -14,21 +14,21 @@
 				<form:hidden path="id" />
 				<form:hidden path="sifra" />
 				<div class="form-group">
-					<form:label path="naziv" class="required">Naziv</form:label>
+					<form:label path="naziv" class="required"><spring:message code="naziv"/></form:label>
 					<form:input path="naziv" type="text" class="form-control" />
 					<div class="has-error">
 						<form:errors path="naziv" cssClass="help-block" element="label"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<form:label path="prikaziukif" style="padding-right: 20px;">Prika&#382;i u KIF</form:label>
+					<form:label path="prikaziukif" style="padding-right: 20px;"><spring:message code="prikazi.u.kif"/></form:label>
 					<form:checkbox path="prikaziukif"/>
 					<div class="has-error">
 						<form:errors path="prikaziukif" cssClass="help-block" element="label"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<form:label path="prikaziukuf" style="padding-right: 20px;">Prika&#382;i u KUF</form:label>
+					<form:label path="prikaziukuf" style="padding-right: 20px;"><spring:message code="prikazi.u.kuf"/></form:label>
 					<form:checkbox path="prikaziukuf"/>
 					<div class="has-error">
 						<form:errors path="prikaziukuf" cssClass="help-block" element="label"/>
@@ -36,7 +36,7 @@
 				</div>								
 				<p>&nbsp;</p>					
 				<button type="submit" class="btn btn btn-success"><spring:message code="button.save"/></button>
-				<a class="btn btn-primary" href="nalogs"><spring:message code="button.cancel"/></a>
+				<a class="btn btn-primary" href="api/nalogs"><spring:message code="button.cancel"/></a>
 			</form:form>
 			<span class="form-group"><label class="required"><font size="2"><spring:message code="page.required.fields"/></font></label></span>
 		</div>

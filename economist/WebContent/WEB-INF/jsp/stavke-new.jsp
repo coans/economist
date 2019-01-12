@@ -9,50 +9,43 @@
 			<form:form modelAttribute="stavka" method="POST" action="${action}">
 				<form:hidden path="id" />
 				<form:hidden path="nalog.id" />
-<%-- 				<div class="form-group">
-					<form:label path="broj" class="required">Broj</form:label>
-					<form:input path="broj" type="text" class="form-control" readonly="${disabled}"/>
-					<div class="has-error">
-						<form:errors path="broj" cssClass="help-block" element="label"/>
-					</div>
-				</div> --%>
 				<div class="form-group">
-					<form:label path="datum" class="required">Datum</form:label>
+					<form:label path="datum" class="required"><spring:message code="datum"/></form:label>
 					<form:input path="datum" type="text" class="form-control datepicker" id="datum"/>
 					<div class="has-error">
 						<form:errors path="datum" cssClass="help-block" element="label"/>
 					</div>
 				</div>				
 				<div class="form-group">
-					<form:label path="konto" class="required">Konto</form:label>
+					<form:label path="konto" class="required"><spring:message code="konto"/></form:label>
 					<form:select path="konto" class="form-control" id="konto" items="${konta}" itemLabel="sifraNaziv" itemValue="id"/>
 					<div class="has-error">
 						<form:errors path="konto" cssClass="help-block" element="label"/>
 					</div>
 				</div>				
 				<div class="form-group">
-					<form:label path="opis" class="required">Opis</form:label>
+					<form:label path="opis" class="required"><spring:message code="opis"/></form:label>
 					<form:textarea path="opis" class="form-control" />
 					<div class="has-error">
 						<form:errors path="opis" cssClass="help-block" element="label"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<form:label path="komitent">Komitent</form:label>
+					<form:label path="komitent"><spring:message code="komitent"/></form:label>
 					<form:select path="komitent" class="form-control" id="komitent" items="${komitents}" itemLabel="naziv" itemValue="id"/>
 					<div class="has-error">
 						<form:errors path="komitent" cssClass="help-block" element="label"/>
 					</div>
 				</div>				
 				<div class="form-group">
-					<form:label path="duguje" class="required">Duguje</form:label>
+					<form:label path="duguje" class="required"><spring:message code="duguje"/></form:label>
 					<form:input path="duguje" type="text" class="form-control" />
 					<div class="has-error">
 						<form:errors path="duguje" cssClass="help-block" element="label"/>
 					</div>
 				</div>					
 				<div class="form-group">
-					<form:label path="potrazuje" class="required">Potrazuje</form:label>
+					<form:label path="potrazuje" class="required"><spring:message code="potrazuje"/></form:label>
 					<form:input path="potrazuje" type="text" class="form-control" />
 					<div class="has-error">
 						<form:errors path="potrazuje" cssClass="help-block" element="label"/>

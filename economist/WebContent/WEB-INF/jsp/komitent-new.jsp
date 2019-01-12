@@ -13,56 +13,56 @@
 			<form:form modelAttribute="komitent" method="POST" action="${action}">
 				<form:hidden path="id" />
 				<div class="form-group">
-					<form:label path="naziv" class="required">Naziv</form:label>
+					<form:label path="naziv" class="required"><spring:message code="naziv"/></form:label>
 					<form:input path="naziv" type="text" class="form-control" />
 					<div class="has-error">
 						<form:errors path="naziv" cssClass="help-block" element="label"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<form:label path="mesto" class="required">Mjesto</form:label>
+					<form:label path="mesto" class="required"><spring:message code="mjesto"/></form:label>
 					<form:input path="mesto" type="text" class="form-control" />
 					<div class="has-error">
 						<form:errors path="mesto" cssClass="help-block" element="label"/>
 					</div>
 				</div>				
 				<div class="form-group">
-					<form:label path="adresa" class="required">Adresa</form:label>
+					<form:label path="adresa" class="required"><spring:message code="adresa"/></form:label>
 					<form:input path="adresa" type="text" class="form-control" />
 					<div class="has-error">
 						<form:errors path="adresa" cssClass="help-block" element="label"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<form:label path="usistemupdv" style="padding-right: 20px;">U sistemu PDV-a</form:label>
+					<form:label path="usistemupdv" style="padding-right: 20px;"><spring:message code="u.sistemu.pdv"/></form:label>
 					<form:checkbox path="usistemupdv"/>
 					<div class="has-error">
 						<form:errors path="usistemupdv" cssClass="help-block" element="label"/>
 					</div>
 				</div>
 				<div class="form-group">
-						<form:label path="lokacija" class="required">Lokacija</form:label>
+						<form:label path="lokacija" class="required"><spring:message code="lokacija"/></form:label>
 						<form:select path="lokacija" class="form-control" items="${lokacije}"/>
 						<div class="has-error">
 							<form:errors path="lokacija" cssClass="help-block" element="label"/>
 						</div>
 					</div>
 				<div class="form-group">
-					<form:label path="ziroracun">&#381;iro-ra&#269;un</form:label>
+					<form:label path="ziroracun"><spring:message code="ziroracun"/></form:label>
 					<form:input path="ziroracun" type="text" class="form-control" />
 					<div class="has-error">
 						<form:errors path="ziroracun" cssClass="help-block" element="label"/>
 					</div>
 				</div>				
 				<div class="form-group">
-					<form:label path="telefon">Telefon</form:label>
+					<form:label path="telefon"><spring:message code="telefon"/></form:label>
 					<form:input path="telefon" type="text" class="form-control" />
 					<div class="has-error">
 						<form:errors path="telefon" cssClass="help-block" element="label"/>
 					</div>
 				</div>				
 				<div class="form-group">
-					<form:label path="napomena">Napomena</form:label>
+					<form:label path="napomena"><spring:message code="napomena"/></form:label>
 					<form:textarea path="napomena" type="text" class="form-control" />
 					<div class="has-error">
 						<form:errors path="napomena" cssClass="help-block" element="label"/>
@@ -70,7 +70,7 @@
 				</div>								
 				<p>&nbsp;</p>					
 				<button type="submit" class="btn btn btn-success"><spring:message code="button.save"/></button>
-				<a class="btn btn-primary" href="komitents"><spring:message code="button.cancel"/></a>
+				<a class="btn btn-primary" href="api/komitents"><spring:message code="button.cancel"/></a>
 			</form:form>
 			<span class="form-group"><label class="required"><font size="2"><spring:message code="page.required.fields"/></font></label></span>
 		</div>

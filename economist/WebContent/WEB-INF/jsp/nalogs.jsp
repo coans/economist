@@ -5,8 +5,8 @@
 
 <div class="container">
 	<h3 align="center" style="padding-bottom: 0px;">${user.preduzece.naziv}</h3>
-	<h4 align="center"><b>Pregled svih naloga</b></h4>
-	<p><a href="api/nalogs/new" class="btn btn-info">Novi nalog</a></p>
+	<h4 align="center"><b><spring:message code="pregled.svih.naloga"/></b></h4>
+	<p><a href="api/nalogs/new" class="btn btn-info"><spring:message code="novi.nalog"/></a></p>
 <%-- 	<label>Filter by category</label>
 	<select id="category" onchange="filterFoodByCategory()">
 	    <c:forEach items="${categories}" var="category">
@@ -17,16 +17,16 @@
 		<thead>
 			<tr>
 				<th class="text-center" scope="col">#</th>
-				<th class="text-center" scope="col">Broj</th>
-				<th class="text-center" scope="col">Datum kreiranja</th>
-				<th class="text-center" scope="col">Datum modifikovanja</th>
-				<th class="text-center" scope="col">Opis</th>
-				<th class="text-center" scope="col">Napomena</th>
-				<th class="text-center" scope="col">Status</th>
-				<th class="text-center" scope="col">Duguje</th>
-				<th class="text-center" scope="col">Potra&#382;uje</th>
-				<th class="text-center" scope="col">Saldo</th>
-				<th class="text-center" scope="col">Akcija</th>
+				<th class="text-center" scope="col"><spring:message code="broj"/></th>
+				<th class="text-center" scope="col"><spring:message code="datum.kreiranja"/></th>
+				<th class="text-center" scope="col"><spring:message code="datum.modifikovanja"/></th>
+				<th class="text-center" scope="col"><spring:message code="opis"/></th>
+				<th class="text-center" scope="col"><spring:message code="napomena"/></th>
+				<th class="text-center" scope="col"><spring:message code="status"/></th>
+				<th class="text-center" scope="col"><spring:message code="duguje"/></th>
+				<th class="text-center" scope="col"><spring:message code="potrazuje"/></th>
+				<th class="text-center" scope="col"><spring:message code="saldo"/></th>
+				<th class="text-center" scope="col"><spring:message code="akcije"/></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -34,7 +34,7 @@
 				<tr>
 					<td align="center">${loop.count}</td>
 					<c:if test="${not nalog.zakljucan}">
-						<td align="center"><a href="api/stavkes/details/${nalog.id}" title="Detalji">${nalog.broj}</a></td>
+						<td align="center"><a href="api/stavkes/details/${nalog.id}" title="<spring:message code='detalji'/>">${nalog.broj}</a></td>
 					</c:if>
 					<c:if test="${nalog.zakljucan}">
 						<td align="center">${nalog.broj}</td>
@@ -43,21 +43,21 @@
 					<td align="center"><fmt:formatDate pattern = "${datumPattern}" value = "${nalog.modified}" /></td>
 					<td align="center">${nalog.opis}</td>
 					<td align="center">${nalog.napomena}</td>
-					<c:if test="${nalog.zakljucan}"><td align="center">Zaklju&#269;an</td></c:if>
-					<c:if test="${not nalog.zakljucan}"><td align="center">Aktivan</td></c:if>
+					<c:if test="${nalog.zakljucan}"><td align="center"><spring:message code="zakljucan"/></td></c:if>
+					<c:if test="${not nalog.zakljucan}"><td align="center"><spring:message code="aktivan"/></td></c:if>
 					<td align="right">${nalog.duguje}</td>
 					<td align="right">${nalog.potrazuje}</td>
 					<td align="right">${nalog.saldo}</td>
 					<td align="center">
 						<c:if test="${not nalog.zakljucan}">
-							<a href="api/stavkes/new/${nalog.id}" title="Dodaj stavku"><i class="glyphicon glyphicon-plus"></i></a>
+							<a href="api/stavkes/new/${nalog.id}" title="<spring:message code='dodaj.stavku'/>"><i class="glyphicon glyphicon-plus"></i></a>
 							 &nbsp;
 							<%-- <a href="#" data-href="api/nalogs/zakljucaj/${nalog.id}" data-toggle="modal" data-target="#confirmDeleteId" title="Delete"><i class="glyphicon glyphicon-remove"></i></a> --%>
-							<a href="api/nalogs/zakljucaj/${nalog.id}" title="Zaklju&#269;aj nalog"><i class="glyphicon glyphicon-ban-circle"></i></a>
+							<a href="api/nalogs/zakljucaj/${nalog.id}" title="<spring:message code='zakljucaj.nalog'/>"><i class="glyphicon glyphicon-ban-circle"></i></a>
 						</c:if>
 						<c:if test="${nalog.zakljucan}">	
 							&nbsp;
-							<a href="api/nalogs/otkljucaj/${nalog.id}" title="Otklju&#269;aj nalog"><i class="glyphicon glyphicon-ok"></i></a>
+							<a href="api/nalogs/otkljucaj/${nalog.id}" title="<spring:message code='otkljucaj.nalog'/>"><i class="glyphicon glyphicon-ok"></i></a>
 						</c:if>
 					</td>
 				</tr>
@@ -65,7 +65,7 @@
 			<tr><td colspan="11">&nbsp;</td></tr>
 			<tr>
 				<td class="active" colspan="6">&nbsp;</td>
-				<td class="active" align="center"><b>Ukupno:</b></td>
+				<td class="active" align="center"><b><spring:message code="ukupno"/></b></td>
 				<td class="danger" align="right"><b>${duguje}</b></td>
 				<td class="success" align="right"><b>${potrazuje}</b></td>
 				<td class="info" align="right"><b>${saldo}</b></td>

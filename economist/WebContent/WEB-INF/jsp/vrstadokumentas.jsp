@@ -4,67 +4,43 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="container">
-	<h3 align="center"> Lista vrsta dokumenata</h3>
-	<p><a href="vrstadokumentas/new" class="btn btn-info">Nova vrsta dokumenta</a></p>
+	<h3 align="center"><spring:message code="lista.vrsta.dokumenata"/></h3>
+	<p><a href="api/vrstadokumentas/new" class="btn btn-info"><spring:message code="nova.vrsta.dokumenta"/></a>&nbsp;<a href="api/nalogs" class="btn btn-primary"><spring:message code="povratak"/></a></p>
 	<table class="${tableClass}">
 		<thead>
 			<tr>
-				<!-- <th class="text-center" scope="col">#</th> -->
-				<th class="text-center" scope="col">&#352;ifra</th>
-				<th class="text-center" scope="col">Naziv</th>
-				<th class="text-center" scope="col">Prika&#382;i u KIF</th>
-				<th class="text-center" scope="col">Prika&#382;i u KUF</th>
-				<!-- <th class="text-center" scope="col">Akcija</th> -->
+				<th class="text-center" scope="col"><spring:message code="sifra"/></th>
+				<th class="text-center" scope="col"><spring:message code="naziv"/></th>
+				<th class="text-center" scope="col"><spring:message code="prikazi.u.kif"/></th>
+				<th class="text-center" scope="col"><spring:message code="prikazi.u.kuf"/></th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach items="${vrstadokumentas}" var="vrstadokumenta" varStatus="loop">	
 				<tr>
-					<%-- <td align="center">${loop.count}</td> --%>
 					<td align="center">${vrstadokumenta.sifra}</td>
 					<td align="center">${vrstadokumenta.naziv}</td>
 					<c:if test="${vrstadokumenta.prikaziukif}">
-						<td align="center">Da</td>
+						<td align="center"><spring:message code="da"/></td>
 					</c:if>
 					<c:if test="${ not vrstadokumenta.prikaziukif}">
-						<td align="center">Ne</td>
+						<td align="center"><spring:message code="ne"/></td>
 					</c:if>
 
 					<c:if test="${vrstadokumenta.prikaziukuf}">
-						<td align="center">Da</td>
+						<td align="center"><spring:message code="da"/></td>
 					</c:if>
 					<c:if test="${ not vrstadokumenta.prikaziukuf}">
-						<td align="center">Ne</td>
+						<td align="center"><spring:message code="ne"/></td>
 					</c:if>
-															
-					<%-- <td align="center">
-						<a href="vrstadokumentas/edit/${vrstadokumenta.id}" title="Izmijeni"><i class="glyphicon glyphicon-pencil"></i></a>
-						&nbsp;
-						<a href="#" data-href="vrstadokumentas/delete/${vrstadokumenta.id}" data-toggle="modal" data-target="#confirmDeleteId" title="Obri&#353;i"><i class="glyphicon glyphicon-remove"></i></a>
-					</td> --%>
 				</tr>
 			</c:forEach>
 		</tbody>
     </table>
 </div>
-<div class="modal fade" id="confirmDeleteId" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header" align="center"><b>Potvrda brisanja</b></div>
-            <div class="modal-body" align="center">Da li ste sigurni da &#382;elite obrisati ovaj red?</div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Odustani</button>
-                <a class="btn btn-danger btn-ok">Obri&#353;i</a>
-            </div>
-        </div>
-    </div>
-</div>
 <script type="text/javascript">
 	$(document).ready(function() {
 		setActiveHeader("#sifarnici");
 		setActiveHeader("vrstadokumentas");
-	});
-	$('#confirmDeleteId').on('show.bs.modal', function(e) {
-	    $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
 	});
 </script>

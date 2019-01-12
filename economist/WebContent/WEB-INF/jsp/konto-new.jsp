@@ -13,21 +13,21 @@
 			<form:form modelAttribute="konto" method="POST" action="${action}">
 				<form:hidden path="id" />
 				<div class="form-group">
-					<form:label path="sifra" class="required">Sifra</form:label>
+					<form:label path="sifra" class="required"><spring:message code="sifra"/></form:label>
 					<form:input path="sifra" type="text" class="form-control" />
 					<div class="has-error">
 						<form:errors path="sifra" cssClass="help-block" element="label"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<form:label path="naziv" class="required">Naziv</form:label>
+					<form:label path="naziv" class="required"><spring:message code="naziv"/></form:label>
 					<form:input path="naziv" type="text" class="form-control" />
 					<div class="has-error">
 						<form:errors path="naziv" cssClass="help-block" element="label"/>
 					</div>
 				</div>				
 				<div class="form-group">
-					<form:label path="napomena">Napomena</form:label>
+					<form:label path="napomena"><spring:message code="napomena"/></form:label>
 					<form:textarea path="napomena" class="form-control" />
 					<div class="has-error">
 						<form:errors path="napomena" cssClass="help-block" element="label"/>
@@ -35,7 +35,7 @@
 				</div>
 				<p>&nbsp;</p>					
 				<button type="submit" class="btn btn btn-success"><spring:message code="button.save"/></button>
-				<a class="btn btn-primary" href="kontos"><spring:message code="button.cancel"/></a>
+				<a class="btn btn-primary" href="api/kontos"><spring:message code="button.cancel"/></a>
 			</form:form>
 			<span class="form-group"><label class="required"><font size="2"><spring:message code="page.required.fields"/></font></label></span>
 		</div>

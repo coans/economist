@@ -6,10 +6,10 @@
 <div class="container">
 	<form:form modelAttribute="search" method="POST" action="${action}">
 		<div class="row">
-			<h3 align="center">Sintetika od konta do konta</h3>
+			<h3 align="center"><spring:message code="sintetika.header"/></h3>
 				<div class="col-xs-3">
 					<div class="form-group">
-						<form:label path="kontoOd.id">Konto od</form:label>
+						<form:label path="kontoOd.id"><spring:message code="konto.od"/></form:label>
 						<form:select path="kontoOd.id" class="form-control" items="${kontos}" itemLabel="sifraNaziv" itemValue="id"/>
 						<div class="has-error">
 							<form:errors path="kontoOd.id" cssClass="help-block" element="label"/>
@@ -18,7 +18,7 @@
 				</div>
 				<div class="col-xs-3">
 					<div class="form-group">
-						<form:label path="kontoDo.id">Konto do</form:label>
+						<form:label path="kontoDo.id"><spring:message code="konto.do"/></form:label>
 						<form:select path="kontoDo.id" class="form-control" items="${kontos}" itemLabel="sifraNaziv" itemValue="id"/>
 						<div class="has-error">
 							<form:errors path="kontoDo.id" cssClass="help-block" element="label"/>
@@ -27,7 +27,7 @@
 				</div>
 				<div class="col-xs-3">
 					<div class="form-group">
-						<form:label path="datumOd" class="required">Datum od</form:label>
+						<form:label path="datumOd" class="required"><spring:message code="datum.od"/></form:label>
 						<form:input path="datumOd" type="text" class="form-control datepicker"/>
 						<div class="has-error">
 							<form:errors path="datumOd" cssClass="help-block" element="label"/>
@@ -36,7 +36,7 @@
 				</div>
 				<div class="col-xs-3">
 					<div class="form-group">
-						<form:label path="datumDo" class="required">Datum do</form:label>
+						<form:label path="datumDo" class="required"><spring:message code="datum.do"/></form:label>
 						<form:input path="datumDo" type="text" class="form-control datepicker"/>
 						<div class="has-error">
 							<form:errors path="datumDo" cssClass="help-block" element="label"/>
@@ -45,7 +45,7 @@
 				</div>	
 				<div class="col-xs-3">
 					<div class="form-group">
-						<form:label path="komitent.id">Komitent</form:label>
+						<form:label path="komitent.id"><spring:message code="komitent"/></form:label>
 						<form:select path="komitent.id" class="form-control" items="${komitents}" itemLabel="naziv" itemValue="id"/>
 						<div class="has-error">
 							<form:errors path="komitent.id" cssClass="help-block" element="label"/>
@@ -54,7 +54,7 @@
 				</div>							
 			</div>		
 			<div class="row" align="right">
-				<button type="submit" class="btn btn btn-success">Pretraga</button>
+				<button type="submit" class="btn btn btn-success"><spring:message code="pretraga"/></button>
 				<a class="btn btn-primary" href="api/nalogs"><spring:message code="button.cancel"/></a>
 			</div>
 		</form:form>
@@ -63,14 +63,14 @@
 		<thead>
 			<tr>
 				<th class="text-center" scope="col">#</th>
-				<th class="text-center" scope="col">Broj</th>
-				<th class="text-center" scope="col">Datum</th>
-				<th class="text-center" scope="col">Opis</th>
-				<th class="text-center" scope="col">Konto</th>
-				<th class="text-center" scope="col">Komitent</th>
-				<th class="text-center" scope="col">Duguje</th>
-				<th class="text-center" scope="col">Potrazuje</th>
-				<th class="text-center" scope="col">Saldo</th>
+				<th class="text-center" scope="col"><spring:message code="broj"/></th>
+				<th class="text-center" scope="col"><spring:message code="datum"/></th>
+				<th class="text-center" scope="col"><spring:message code="opis"/></th>
+				<th class="text-center" scope="col"><spring:message code="konto"/></th>
+				<th class="text-center" scope="col"><spring:message code="komitent"/></th>
+				<th class="text-center" scope="col"><spring:message code="duguje"/></th>
+				<th class="text-center" scope="col"><spring:message code="potrazuje"/></th>
+				<th class="text-center" scope="col"><spring:message code="saldo"/></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -90,7 +90,7 @@
 			<tr><td colspan="9">&nbsp;</td></tr>
 			<tr>
 				<td colspan="5" class="active">&nbsp;</td>
-				<td class="active" align="center"><b>Ukupno:</b></td>
+				<td class="active" align="center"><b><spring:message code="ukupno"/></b></td>
 				<td class="danger" align="right"><b>${duguje}</b></td>
 				<td class="success" align="right"><b>${potrazuje}</b></td>
 				<td class="info" align="right"><b>${saldo}</b></td>
