@@ -27,7 +27,7 @@ public class VrstaDokumenta implements Serializable {
 	private int id;
 	@CreationTimestamp
 	private Date created;
-	private int sifra;
+	private Integer sifra;
 	private String naziv;
 	private boolean prikaziukif;
 	private boolean prikaziukuf;
@@ -43,11 +43,11 @@ public class VrstaDokumenta implements Serializable {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public int getSifra() {
+	public Integer getSifra() {
 		return sifra;
 	}
 

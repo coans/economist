@@ -30,7 +30,7 @@ public class KontoController extends BaseController {
 
 	final static Logger logger = Logger.getLogger(KontoController.class);
 	
-	public static final String CONTROLLER = "kontos";
+	public static final String CONTROLLER = "api/kontos";
 	public static final String VIEW_DEFAULT = "kontos";
 	private static final String VIEW_NEW = "konto-new";
 	

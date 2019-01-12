@@ -11,7 +11,7 @@ public class VrstaDokumentaDTO implements Serializable {
 
 	private Integer id;
 	private Date created;
-	private int sifra;
+	private Integer sifra;
 	private String naziv;
 	private boolean prikaziukif;
 	private boolean prikaziukuf;
@@ -21,7 +21,7 @@ public class VrstaDokumentaDTO implements Serializable {
 		super();
 	}
 	
-	public VrstaDokumentaDTO(Integer id, Date created, int sifra, String naziv,
+	public VrstaDokumentaDTO(Integer id, Date created, Integer sifra, String naziv,
 			boolean prikaziukif, boolean prikaziukuf, Integer agencijaId) {
 		super();
 		this.id = id;
@@ -61,11 +61,11 @@ public class VrstaDokumentaDTO implements Serializable {
 		this.created = created;
 	}
 
-	public int getSifra() {
+	public Integer getSifra() {
 		return sifra;
 	}
 
-	public void setSifra(int sifra) {
+	public void setSifra(Integer sifra) {
 		this.sifra = sifra;
 	}
 

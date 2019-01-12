@@ -18,8 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.economist.config.BaseController;
 import com.economist.db.entity.VrstaDokumenta;
-import com.economist.db.repository.UserRepository;
 import com.economist.db.repository.VrstaDokumentaRepository;
+import com.economist.validator.VrstaDokumentaValidator;
 
 
 @Controller
@@ -31,14 +31,14 @@ public class VrstaDokumentaController extends BaseController {
 
 	final static Logger logger = Logger.getLogger(VrstaDokumentaController.class);
 	
-	public static final String CONTROLLER = "vrstadokumentas";
+	public static final String CONTROLLER = "api/vrstadokumentas";
 	public static final String VIEW_DEFAULT = "vrstadokumentas";
 	private static final String VIEW_NEW = "vrstadokumenta-new";
 	
 	@Autowired
-	private UserRepository userRepository;
-	@Autowired
 	private VrstaDokumentaRepository vrstaDokumentaRepository;
+	@Autowired
+	private VrstaDokumentaValidator validator;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String defaultView(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale) {
@@ -66,8 +66,7 @@ public class VrstaDokumentaController extends BaseController {
 			final RedirectAttributes redirectAttributes) {
 
 		vrstaDokumenta.setAgencija(getUser().getAgencija());
-		
-//TODO		validator.validate(food, errors);
+		validator.validate(vrstaDokumenta, errors);
 		if (errors.hasErrors()) {
 			model.addAttribute("vrstadokumenta", vrstaDokumenta);
 			model.addAttribute("action", CONTROLLER + "/create");
@@ -93,10 +92,9 @@ public class VrstaDokumentaController extends BaseController {
 	
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public String update(@ModelAttribute("vrstadokumenta") VrstaDokumenta vrstaDokumenta, Errors errors, ModelMap model) {
-
-		vrstaDokumenta.setAgencija(getUser().getAgencija());		
-//TODO		validator.validate(food, errors);
 		
+		vrstaDokumenta.setAgencija(getUser().getAgencija());		
+		validator.validate(vrstaDokumenta, errors);
 		if (errors.hasErrors()) {
 			model.addAttribute("vrstadokumenta", vrstaDokumenta);
 			model.addAttribute("action", CONTROLLER + "/update");

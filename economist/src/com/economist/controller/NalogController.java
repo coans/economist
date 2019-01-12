@@ -38,8 +38,6 @@ public class NalogController extends BaseController {
 	final static Logger logger = Logger.getLogger(NalogController.class);
 	
 	private static final String ACTION_CREATE = "create";
-	private static final String DODAJ_NOVI_NALOG_TITLE = "Dodaj novi nalog";
-	
 	public static final String CONTROLLER = "api/nalogs";
 	public static final String VIEW_DEFAULT = "nalogs";
 	private static final String VIEW_NEW = "nalog-new";
@@ -65,15 +63,14 @@ public class NalogController extends BaseController {
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public String add(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale) {
 		NalogDTO nalog = new NalogDTO();
-		setNalogModel(model, nalog, ACTION_CREATE, DODAJ_NOVI_NALOG_TITLE, false);
+		setNalogModel(model, nalog, ACTION_CREATE, false);
 		
 		return VIEW_NEW;
 	}
 
-	private void setNalogModel(final ModelMap model, final NalogDTO nalog, final String action, final String title, final boolean disabled) {
+	private void setNalogModel(final ModelMap model, final NalogDTO nalog, final String action, final boolean disabled) {
 		model.addAttribute("nalog", nalog);
 		model.addAttribute("action", CONTROLLER + "/" + action);
-		model.addAttribute("title", title);
 		model.addAttribute("vrstadokumentas", vrstaDokumentaService.findByAgencija(getUser().getAgencija()));
 	}
 	
@@ -87,7 +84,7 @@ public class NalogController extends BaseController {
 		
 		validator.validate(nalog, errors);
 		if (errors.hasErrors()) {
-			setNalogModel(model, nalog, ACTION_CREATE, DODAJ_NOVI_NALOG_TITLE, false);
+			setNalogModel(model, nalog, ACTION_CREATE, false);
 			return VIEW_NEW;
 		}
 		

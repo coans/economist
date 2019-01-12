@@ -32,6 +32,9 @@ public class NalogValidator implements Validator {
 		if (nalog.getModified() == null) {
 			errors.rejectValue("broj", "error.nalog.datum.modifikovanja.empty");
 		}
+		if (nalog.getNapomena().length() > 50) {
+			errors.rejectValue("napomena", "error.nalog.napomena.length");
+		}
 	}
 
 }

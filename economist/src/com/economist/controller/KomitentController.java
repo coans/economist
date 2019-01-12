@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.Errors;
@@ -17,28 +18,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.economist.config.BaseController;
-import com.economist.db.repository.UserRepository;
 import com.economist.dto.KomitentDTO;
 import com.economist.service.KomitentService;
+import com.economist.validator.KomitentValidator;
 
 
 @Controller
 @RequestMapping(KomitentController.CONTROLLER)
 public class KomitentController extends BaseController {
 	
-	private static final String TITLE = "Dodaj novog komitenta";
-	private static final String TITLE_EDIT = "Izmijeni komitenta";
-
 	final static Logger logger = Logger.getLogger(KomitentController.class);
 	
-	public static final String CONTROLLER = "komitents";
+	public static final String CONTROLLER = "api/komitents";
 	public static final String VIEW_DEFAULT = "komitents";
 	private static final String VIEW_NEW = "komitent-new";
 	
 	@Autowired
-	private UserRepository userRepository;
-	@Autowired
 	private KomitentService komitentService;
+	@Autowired
+	private KomitentValidator validator;
+	@Autowired
+	private MessageSource messageSource;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String defaultView(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale) {
@@ -53,22 +53,21 @@ public class KomitentController extends BaseController {
 		
 		model.addAttribute("komitent", komitentDTO);
 		model.addAttribute("action", CONTROLLER + "/create");
-		model.addAttribute("title", TITLE);
+		model.addAttribute("title", messageSource.getMessage("dodaj.novog.komitenta", null, request.getLocale()));
 		
 		return VIEW_NEW;
 	}
 	
 	@RequestMapping(value = "create", method = RequestMethod.POST)
-	public String create(@ModelAttribute("komitent") KomitentDTO komitentDTO, Errors errors, ModelMap model,
+	public String create(@ModelAttribute("komitent") KomitentDTO komitentDTO, HttpServletRequest request, Errors errors, ModelMap model,
 			final RedirectAttributes redirectAttributes) {
 
 		komitentDTO.setAgencijaId(getUser().getAgencija().getId());
-		
-//TODO		validator.validate(food, errors);
+		validator.validate(komitentDTO, errors);
 		if (errors.hasErrors()) {
 			model.addAttribute("komitent", komitentDTO);
 			model.addAttribute("action", CONTROLLER + "/create");
-			model.addAttribute("title", TITLE);
+			model.addAttribute("title", messageSource.getMessage("dodaj.novog.komitenta", null, request.getLocale()));
 			return VIEW_NEW;
 		}
 		
@@ -78,26 +77,25 @@ public class KomitentController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-	public String edit(@PathVariable(value = "id") Integer id, ModelMap model) {
+	public String edit(@PathVariable(value = "id") Integer id, HttpServletRequest request, ModelMap model) {
 		KomitentDTO komitentDTO = komitentService.findOne(id);
 		
 		model.addAttribute("komitent", komitentDTO);
 		model.addAttribute("action", CONTROLLER + "/update");
-		model.addAttribute("title", TITLE_EDIT);
+		model.addAttribute("title", messageSource.getMessage("izmijeni.komitenta", null, request.getLocale()));
 		
 		return VIEW_NEW;
 	}
 	
 	@RequestMapping(value = "update", method = RequestMethod.POST)
-	public String update(@ModelAttribute("komitent") KomitentDTO komitentDTO, Errors errors, ModelMap model) {
+	public String update(@ModelAttribute("komitent") KomitentDTO komitentDTO, HttpServletRequest request, Errors errors, ModelMap model) {
 
 		komitentDTO.setAgencijaId(getUser().getAgencija().getId());		
-//TODO		validator.validate(food, errors);
-		
+		validator.validate(komitentDTO, errors);
 		if (errors.hasErrors()) {
 			model.addAttribute("komitent", komitentDTO);
 			model.addAttribute("action", CONTROLLER + "/update");
-			model.addAttribute("title", TITLE_EDIT);
+			model.addAttribute("title", messageSource.getMessage("izmijeni.komitenta", null, request.getLocale()));
 			return VIEW_NEW;
 		}
 		
