@@ -37,7 +37,7 @@
 			</div>		
 			<div class="row" align="right">
 				<button type="submit" class="btn btn btn-success"><spring:message code="pretraga"/></button>
-				<a class="btn btn-primary" href="nalogs"><spring:message code="povratak"/></a>
+				<a class="btn btn-primary" href="api/nalogs"><spring:message code="povratak"/></a>
 			</div>
 		</form:form>
 	<p>&nbsp;</p>					

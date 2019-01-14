@@ -34,7 +34,7 @@
 					<td align="center">${komitent.ziroracun}</td>
 					<td align="center">${komitent.telefon}</td>
 					<td align="center">${komitent.napomena}</td>
-					<td align="center"><a href="komitents/edit/${komitent.id}" title="<spring:message code='izmijeni'/>"><i class="glyphicon glyphicon-pencil"></i></a>
+					<td align="center"><a href="api/komitents/edit/${komitent.id}" title="<spring:message code='izmijeni'/>"><i class="glyphicon glyphicon-pencil"></i></a>
 					</td>
 				</tr>
 			</c:forEach>
