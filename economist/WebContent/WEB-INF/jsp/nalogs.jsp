@@ -18,8 +18,8 @@
 			<tr>
 				<th class="text-center" scope="col">#</th>
 				<th class="text-center" scope="col"><spring:message code="broj"/></th>
-				<th class="text-center" scope="col"><spring:message code="datum.kreiranja"/></th>
-				<th class="text-center" scope="col"><spring:message code="datum.modifikovanja"/></th>
+				<th class="text-center" scope="col"><spring:message code="nalog.datum"/></th>
+				<th class="text-center" scope="col"><spring:message code="vrsta.dokumenta"/></th>
 				<th class="text-center" scope="col"><spring:message code="opis"/></th>
 				<th class="text-center" scope="col"><spring:message code="napomena"/></th>
 				<th class="text-center" scope="col"><spring:message code="status"/></th>
@@ -41,8 +41,8 @@
 					<c:if test="${nalog.zakljucan}">
 						<td align="center">${nalog.broj}</td>
 					</c:if>
-					<td align="center"><fmt:formatDate pattern = "${datumPattern}" value = "${nalog.created}" /></td>
-					<td align="center"><fmt:formatDate pattern = "${datumPattern}" value = "${nalog.modified}" /></td>
+					<td align="center"><fmt:formatDate pattern = "${datumPattern}" value = "${nalog.created}" /> / <fmt:formatDate pattern = "${datumPattern}" value = "${nalog.modified}" /></td>
+					<td align="center">${nalog.vrstaDokumenta.naziv}</td>
 					<td align="center">${nalog.opis}</td>
 					<td align="center">${nalog.napomena}</td>
 					<c:if test="${nalog.zakljucan}"><td align="center"><spring:message code="zakljucan"/></td></c:if>

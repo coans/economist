@@ -2,13 +2,11 @@ package com.economist.service.impl;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.economist.db.entity.Komitent;
 import com.economist.db.entity.Nalog;
 import com.economist.db.entity.Preduzece;
 import com.economist.db.repository.NalogRepository;
@@ -73,28 +71,28 @@ public class NalogServiceImpl implements NalogService {
 		return nalogRepository.findOne(id);
 	}
 
-	@Override
-	public List<NalogDTO> analitika(Preduzece p, String sifraOd,
-			String sifraDo, Date datumOd, Date datumDo) {
-		return mapToDTO(nalogRepository.analitika(p, sifraOd, sifraDo, datumOd, datumDo));
-	}
-
-	@Override
-	public List<NalogDTO> findByPreduzeceAndParent(Preduzece p, Integer parentId) {
-		return mapToDTO(nalogRepository.findByPreduzeceAndParent(p, parentId));
-	}
-
-	@Override
-	public List<NalogDTO> kif(Preduzece p, Date datumOd, Date datumDo,
-			Komitent komitent) {
-		return mapToDTO(nalogRepository.kif(p, datumOd, datumDo, komitent));
-	}
-
-	@Override
-	public List<NalogDTO> kuf(Preduzece p, Date datumOd, Date datumDo,
-			Komitent komitent) {
-		return mapToDTO(nalogRepository.kuf(p, datumOd, datumDo, komitent));
-	}
+//	@Override
+//	public List<NalogDTO> analitika(Preduzece p, String sifraOd,
+//			String sifraDo, Date datumOd, Date datumDo) {
+//		return mapToDTO(nalogRepository.analitika(p, sifraOd, sifraDo, datumOd, datumDo));
+//	}
+//
+//	@Override
+//	public List<NalogDTO> findByPreduzeceAndParent(Preduzece p, Integer parentId) {
+//		return mapToDTO(nalogRepository.findByPreduzeceAndParent(p, parentId));
+//	}
+//
+//	@Override
+//	public List<NalogDTO> kif(Preduzece p, Date datumOd, Date datumDo,
+//			Komitent komitent) {
+//		return mapToDTO(nalogRepository.kif(p, datumOd, datumDo, komitent));
+//	}
+//
+//	@Override
+//	public List<NalogDTO> kuf(Preduzece p, Date datumOd, Date datumDo,
+//			Komitent komitent) {
+//		return mapToDTO(nalogRepository.kuf(p, datumOd, datumDo, komitent));
+//	}
 	
 	private List<NalogDTO> mapToDTO(List<Nalog> nalogs) {
 		if (nalogs != null) {

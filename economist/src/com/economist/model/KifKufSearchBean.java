@@ -2,12 +2,12 @@ package com.economist.model;
 
 import java.util.Date;
 
-import com.economist.db.entity.Komitent;
+import com.economist.dto.KomitentDTO;
 
 public class KifKufSearchBean {
 	private Date datumOd;
 	private Date datumDo;
-	private Komitent komitent;
+	private KomitentDTO komitent;
 	
 	public Date getDatumOd() {
 		return datumOd;
@@ -22,10 +22,10 @@ public class KifKufSearchBean {
 		this.datumDo = datumDo;
 	}
 
-	public Komitent getKomitent() {
+	public KomitentDTO getKomitent() {
 		return komitent;
 	}
-	public void setKomitent(Komitent komitent) {
+	public void setKomitent(KomitentDTO komitent) {
 		this.komitent = komitent;
 	}
 }

@@ -55,7 +55,7 @@
 			</div>		
 			<div class="row" align="right">
 				<button type="submit" class="btn btn btn-success"><spring:message code="pretraga"/></button>
-				<a class="btn btn-primary" href="nalogs"><spring:message code="button.cancel"/></a>
+				<a class="btn btn-primary" href="nalogs"><spring:message code="povratak"/></a>
 			</div>
 		</form:form>
 	<p>&nbsp;</p>					
@@ -83,7 +83,12 @@
 					<td align="center"><fmt:formatDate pattern = "${datumPattern}" value = "${stavka.datum}" /></td>
 					<td align="center">${stavka.opis}</td>
 					<td align="center">${stavka.konto.sifra} - ${stavka.konto.naziv}</td>
-					<td align="center">${stavka.komitent.naziv}</td>
+					<c:if test="${ not empty stavka.komitent.naziv}">
+						<td align="center">${stavka.komitent.naziv}(${stavka.komitent.lokacija})</td>
+					</c:if>
+					<c:if test="${empty stavka.komitent.naziv}">
+						<td align="center">${stavka.komitent.naziv}</td>
+					</c:if>
 					<td align="right">${stavka.duguje}</td>
 					<td align="right">${stavka.pdvduguje}</td>
 					<td align="right">${stavka.potrazuje}</td>

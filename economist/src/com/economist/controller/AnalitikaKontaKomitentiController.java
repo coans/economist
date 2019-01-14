@@ -1,9 +1,6 @@
 package com.economist.controller;
 
 import java.beans.PropertyEditorSupport;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,13 +20,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.economist.config.BaseController;
 import com.economist.db.entity.Komitent;
 import com.economist.db.entity.Konto;
-import com.economist.db.entity.Preduzece;
 import com.economist.db.repository.KomitentRepository;
 import com.economist.db.repository.KontoRepository;
 import com.economist.db.repository.NalogRepository;
 import com.economist.db.repository.PreduzeceRepository;
 import com.economist.db.repository.UserRepository;
-import com.economist.model.AnalitikaKontoKomitentResultBean;
 import com.economist.model.SearchBean;
 
 
@@ -65,7 +60,7 @@ public class AnalitikaKontaKomitentiController extends BaseController {
 	@RequestMapping(value = "generate", method = RequestMethod.POST)
 	public String generate(@ModelAttribute("search") SearchBean search, Errors errors, ModelMap model) {
 		
-		model.addAttribute("search", search);
+/*		model.addAttribute("search", search);
 		model.addAttribute("action", CONTROLLER + "/generate");
 		model.addAttribute("konta", kontoRepository.findByAgencija(getUser().getAgencija()));
 		model.addAttribute("komitents", komitentRepository.findByAgencija(getUser().getAgencija()));
@@ -95,7 +90,7 @@ public class AnalitikaKontaKomitentiController extends BaseController {
 		model.addAttribute("beans", resultBean);
 		model.addAttribute("dugujeBean", duguje);
 		model.addAttribute("potrazujeBean", potrazuje);
-		model.addAttribute("saldoBean", saldo);
+		model.addAttribute("saldoBean", saldo);*/
 		
 		return VIEW_DEFAULT;
 	}

@@ -23,4 +23,8 @@ public interface StavkaNalogaService {
 	List<StavkaNalogaDTO> sintetika(String kontoOd, String kontoDo, Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent);
 	List<StavkaNalogaDTO> analitika(String kontoOd, String kontoDo, Date datumOd, Date datumDo, Preduzece preduzece);
 	List<StavkaNalogaDTO> analitika(String kontoOd, String kontoDo, Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent);
+	List<StavkaNalogaDTO> kif(Date datumOd, Date datumDo, Preduzece preduzece);
+	List<StavkaNalogaDTO> kif(Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent);
+	List<StavkaNalogaDTO> kuf(Date datumOd, Date datumDo, Preduzece preduzece);
+	List<StavkaNalogaDTO> kuf(Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent);
 }

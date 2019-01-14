@@ -39,4 +39,17 @@ public interface StavkaNalogaRepository extends JpaRepository<StavkaNaloga, Inte
 	List<StavkaNaloga> analitika(String kontoOd, String kontoDo, Date datumOd, Date datumDo, Preduzece preduzece);
 	@Query("SELECT sn FROM StavkaNaloga sn WHERE sn.konto.sifra between ? AND ? AND sn.datum between ? AND ? AND sn.nalog.preduzece = ? AND sn.komitent = ? AND length(sn.konto.sifra) = 5")
 	List<StavkaNaloga> analitika(String kontoOd, String kontoDo, Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent);
+	
+	@Query("SELECT sn FROM StavkaNaloga sn WHERE sn.datum between ? AND ? AND sn.nalog.vrstaDokumenta.prikaziukif = 1 AND sn.nalog.preduzece = ? AND sn.komitent = ? order by sn.datum asc")
+	List<StavkaNaloga> kif(Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent);
+	
+	@Query("SELECT sn FROM StavkaNaloga sn WHERE sn.datum between ? AND ? AND sn.nalog.vrstaDokumenta.prikaziukif = 1 AND sn.nalog.preduzece = ? order by sn.datum asc")
+	List<StavkaNaloga> kif(Date datumOd, Date datumDo, Preduzece preduzece);
+	
+	@Query("SELECT sn FROM StavkaNaloga sn WHERE sn.datum between ? AND ? AND sn.nalog.vrstaDokumenta.prikaziukuf = 1 AND sn.nalog.preduzece = ? order by sn.datum asc")
+	List<StavkaNaloga> kuf(Date datumOd, Date datumDo, Preduzece preduzece);
+	
+	@Query("SELECT sn FROM StavkaNaloga sn WHERE sn.datum between ? AND ? AND sn.nalog.vrstaDokumenta.prikaziukuf = 1 AND sn.nalog.preduzece = ? AND sn.komitent = ? order by sn.datum asc")
+	List<StavkaNaloga> kuf(Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent);
+	
 }

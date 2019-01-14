@@ -131,4 +131,28 @@ public class StavkaNalogaServiceImpl implements StavkaNalogaService {
 	public BigDecimal getPdvPotrazujeByNalog(Nalog nalog) {
 		return stavkaNalogaRepository.getPdvPotrazujeByNalog(nalog);
 	}
+
+	@Override
+	public List<StavkaNalogaDTO> kif(Date datumOd, Date datumDo,
+			Preduzece preduzece) {
+		return mapToDTO(stavkaNalogaRepository.kif(datumOd, datumDo, preduzece));
+	}
+
+	@Override
+	public List<StavkaNalogaDTO> kuf(Date datumOd, Date datumDo,
+			Preduzece preduzece, Komitent komitent) {
+		return mapToDTO(stavkaNalogaRepository.kuf(datumOd, datumDo, preduzece, komitent));
+	}
+
+	@Override
+	public List<StavkaNalogaDTO> kif(Date datumOd, Date datumDo,
+			Preduzece preduzece, Komitent komitent) {
+		return mapToDTO(stavkaNalogaRepository.kif(datumOd, datumDo, preduzece, komitent));
+	}
+
+	@Override
+	public List<StavkaNalogaDTO> kuf(Date datumOd, Date datumDo,
+			Preduzece preduzece) {
+		return mapToDTO(stavkaNalogaRepository.kuf(datumOd, datumDo, preduzece));
+	}
 }

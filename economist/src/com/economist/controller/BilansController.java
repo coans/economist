@@ -1,9 +1,6 @@
 package com.economist.controller;
 
 import java.beans.PropertyEditorSupport;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,13 +19,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.economist.config.BaseController;
 import com.economist.db.entity.Konto;
-import com.economist.db.entity.Preduzece;
 import com.economist.db.repository.KontoRepository;
 import com.economist.db.repository.NalogRepository;
 import com.economist.db.repository.PreduzeceRepository;
 import com.economist.db.repository.UserRepository;
 import com.economist.model.SearchBean;
-import com.economist.model.BilansResultBean;
 
 
 @Controller
@@ -61,7 +56,7 @@ public class BilansController extends BaseController {
 	@RequestMapping(value = "generate", method = RequestMethod.POST)
 	public String generate(@ModelAttribute("search") SearchBean search, Errors errors, ModelMap model) {
 		
-		model.addAttribute("search", search);
+/*		model.addAttribute("search", search);
 		model.addAttribute("action", CONTROLLER + "/generate");
 		model.addAttribute("konta", kontoRepository.findByAgencija(getUser().getAgencija()));
 		model.addAttribute("showTable", true);
@@ -90,7 +85,7 @@ public class BilansController extends BaseController {
 			model.addAttribute("dugujeKonto" + i, duguje);
 			model.addAttribute("potrazujeKonto" + i, potrazuje);
 			model.addAttribute("saldoKonto" + i, duguje.subtract(potrazuje));
-		}
+		}*/
 		
 		return VIEW_DEFAULT;
 	}
