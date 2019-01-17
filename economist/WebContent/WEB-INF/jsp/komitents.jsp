@@ -44,6 +44,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		setActiveHeader("#sifarnici");
-		setActiveHeader("komitents");
+		setActiveHeader("api/komitents");
 	});
 </script>

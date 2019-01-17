@@ -26,6 +26,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		setActiveHeader("#sifarnici");
-		setActiveHeader("kontos");
+		setActiveHeader("api/kontos");
 	});
 </script>

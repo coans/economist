@@ -41,6 +41,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		setActiveHeader("#sifarnici");
-		setActiveHeader("vrstadokumentas");
+		setActiveHeader("api/vrstadokumentas");
 	});
 </script>
