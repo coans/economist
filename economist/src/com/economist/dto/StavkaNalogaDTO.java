@@ -13,9 +13,7 @@ public class StavkaNalogaDTO  implements Serializable {
 	private Date datum;
 	private String opis;
 	private BigDecimal duguje;
-	private BigDecimal pdvduguje;
 	private BigDecimal potrazuje;
-	private BigDecimal pdvpotrazuje;
 	private BigDecimal saldo;
 	private KontoDTO konto;
 	private NalogDTO nalog;
@@ -26,16 +24,14 @@ public class StavkaNalogaDTO  implements Serializable {
 	}
 
 	public StavkaNalogaDTO(Integer id, Date datum, String opis,
-			BigDecimal duguje, BigDecimal potrazuje, BigDecimal saldo, BigDecimal pdvduguje,
-			KontoDTO konto, NalogDTO nalog, KomitentDTO komitent, BigDecimal pdvpotrazuje) {
+			BigDecimal duguje, BigDecimal potrazuje, BigDecimal saldo,
+			KontoDTO konto, NalogDTO nalog, KomitentDTO komitent) {
 		super();
 		this.id = id;
 		this.datum = datum;
 		this.opis = opis;
 		this.duguje = duguje;
-		this.pdvduguje = pdvduguje;
 		this.potrazuje = potrazuje;
-		this.pdvpotrazuje = pdvpotrazuje;
 		this.saldo = saldo;
 		this.konto = konto;
 		this.nalog = nalog;
@@ -52,10 +48,8 @@ public class StavkaNalogaDTO  implements Serializable {
 			this.potrazuje = bean.getPotrazuje();
 			this.saldo = bean.getSaldo();
 			this.konto = new KontoDTO(bean.getKonto());
-			this.nalog = new NalogDTO(bean.getNalog(), null, null, null, null, null);
+			this.nalog = new NalogDTO(bean.getNalog(), null, null, null);
 			this.komitent = new KomitentDTO(bean.getKomitent());
-			this.pdvduguje = bean.getPdvduguje();
-			this.pdvpotrazuje = bean.getPdvpotrazuje();
 		}
 	}
 
@@ -129,21 +123,5 @@ public class StavkaNalogaDTO  implements Serializable {
 
 	public void setKomitent(KomitentDTO komitent) {
 		this.komitent = komitent;
-	}
-
-	public BigDecimal getPdvduguje() {
-		return pdvduguje;
-	}
-
-	public void setPdvduguje(BigDecimal pdvduguje) {
-		this.pdvduguje = pdvduguje;
-	}
-
-	public BigDecimal getPdvpotrazuje() {
-		return pdvpotrazuje;
-	}
-
-	public void setPdvpotrazuje(BigDecimal pdvpotrazuje) {
-		this.pdvpotrazuje = pdvpotrazuje;
 	}
 }

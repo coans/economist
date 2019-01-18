@@ -32,37 +32,23 @@
 				</div>
 				<div class="form-group">
 					<form:label path="komitent.id"><spring:message code="komitent"/></form:label>
-					<form:select path="komitent.id" class="form-control" items="${komitents}" itemLabel="naziv" itemValue="id"/>
+					<form:select path="komitent.id" class="form-control" items="${komitents}" itemLabel="naziv" itemValue="id" onchange="selectKomitent(this.value)"/>
 					<div class="has-error">
 						<form:errors path="komitent.id" cssClass="help-block" element="label"/>
 					</div>
 				</div>				
 				<div class="form-group">
-					<form:label path="duguje" class="required"><spring:message code="duguje"/></form:label>
+					<form:label path="duguje" class="required" id="labelDuguje"><spring:message code="duguje"/></form:label>
 					<form:input path="duguje" type="text" class="form-control" />
 					<div class="has-error">
 						<form:errors path="duguje" cssClass="help-block" element="label"/>
 					</div>
-				</div>					
-				<div class="form-group">
-					<form:label path="pdvduguje" class="required"><spring:message code="pdv"/></form:label>
-					<form:input path="pdvduguje" type="text" class="form-control" />
-					<div class="has-error">
-						<form:errors path="pdvduguje" cssClass="help-block" element="label"/>
-					</div>
 				</div>				
 				<div class="form-group">
-					<form:label path="potrazuje" class="required"><spring:message code="potrazuje"/></form:label>
+					<form:label path="potrazuje" class="required" id="labelPotrazuje"><spring:message code="potrazuje"/></form:label>
 					<form:input path="potrazuje" type="text" class="form-control" />
 					<div class="has-error">
 						<form:errors path="potrazuje" cssClass="help-block" element="label"/>
-					</div>
-				</div>
-				<div class="form-group">
-					<form:label path="pdvpotrazuje" class="required"><spring:message code="pdv"/></form:label>
-					<form:input path="pdvpotrazuje" type="text" class="form-control" />
-					<div class="has-error">
-						<form:errors path="pdvpotrazuje" cssClass="help-block" element="label"/>
 					</div>
 				</div>				
 				<p>&nbsp;</p>					
@@ -77,4 +63,17 @@
 	$(document).ready(function() {
 		makeInputDate();
 	});
+	function selectKomitent(id) {
+		var baseUrl = "${baseurl}";
+		var url = baseUrl + "api/komitents/usistemupdv/" + id;
+		$.get(url, function(data, status){
+			if (data) {//komitent je u sistemu pdv, promijeni labele
+				$("#labelDuguje").text('<spring:message code="duguje"/> bez PDV-a');
+				$("#labelPotrazuje").text('<spring:message code="potrazuje"/> bez PDV-a');
+			} else {
+				$("#labelDuguje").text('<spring:message code="duguje"/>');
+				$("#labelPotrazuje").text('<spring:message code="potrazuje"/>');
+			}
+	  	});
+	} 
 </script>

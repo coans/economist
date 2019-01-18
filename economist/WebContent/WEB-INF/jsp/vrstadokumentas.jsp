@@ -11,8 +11,6 @@
 			<tr>
 				<th class="text-center" scope="col"><spring:message code="sifra"/></th>
 				<th class="text-center" scope="col"><spring:message code="naziv"/></th>
-				<th class="text-center" scope="col"><spring:message code="prikazi.u.kif"/></th>
-				<th class="text-center" scope="col"><spring:message code="prikazi.u.kuf"/></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -20,19 +18,6 @@
 				<tr>
 					<td align="center">${vrstadokumenta.sifra}</td>
 					<td align="center">${vrstadokumenta.naziv}</td>
-					<c:if test="${vrstadokumenta.prikaziukif}">
-						<td align="center"><spring:message code="da"/></td>
-					</c:if>
-					<c:if test="${ not vrstadokumenta.prikaziukif}">
-						<td align="center"><spring:message code="ne"/></td>
-					</c:if>
-
-					<c:if test="${vrstadokumenta.prikaziukuf}">
-						<td align="center"><spring:message code="da"/></td>
-					</c:if>
-					<c:if test="${ not vrstadokumenta.prikaziukuf}">
-						<td align="center"><spring:message code="ne"/></td>
-					</c:if>
 				</tr>
 			</c:forEach>
 		</tbody>

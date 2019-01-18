@@ -15,9 +15,7 @@ public interface StavkaNalogaService {
 	List<StavkaNalogaDTO> findByNalog(Nalog nalog);
 	void save(StavkaNalogaDTO dto);
 	BigDecimal getDugujeByNalog(Nalog nalog);
-	BigDecimal getPdvDugujeByNalog(Nalog nalog);
 	BigDecimal getPotrazujeByNalog(Nalog nalog);
-	BigDecimal getPdvPotrazujeByNalog(Nalog nalog);
 	BigDecimal getSaldoByNalog(Nalog nalog);
 	List<StavkaNalogaDTO> sintetika(String kontoOd, String kontoDo, Date datumOd, Date datumDo, Preduzece preduzece);
 	List<StavkaNalogaDTO> sintetika(String kontoOd, String kontoDo, Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent);

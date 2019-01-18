@@ -33,12 +33,10 @@ public class NalogServiceImpl implements NalogService {
 		Nalog nalog = nalogRepository.findOne(id);
 		if (nalog != null) {
 			BigDecimal duguje = snService.getDugujeByNalog(nalog);
-			BigDecimal pdvduguje = snService.getPdvDugujeByNalog(nalog);
 			BigDecimal potrazuje = snService.getPotrazujeByNalog(nalog);
-			BigDecimal pdvpotrazuje = snService.getPdvPotrazujeByNalog(nalog);
 			BigDecimal saldo = snService.getSaldoByNalog(nalog);
 			
-			return new NalogDTO(nalog, duguje, pdvduguje, potrazuje, pdvpotrazuje, saldo);
+			return new NalogDTO(nalog, duguje, potrazuje,saldo);
 		}
 		return null;
 	}
@@ -61,8 +59,9 @@ public class NalogServiceImpl implements NalogService {
 		nalog.setNapomena(dto.getNapomena());
 		nalog.setOpis(dto.getOpis());
 		nalog.setPreduzece(preduzeceRepository.findOne(dto.getPreduzece().getId()));
-		nalog.setVrstaDokumenta(vrstaDokumentaService.find(dto.getVrstaDokumenta().getId()));
-		
+		if (dto.getVrstaDokumenta().getId() != null) {
+			nalog.setVrstaDokumenta(vrstaDokumentaService.find(dto.getVrstaDokumenta().getId()));
+		}
 		nalogRepository.save(nalog);
 	}
 
@@ -99,12 +98,10 @@ public class NalogServiceImpl implements NalogService {
 			List<NalogDTO> result = new ArrayList<NalogDTO>();
 			for (Nalog nalog : nalogs) {
 				BigDecimal duguje = snService.getDugujeByNalog(nalog);
-				BigDecimal pdvduguje = snService.getPdvDugujeByNalog(nalog);
 				BigDecimal potrazuje = snService.getPotrazujeByNalog(nalog);
-				BigDecimal pdvpotrazuje = snService.getPdvPotrazujeByNalog(nalog);
 				BigDecimal saldo = snService.getSaldoByNalog(nalog);
 				
-				result.add(new NalogDTO(nalog, duguje, pdvduguje, potrazuje, pdvpotrazuje, saldo));
+				result.add(new NalogDTO(nalog, duguje, potrazuje, saldo));
 			}
 			return result;
 		}

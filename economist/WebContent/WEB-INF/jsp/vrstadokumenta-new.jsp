@@ -19,20 +19,6 @@
 					<div class="has-error">
 						<form:errors path="naziv" cssClass="help-block" element="label"/>
 					</div>
-				</div>
-				<div class="form-group">
-					<form:label path="prikaziukif" style="padding-right: 20px;"><spring:message code="prikazi.u.kif"/></form:label>
-					<form:checkbox path="prikaziukif"/>
-					<div class="has-error">
-						<form:errors path="prikaziukif" cssClass="help-block" element="label"/>
-					</div>
-				</div>
-				<div class="form-group">
-					<form:label path="prikaziukuf" style="padding-right: 20px;"><spring:message code="prikazi.u.kuf"/></form:label>
-					<form:checkbox path="prikaziukuf"/>
-					<div class="has-error">
-						<form:errors path="prikaziukuf" cssClass="help-block" element="label"/>
-					</div>
 				</div>								
 				<p>&nbsp;</p>					
 				<button type="submit" class="btn btn btn-success"><spring:message code="button.save"/></button>

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.economist.config.BaseController;
@@ -109,5 +110,18 @@ public class KomitentController extends BaseController {
 		//komitentRepository.delete(id);
 		
 		return "redirect:/" + KomitentController.CONTROLLER;
+	}
+	
+	@RequestMapping(value = "/usistemupdv/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public Boolean usistemupdv(@PathVariable(value = "id") Integer id, HttpServletRequest request, ModelMap model) {
+		if (id != null) {
+			KomitentDTO komitentDTO = komitentService.findOne(id);
+			if (komitentDTO != null) {
+				return komitentDTO.getUsistemupdv();
+			}			
+		}
+		
+		return Boolean.FALSE;
 	}
 }

@@ -43,8 +43,6 @@ public class VrstaDokumentaServiceImpl implements VrstaDokumentaService {
 		}
 		bean.setAgencija(agencijaService.findOne(dto.getAgencijaId()));
 		bean.setNaziv(dto.getNaziv());
-		bean.setPrikaziukif(dto.isPrikaziukif());
-		bean.setPrikaziukuf(dto.isPrikaziukuf());
 		bean.setSifra(dto.getSifra());
 		
 		vrstaDokumentaRepository.save(bean);

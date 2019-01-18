@@ -1,7 +1,5 @@
 package com.economist.validator;
 
-import java.math.BigDecimal;
-
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -37,29 +35,30 @@ public class StavkaNalogaValidator implements Validator {
 		if (stavka.getKonto() == null) {
 			errors.rejectValue("konto", "error.stavka.naloga.konto.empty");
 		}
-		if ((stavka.getDuguje() == null || stavka.getDuguje().equals(BigDecimal.ZERO)) && (stavka.getPotrazuje() == null || stavka.getPotrazuje().equals(BigDecimal.ZERO))) {
-			errors.rejectValue("duguje", "error.stavka.naloga.duguje.potrazuje.empty");
-			errors.rejectValue("potrazuje", "error.stavka.naloga.duguje.potrazuje.empty");
-		}
+//		if ((stavka.getDuguje() == null || stavka.getDuguje().equals(BigDecimal.ZERO)) && (stavka.getPotrazuje() == null || stavka.getPotrazuje().equals(BigDecimal.ZERO))) {
+//			errors.rejectValue("duguje", "error.stavka.naloga.duguje.potrazuje.empty");
+//			errors.rejectValue("potrazuje", "error.stavka.naloga.duguje.potrazuje.empty");
+//		}
 		if (stavka.getKomitent() != null && stavka.getKomitent().getId() != null) {
+			//TODO da se moze unijeti samo pdv
 			if (stavka.getKomitent().getUsistemupdv()) {
-				if (stavka.getDuguje() != null && !stavka.getDuguje().equals(BigDecimal.ZERO)) {
-					if (stavka.getPdvduguje() == null || stavka.getPdvduguje().equals(BigDecimal.ZERO)) {
-						errors.rejectValue("pdvduguje", "error.stavka.naloga.pdv.empty");
-					}
-				}				
-				if (stavka.getPotrazuje() != null && !stavka.getPotrazuje().equals(BigDecimal.ZERO)) {
-					if (stavka.getPdvpotrazuje() == null || stavka.getPdvpotrazuje().equals(BigDecimal.ZERO)) {
-						errors.rejectValue("pdvpotrazuje", "error.stavka.naloga.pdv.empty");
-					}
-				}
-			} else {
-				if (!stavka.getPdvduguje().equals(BigDecimal.ZERO) && stavka.getPdvduguje() != null) {
-					errors.rejectValue("pdvduguje", "error.stavka.naloga.non.pdv");
-				}
-				if (!stavka.getPdvpotrazuje().equals(BigDecimal.ZERO) && stavka.getPdvpotrazuje() != null) {
-					errors.rejectValue("pdvpotrazuje", "error.stavka.naloga.non.pdv");
-				}
+//				if (stavka.getDuguje() != null && !stavka.getDuguje().equals(BigDecimal.ZERO)) {
+//					if (stavka.getPdvduguje() == null || stavka.getPdvduguje().equals(BigDecimal.ZERO)) {
+//						errors.rejectValue("pdvduguje", "error.stavka.naloga.pdv.empty");
+//					}
+//				}				
+//				if (stavka.getPotrazuje() != null && !stavka.getPotrazuje().equals(BigDecimal.ZERO)) {
+//					if (stavka.getPdvpotrazuje() == null || stavka.getPdvpotrazuje().equals(BigDecimal.ZERO)) {
+//						errors.rejectValue("pdvpotrazuje", "error.stavka.naloga.pdv.empty");
+//					}
+//				}
+//			} else {
+//				if (!stavka.getPdvduguje().equals(BigDecimal.ZERO) && stavka.getPdvduguje() != null) {
+//					errors.rejectValue("pdvduguje", "error.stavka.naloga.non.pdv");
+//				}
+//				if (!stavka.getPdvpotrazuje().equals(BigDecimal.ZERO) && stavka.getPdvpotrazuje() != null) {
+//					errors.rejectValue("pdvpotrazuje", "error.stavka.naloga.non.pdv");
+//				}
 			}
 		}
 	}

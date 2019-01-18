@@ -4,8 +4,8 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="container">
-	<h3 align="center" style="padding-bottom: 0px;">${user.preduzece.naziv}</h3>
-	<h4 align="center"><b><spring:message code="pregled.svih.naloga"/></b></h4>
+	<h3 align="center"><b><spring:message code="pregled.svih.naloga"/></b></h3>
+	<h4 align="center" style="padding-bottom: 0px;">${user.preduzece.naziv}</h4>
 	<p><a href="api/nalogs/new" class="btn btn-info"><spring:message code="novi.nalog"/></a></p>
 <%-- 	<label>Filter by category</label>
 	<select id="category" onchange="filterFoodByCategory()">
@@ -24,9 +24,7 @@
 				<th class="text-center" scope="col"><spring:message code="napomena"/></th>
 				<th class="text-center" scope="col"><spring:message code="status"/></th>
 				<th class="text-center" scope="col"><spring:message code="duguje"/></th>
-				<th class="text-center" scope="col"><spring:message code="pdv"/></th>
 				<th class="text-center" scope="col"><spring:message code="potrazuje"/></th>
-				<th class="text-center" scope="col"><spring:message code="pdv"/></th>
 				<th class="text-center" scope="col"><spring:message code="saldo"/></th>
 				<th class="text-center" scope="col"><spring:message code="akcije"/></th>
 			</tr>
@@ -48,9 +46,7 @@
 					<c:if test="${nalog.zakljucan}"><td align="center"><spring:message code="zakljucan"/></td></c:if>
 					<c:if test="${not nalog.zakljucan}"><td align="center"><spring:message code="aktivan"/></td></c:if>
 					<td align="right">${nalog.duguje}</td>
-					<td align="right">${nalog.pdvduguje}</td>
 					<td align="right">${nalog.potrazuje}</td>
-					<td align="right">${nalog.pdvpotrazuje}</td>
 					<td align="right">${nalog.saldo}</td>
 					<td align="center">
 						<c:if test="${not nalog.zakljucan}">
@@ -66,14 +62,12 @@
 					</td>
 				</tr>
 			</c:forEach>
-			<tr><td colspan="13">&nbsp;</td></tr>
+			<tr><td colspan="11">&nbsp;</td></tr>
 			<tr>
 				<td class="active" colspan="6">&nbsp;</td>
 				<td class="active" align="center"><b><spring:message code="ukupno"/></b></td>
 				<td class="danger" align="right"><b>${duguje}</b></td>
-				<td class="danger" align="right"><b>${pdvduguje}</b></td>
 				<td class="success" align="right"><b>${potrazuje}</b></td>
-				<td class="success" align="right"><b>${pdvpotrazuje}</b></td>
 				<td class="info" align="right"><b>${saldo}</b></td>
 			</tr>		
 		</tbody>

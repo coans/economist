@@ -23,9 +23,6 @@ public class NalogValidator implements Validator {
 		if (nalog.getOpis().isEmpty() || nalog.getOpis().length() > 50) {
 			errors.rejectValue("opis", "error.nalog.opis.empty");
 		}
-		if (nalog.getVrstaDokumenta() == null || nalog.getVrstaDokumenta().getId() == null) {
-			errors.rejectValue("vrstaDokumenta.id", "error.nalog.vrsta.dokumenta.empty");
-		}
 		if (nalog.getPreduzece() == null) {
 			errors.rejectValue("broj", "error.nalog.preduzece.empty");
 		}

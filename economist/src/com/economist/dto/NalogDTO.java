@@ -19,9 +19,7 @@ public class NalogDTO  implements Serializable {
 	private PreduzeceDTO preduzece;
 	private VrstaDokumentaDTO vrstaDokumenta;
 	private BigDecimal duguje;
-	private BigDecimal pdvduguje;
 	private BigDecimal potrazuje;
-	private BigDecimal pdvpotrazuje;
 	private BigDecimal saldo;
 	
 	public NalogDTO() {
@@ -42,7 +40,7 @@ public class NalogDTO  implements Serializable {
 		this.vrstaDokumenta = vrstaDokumenta;
 	}
 	
-	public NalogDTO(Nalog bean, BigDecimal duguje, BigDecimal pdvduguje, BigDecimal potrazuje, BigDecimal pdvpotrazuje, BigDecimal saldo) {
+	public NalogDTO(Nalog bean, BigDecimal duguje, BigDecimal potrazuje, BigDecimal saldo) {
 		if (bean != null) {
 			this.id = bean.getId();
 			this.broj = bean.getBroj();
@@ -54,9 +52,7 @@ public class NalogDTO  implements Serializable {
 			this.modified = bean.getModified();
 			this.vrstaDokumenta = new VrstaDokumentaDTO(bean.getVrstaDokumenta());
 			this.duguje = duguje == null ? BigDecimal.ZERO : duguje;
-			this.pdvduguje = pdvduguje == null ? BigDecimal.ZERO : pdvduguje;
 			this.potrazuje = potrazuje == null ? BigDecimal.ZERO : potrazuje;
-			this.pdvpotrazuje = pdvpotrazuje == null ? BigDecimal.ZERO : pdvpotrazuje;
 			this.saldo = saldo == null ? BigDecimal.ZERO : saldo;
 		}
 	}
@@ -155,21 +151,5 @@ public class NalogDTO  implements Serializable {
 
 	public void setSaldo(BigDecimal saldo) {
 		this.saldo = saldo;
-	}
-
-	public BigDecimal getPdvduguje() {
-		return pdvduguje;
-	}
-
-	public void setPdvduguje(BigDecimal pdvduguje) {
-		this.pdvduguje = pdvduguje;
-	}
-
-	public BigDecimal getPdvpotrazuje() {
-		return pdvpotrazuje;
-	}
-
-	public void setPdvpotrazuje(BigDecimal pdvpotrazuje) {
-		this.pdvpotrazuje = pdvpotrazuje;
 	}
 }

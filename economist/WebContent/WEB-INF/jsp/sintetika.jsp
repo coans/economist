@@ -69,9 +69,7 @@
 				<th class="text-center" scope="col"><spring:message code="konto"/></th>
 				<th class="text-center" scope="col"><spring:message code="komitent"/></th>
 				<th class="text-center" scope="col"><spring:message code="duguje"/></th>
-				<th class="text-center" scope="col"><spring:message code="pdv"/></th>
 				<th class="text-center" scope="col"><spring:message code="potrazuje"/></th>
-				<th class="text-center" scope="col"><spring:message code="pdv"/></th>
 				<th class="text-center" scope="col"><spring:message code="saldo"/></th>
 			</tr>
 		</thead>
@@ -90,20 +88,16 @@
 						<td align="center">${stavka.komitent.naziv}</td>
 					</c:if>
 					<td align="right">${stavka.duguje}</td>
-					<td align="right">${stavka.pdvduguje}</td>
 					<td align="right">${stavka.potrazuje}</td>
-					<td align="right">${stavka.pdvpotrazuje}</td>
 					<td align="right">${stavka.saldo}</td>
 				</tr>
 			</c:forEach>
-			<tr><td colspan="11">&nbsp;</td></tr>
+			<tr><td colspan="9">&nbsp;</td></tr>
 			<tr>
 				<td colspan="5" class="active">&nbsp;</td>
 				<td class="active" align="center"><b><spring:message code="ukupno"/></b></td>
 				<td class="danger" align="right"><b>${duguje}</b></td>
-				<td class="danger" align="right"><b>${pdvduguje}</b></td>
 				<td class="success" align="right"><b>${potrazuje}</b></td>
-				<td class="success" align="right"><b>${pdvpotrazuje}</b></td>
 				<td class="info" align="right"><b>${saldo}</b></td>
 			</tr>			
 		</tbody>

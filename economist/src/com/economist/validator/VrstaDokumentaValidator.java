@@ -26,10 +26,6 @@ public class VrstaDokumentaValidator implements Validator {
 		if (vrstaDokumenta.getAgencija() == null) {
 			errors.rejectValue("naziv", "error.vrsta.dokumenta.agencija.empty");
 		}
-		if (vrstaDokumenta.isPrikaziukif() && vrstaDokumenta.isPrikaziukuf()) {
-			errors.rejectValue("prikaziukif", "error.vrsta.dokumenta.kif.kuf");
-			errors.rejectValue("prikaziukuf", "error.vrsta.dokumenta.kif.kuf");
-		}
 	}
 
 }

@@ -41,9 +41,7 @@ public class BaseController {
 	private static final String KLASE_KONTA = "klaseKonta";
 	private static final String DATUM_PATTERN = "datumPattern";
 	private static final String POTRAZUJE = "potrazuje";
-	private static final String PDV_POTRAZUJE = "pdvpotrazuje";
 	private static final String DUGUJE = "duguje";
-	private static final String PDV_DUGUJE = "pdvduguje";
 	private static final String SALDO = "saldo";
 	private static final String TABLE_CLASS = "tableClass";
 	private static final String LOKACIJE = "lokacije";
@@ -101,20 +99,14 @@ public class BaseController {
 	
 	public void setZbirniRed(List<StavkaNalogaDTO> stavke, ModelMap model) {
 		BigDecimal duguje = BigDecimal.ZERO;
-		BigDecimal pdvduguje = BigDecimal.ZERO;
 		BigDecimal potrazuje = BigDecimal.ZERO;
-		BigDecimal pdvpotrazuje = BigDecimal.ZERO;
 		
 		for (StavkaNalogaDTO stavka : stavke) {
 			duguje = duguje.add(stavka.getDuguje());
-			pdvduguje = pdvduguje.add(stavka.getPdvduguje());
 			potrazuje = potrazuje.add(stavka.getPotrazuje());
-			pdvpotrazuje = pdvpotrazuje.add(stavka.getPdvpotrazuje());
 		}
 		model.addAttribute(DUGUJE, duguje);
-		model.addAttribute(PDV_DUGUJE, pdvduguje);
 		model.addAttribute(POTRAZUJE, potrazuje);
-		model.addAttribute(PDV_POTRAZUJE, pdvpotrazuje);
 		model.addAttribute(SALDO, duguje.subtract(potrazuje));
 	}
 	

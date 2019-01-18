@@ -23,7 +23,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<form:label path="vrstaDokumenta.id" class="required"><spring:message code="vrsta.dokumenta"/></form:label>
+					<form:label path="vrstaDokumenta.id"><spring:message code="vrsta.dokumenta"/></form:label>
 					<form:select path="vrstaDokumenta.id" class="form-control" id="vrstaDokumenta" items="${vrstadokumentas}" itemLabel="naziv" itemValue="id"  disabled="${disabled}"/>
 					<div class="has-error">
 						<form:errors path="vrstaDokumenta.id" cssClass="help-block" element="label"/>

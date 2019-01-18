@@ -44,5 +44,8 @@
 		
 		<!-- Jettison -->
 		<dependency org="org.codehaus.jettison" name="jettison" rev="1.3.7"/>
+		
+		<!-- iTextPdf -->
+		<dependency org="com.itextpdf" name="itextpdf" rev="5.5.10"/>
     </dependencies>
 </ivy-module>

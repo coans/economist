@@ -13,23 +13,18 @@ public class VrstaDokumentaDTO implements Serializable {
 	private Date created;
 	private Integer sifra;
 	private String naziv;
-	private boolean prikaziukif;
-	private boolean prikaziukuf;
 	private Integer agencijaId;
 	
 	public VrstaDokumentaDTO() {
 		super();
 	}
 	
-	public VrstaDokumentaDTO(Integer id, Date created, Integer sifra, String naziv,
-			boolean prikaziukif, boolean prikaziukuf, Integer agencijaId) {
+	public VrstaDokumentaDTO(Integer id, Date created, Integer sifra, String naziv, Integer agencijaId) {
 		super();
 		this.id = id;
 		this.created = created;
 		this.sifra = sifra;
 		this.naziv = naziv;
-		this.prikaziukif = prikaziukif;
-		this.prikaziukuf = prikaziukuf;
 		this.agencijaId = agencijaId;
 	}
 	
@@ -39,8 +34,6 @@ public class VrstaDokumentaDTO implements Serializable {
 			this.created = bean.getCreated();
 			this.sifra = bean.getSifra();
 			this.naziv = bean.getNaziv();
-			this.prikaziukif = bean.isPrikaziukif();
-			this.prikaziukuf = bean.isPrikaziukuf();
 			this.agencijaId = bean.getAgencija().getId();
 		}
 	}
@@ -75,22 +68,6 @@ public class VrstaDokumentaDTO implements Serializable {
 
 	public void setNaziv(String naziv) {
 		this.naziv = naziv;
-	}
-
-	public boolean isPrikaziukif() {
-		return prikaziukif;
-	}
-
-	public void setPrikaziukif(boolean prikaziukif) {
-		this.prikaziukif = prikaziukif;
-	}
-
-	public boolean isPrikaziukuf() {
-		return prikaziukuf;
-	}
-
-	public void setPrikaziukuf(boolean prikaziukuf) {
-		this.prikaziukuf = prikaziukuf;
 	}
 
 	public Integer getAgencijaId() {

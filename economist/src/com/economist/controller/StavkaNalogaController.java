@@ -80,10 +80,9 @@ public class StavkaNalogaController extends BaseController {
 		StavkaNalogaDTO stavka = new StavkaNalogaDTO();
 		stavka.setDuguje(BigDecimal.ZERO);
 		stavka.setPotrazuje(BigDecimal.ZERO);
-		stavka.setPdvduguje(BigDecimal.ZERO);
-		stavka.setPdvpotrazuje(BigDecimal.ZERO);
 		stavka.setDatum(new Date());
 		stavka.setNalog(nalogService.findOne(nalogId));
+		stavka.setOpis(nalogService.findOne(nalogId).getBroj());
 		setNalogModel(model, ACTION_CREATE, DODAJ_NOVU_STAVKU_TITLE, stavka);
 		
 		return VIEW_NEW;
@@ -95,7 +94,9 @@ public class StavkaNalogaController extends BaseController {
 		model.addAttribute("title", title);
 		model.addAttribute("konta", kontoService.findByAgencija(getUser().getAgencija()));
 		List<KomitentDTO> komitents = komitentService.findByAgencija(getUser().getAgencija());
-		komitents.add(0, new KomitentDTO());
+		KomitentDTO emptyKomitent = new KomitentDTO();
+		emptyKomitent.setId(-1);
+		komitents.add(0, emptyKomitent);
 		model.addAttribute("komitents", komitents);
 	}
 	
