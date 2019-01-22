@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.economist.config.BaseController;
 import com.economist.db.entity.Komitent;
+import com.economist.dto.KifKufDTO;
 import com.economist.dto.KomitentDTO;
-import com.economist.dto.StavkaNalogaDTO;
 import com.economist.model.KifKufSearchBean;
 import com.economist.service.KomitentService;
 import com.economist.service.StavkaNalogaService;
@@ -54,8 +54,7 @@ public class KifKufController extends BaseController {
 	
 	@RequestMapping(value = "generate-kif", method = RequestMethod.POST)
 	public String generate(@ModelAttribute("search") KifKufSearchBean search, Errors errors, ModelMap model) {
-		
-		List<StavkaNalogaDTO> result = null;
+		List<KifKufDTO> result = null;
 		if (search.getKomitent() != null && search.getKomitent().getId() != null) {
 			Komitent komitent = komitentService.find(search.getKomitent().getId());
 			result = stavkaNalogaService.kif(search.getDatumOd(), search.getDatumDo(), getUser().getPreduzece(), komitent);
@@ -69,7 +68,7 @@ public class KifKufController extends BaseController {
 		komitents.add(0, new KomitentDTO());
 		model.addAttribute("komitents", komitents);
 		model.addAttribute("stavkes", result);
-		setZbirniRed(result, model);
+		setZbirniRedKifKuf(result, model);
 		
 		return KIF;
 	}
@@ -87,7 +86,7 @@ public class KifKufController extends BaseController {
 	
 	@RequestMapping(value = "generate-kuf", method = RequestMethod.POST)
 	public String generateKuf(@ModelAttribute("search") KifKufSearchBean search, Errors errors, ModelMap model) {
-		List<StavkaNalogaDTO> result = null;
+		List<KifKufDTO> result = null;
 		if (search.getKomitent() != null && search.getKomitent().getId() != null) {
 			Komitent komitent = komitentService.find(search.getKomitent().getId());
 			result = stavkaNalogaService.kuf(search.getDatumOd(), search.getDatumDo(), getUser().getPreduzece(), komitent);
@@ -101,7 +100,7 @@ public class KifKufController extends BaseController {
 		komitents.add(0, new KomitentDTO());
 		model.addAttribute("komitents", komitents);
 		model.addAttribute("stavkes", result);
-		setZbirniRed(result, model);
+		setZbirniRedKifKuf(result, model);
 		
 		return KUF;
 	}

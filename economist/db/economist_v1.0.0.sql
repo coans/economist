@@ -115,6 +115,7 @@ CREATE TABLE IF NOT EXISTS `economist`.`nalog` (
   `nalog_id` INT NOT NULL,
   `konto_id` INT NOT NULL,
   `komitent_id` INT(11) NULL,
+  `identifikator` VARCHAR(100) NULL,
   PRIMARY KEY (`id`),
   INDEX `stavkanaloga_nalog_idx` (`nalog_id` ASC),
   INDEX `stavkanaloga_konto_idx` (`konto_id` ASC),

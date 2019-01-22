@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.economist.auth.AuthorizationService;
 import com.economist.db.entity.User;
+import com.economist.dto.KifKufDTO;
 import com.economist.dto.StavkaNalogaDTO;
 
 @Controller("/" + BaseController.CONTROLLER)
@@ -84,7 +85,7 @@ public class BaseController {
 	
 	@ModelAttribute(LOKACIJE)
 	public List<String> getLokacije() {
-		return Arrays.asList("RS", "FBIH", "Brcko D.");
+		return Arrays.asList("RS", "FBIH", "BRCKO");
 	}
 	
 	@ModelAttribute(DATUM_PATTERN)
@@ -102,8 +103,41 @@ public class BaseController {
 		BigDecimal potrazuje = BigDecimal.ZERO;
 		
 		for (StavkaNalogaDTO stavka : stavke) {
-			duguje = duguje.add(stavka.getDuguje());
-			potrazuje = potrazuje.add(stavka.getPotrazuje());
+			if (stavka.getDugujeStavka() != null) {
+				duguje = duguje.add(stavka.getDugujeStavka());
+			}
+			if (stavka.getDugujeProtivStavka() != null) {
+				duguje = duguje.add(stavka.getDugujeProtivStavka());
+			}
+			if (stavka.getDugujePDV() != null) {
+				duguje = duguje.add(stavka.getDugujePDV());
+			}
+			if (stavka.getPotrazujeStavka() != null) {
+				potrazuje = potrazuje.add(stavka.getPotrazujeStavka());
+			}
+			if (stavka.getPotrazujeProtivStavka() != null) {
+				potrazuje = potrazuje.add(stavka.getPotrazujeProtivStavka());
+			}
+			if (stavka.getPotrazujePDV() != null) {
+				potrazuje = potrazuje.add(stavka.getPotrazujePDV());
+			}
+		}
+		model.addAttribute(DUGUJE, duguje);
+		model.addAttribute(POTRAZUJE, potrazuje);
+		model.addAttribute(SALDO, duguje.subtract(potrazuje));
+	}
+	
+	public void setZbirniRedKifKuf(List<KifKufDTO> stavke, ModelMap model) {
+		BigDecimal duguje = BigDecimal.ZERO;
+		BigDecimal potrazuje = BigDecimal.ZERO;
+		
+		for (KifKufDTO stavka : stavke) {
+			if (stavka.getIznos() != null) {
+				duguje = duguje.add(stavka.getIznos());
+			}
+			if (stavka.getUkupno() != null) {
+				potrazuje = potrazuje.add(stavka.getUkupno());
+			}
 		}
 		model.addAttribute(DUGUJE, duguje);
 		model.addAttribute(POTRAZUJE, potrazuje);

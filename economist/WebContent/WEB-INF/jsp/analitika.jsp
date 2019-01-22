@@ -56,7 +56,7 @@
 			</div>		
 			<div class="row" align="right">
 				<button type="submit" class="btn btn btn-success" name="pretraga"><spring:message code="pretraga"/></button>
-				<%-- <button type="submit" class="btn btn btn-success" name="pdf"><spring:message code="pdf"/></button> --%>
+				<button type="submit" class="btn btn btn-success" name="pdf"><spring:message code="pdf"/></button>
 				<a class="btn btn-primary" href="api/nalogs"><spring:message code="povratak"/></a>
 			</div>
 		</form:form>
@@ -82,16 +82,16 @@
 					<td align="center">${stavka.nalog.broj}</a></td>
 					<td align="center"><fmt:formatDate pattern = "${datumPattern}" value = "${stavka.datum}" /></td>
 					<td align="center">${stavka.opis}</td>
-					<td align="center">${stavka.konto.sifra} - ${stavka.konto.naziv}</td>
+					<td align="center">${stavka.kontoStavka.sifra} - ${stavka.kontoStavka.naziv}</td>
 					<c:if test="${ not empty stavka.komitent.naziv}">
 						<td align="center">${stavka.komitent.naziv}(${stavka.komitent.lokacija})</td>
 					</c:if>
 					<c:if test="${empty stavka.komitent.naziv}">
 						<td align="center">${stavka.komitent.naziv}</td>
 					</c:if>
-					<td align="right">${stavka.duguje}</td>
-					<td align="right">${stavka.potrazuje}</td>
-					<td align="right">${stavka.saldo}</td>
+					<td align="right">${stavka.dugujeStavka}</td>
+					<td align="right">${stavka.potrazujeStavka}</td>
+					<td align="right">${stavka.saldoStavka}</td>
 				</tr>
 			</c:forEach>
 			<tr><td colspan="9">&nbsp;</td></tr>

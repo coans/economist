@@ -29,6 +29,7 @@ public class StavkaNaloga implements Serializable {
 	private BigDecimal duguje;
 	private BigDecimal potrazuje;
 	private BigDecimal saldo;
+	private String identifikator;
 
 	//bi-directional many-to-one association to Konto
 	@ManyToOne
@@ -114,5 +115,13 @@ public class StavkaNaloga implements Serializable {
 
 	public void setNalog(Nalog nalog) {
 		this.nalog = nalog;
+	}
+
+	public String getIdentifikator() {
+		return identifikator;
+	}
+
+	public void setIdentifikator(String identifikator) {
+		this.identifikator = identifikator;
 	}
 }

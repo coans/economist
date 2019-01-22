@@ -2,6 +2,7 @@ package com.economist.controller;
 
 import java.beans.PropertyEditorSupport;
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -78,11 +79,18 @@ public class StavkaNalogaController extends BaseController {
 	@RequestMapping(value = "/new/{nalogId}", method = RequestMethod.GET)
 	public String add(@PathVariable(value = "nalogId") Integer nalogId, ModelMap model, HttpServletRequest request, HttpSession session, Locale locale) {
 		StavkaNalogaDTO stavka = new StavkaNalogaDTO();
-		stavka.setDuguje(BigDecimal.ZERO);
-		stavka.setPotrazuje(BigDecimal.ZERO);
 		stavka.setDatum(new Date());
 		stavka.setNalog(nalogService.findOne(nalogId));
+		stavka.setDugujeStavka(BigDecimal.ZERO);
+		stavka.setPotrazujeStavka(BigDecimal.ZERO);
 		stavka.setOpis(nalogService.findOne(nalogId).getBroj());
+		
+		stavka.setDugujeProtivStavka(BigDecimal.ZERO);
+		stavka.setPotrazujeProtivStavka(BigDecimal.ZERO);
+		
+		stavka.setDugujePDV(BigDecimal.ZERO);
+		stavka.setPotrazujePDV(BigDecimal.ZERO);
+
 		setNalogModel(model, ACTION_CREATE, DODAJ_NOVU_STAVKU_TITLE, stavka);
 		
 		return VIEW_NEW;
@@ -92,7 +100,11 @@ public class StavkaNalogaController extends BaseController {
 		model.addAttribute("stavka", stavka);
 		model.addAttribute("action", CONTROLLER + "/" + action);
 		model.addAttribute("title", title);
-		model.addAttribute("konta", kontoService.findByAgencija(getUser().getAgencija()));
+		List<KontoDTO> kontos = kontoService.findByAgencija(getUser().getAgencija());
+		KontoDTO konto = new KontoDTO();
+		konto.setId(-1);
+		kontos.add(0, konto);		
+		model.addAttribute("konta", kontos);
 		List<KomitentDTO> komitents = komitentService.findByAgencija(getUser().getAgencija());
 		KomitentDTO emptyKomitent = new KomitentDTO();
 		emptyKomitent.setId(-1);
@@ -103,29 +115,28 @@ public class StavkaNalogaController extends BaseController {
 	@RequestMapping(value = ACTION_CREATE, method = RequestMethod.POST)
 	public String create(@ModelAttribute("stavka") StavkaNalogaDTO stavka, Errors errors, ModelMap model,
 			final RedirectAttributes redirectAttributes) {
-		try {
 		NalogDTO nalog = nalogService.findOne(stavka.getNalog().getId());
 		stavka.setNalog(nalog);
 		if (stavka.getKomitent() != null && stavka.getKomitent().getId() != null) {
 			KomitentDTO komitent = komitentService.findOne(stavka.getKomitent().getId());
 			stavka.setKomitent(komitent);
 		}
+
 		validator.validate(stavka, errors);
 		if (errors.hasErrors()) {
 			setNalogModel(model, ACTION_CREATE, DODAJ_NOVU_STAVKU_TITLE, stavka);
 			return VIEW_NEW;
 		}
 
-		stavka.setSaldo(stavka.getDuguje().subtract(stavka.getPotrazuje()));
+		stavka.setSaldoStavka(stavka.getDugujeStavka().subtract(stavka.getPotrazujeStavka()));
+		stavka.setSaldoProtivStavka(stavka.getDugujeProtivStavka().subtract(stavka.getPotrazujeProtivStavka()));
+		stavka.setSaldoPDV(stavka.getDugujePDV().subtract(stavka.getPotrazujePDV()));
+		stavka.setIdentifikator(String.valueOf(Calendar.getInstance().getTimeInMillis()) + getUser().getId());
 		stavkaNalogaService.save(stavka);
 		
 		nalog.setModified(new Date());
 		nalogService.save(nalog);
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+
 		return "redirect:/" + StavkaNalogaController.CONTROLLER + "/details/" + stavka.getNalog().getId();
 	}
 

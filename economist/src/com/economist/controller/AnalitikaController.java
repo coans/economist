@@ -4,6 +4,7 @@ import java.beans.PropertyEditorSupport;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
@@ -33,11 +34,13 @@ import com.economist.model.SearchBean;
 import com.economist.service.KomitentService;
 import com.economist.service.KontoService;
 import com.economist.service.StavkaNalogaService;
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -107,43 +110,60 @@ public class AnalitikaController extends BaseController {
 //			document.add(chunk);
 //			document.close();
 //			response.addHeader("Content-Disposition", "attachment; filename=test.pdf");
-			generatePDF(request, response, result, messageSource.getMessage("analitika.header", null, request.getLocale()));
+			generatePDF(request, response, result, messageSource.getMessage("analitika.header", null, request.getLocale()), search);
 			return ""; //TODO problem pravi ova povratna vrijednost
 		}
 		
 		
 	}
 
-	private void generatePDF(HttpServletRequest request,
-			HttpServletResponse response, List<StavkaNalogaDTO> stavkas, String reportTitle) throws DocumentException, IOException {
+	private void generatePDF(HttpServletRequest request, HttpServletResponse response, List<StavkaNalogaDTO> stavkas, String reportTitle, SearchBean searchBean) throws DocumentException, IOException {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		Document doc = new Document();
-		PdfWriter.getInstance(doc, baos/*new FileOutputStream("iTextHelloWorld.pdf")*/);
-		doc.open();
-		Paragraph preduzece = new Paragraph(/*stavkas.get(0).getNalog().getPreduzece().getNaziv())*/"Preduzece 1", new Font(Font.FontFamily.TIMES_ROMAN, 18,
-	            Font.BOLD));
-		preduzece.setAlignment(Element.ALIGN_CENTER);
-		doc.add(preduzece);
-		addEmptyLine(preduzece, 2);
-		
-		Paragraph title = new Paragraph(reportTitle, new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD));
-		title.setAlignment(Element.ALIGN_CENTER);
-		doc.add(title);
-		addEmptyLine(title, 2);
-
-		// Creating a table object 
-		PdfPTable table = new PdfPTable(3); // 3 columns.
-
-        PdfPCell cell1 = new PdfPCell(new Paragraph("Cell 1"));
-        PdfPCell cell2 = new PdfPCell(new Paragraph("Cell 2"));
-        PdfPCell cell3 = new PdfPCell(new Paragraph("Cell 3"));
-
-        table.addCell(cell1);
-        table.addCell(cell2);
-        table.addCell(cell3);
-		doc.add(table);
-		doc.close();
-
+		if (stavkas != null && !stavkas.isEmpty()) {
+			Document doc = new Document();
+			PdfWriter.getInstance(doc, baos);
+			doc.open();
+			
+			Paragraph preduzece = new Paragraph(stavkas.get(0).getNalog().getPreduzece().getNaziv(), new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD));
+			preduzece.setAlignment(Element.ALIGN_CENTER);
+			doc.add(preduzece);
+			
+			Paragraph title = new Paragraph(reportTitle, new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD));
+			title.setAlignment(Element.ALIGN_CENTER);
+			addEmptyLine(title, 1);
+			doc.add(title);
+	
+			// Creating a table object 
+			PdfPTable table = new PdfPTable(9); // 9 columns.
+			table.setWidths(new float[] { 3f, 6f, 8f, 12f, 15f, 12f, 8f, 8f, 8f });
+			PdfPCell c1 = new PdfPCell(new Phrase("#"));  c1.setHorizontalAlignment(Element.ALIGN_CENTER); c1.setBackgroundColor(BaseColor.LIGHT_GRAY); table.addCell(c1);	
+	        c1 = new PdfPCell(new Phrase(messageSource.getMessage("broj", null, request.getLocale()))); c1.setHorizontalAlignment(Element.ALIGN_CENTER); c1.setBackgroundColor(BaseColor.LIGHT_GRAY); table.addCell(c1);
+	        c1 = new PdfPCell(new Phrase(messageSource.getMessage("datum", null, request.getLocale()))); c1.setHorizontalAlignment(Element.ALIGN_CENTER); c1.setBackgroundColor(BaseColor.LIGHT_GRAY); table.addCell(c1);
+	        c1 = new PdfPCell(new Phrase(messageSource.getMessage("opis", null, request.getLocale()))); c1.setHorizontalAlignment(Element.ALIGN_CENTER); c1.setBackgroundColor(BaseColor.LIGHT_GRAY); table.addCell(c1);
+	        c1 = new PdfPCell(new Phrase(messageSource.getMessage("konto", null, request.getLocale()))); c1.setHorizontalAlignment(Element.ALIGN_CENTER); c1.setBackgroundColor(BaseColor.LIGHT_GRAY); table.addCell(c1);
+	        c1 = new PdfPCell(new Phrase(messageSource.getMessage("komitent", null, request.getLocale()))); c1.setHorizontalAlignment(Element.ALIGN_CENTER); c1.setBackgroundColor(BaseColor.LIGHT_GRAY); table.addCell(c1);
+	        c1 = new PdfPCell(new Phrase(messageSource.getMessage("duguje", null, request.getLocale()))); c1.setHorizontalAlignment(Element.ALIGN_CENTER); c1.setBackgroundColor(BaseColor.LIGHT_GRAY); table.addCell(c1);
+	        c1 = new PdfPCell(new Phrase(messageSource.getMessage("potrazuje", null, request.getLocale()))); c1.setHorizontalAlignment(Element.ALIGN_CENTER); c1.setBackgroundColor(BaseColor.LIGHT_GRAY); table.addCell(c1);
+	        c1 = new PdfPCell(new Phrase(messageSource.getMessage("saldo", null, request.getLocale()))); c1.setHorizontalAlignment(Element.ALIGN_CENTER); c1.setBackgroundColor(BaseColor.LIGHT_GRAY); table.addCell(c1);
+	        table.setHeaderRows(1);
+	        SimpleDateFormat formatter = new SimpleDateFormat(getDatumPattern());
+	        int counter = 1;
+	        for (StavkaNalogaDTO stavka : stavkas) {
+	        	PdfPCell rBroj = new PdfPCell(new Paragraph(String.valueOf(counter))); table.addCell(rBroj);
+	        	PdfPCell broj = new PdfPCell(new Paragraph(stavka.getNalog().getBroj())); table.addCell(broj);
+	        	PdfPCell datum = new PdfPCell(new Paragraph(formatter.format(stavka.getDatum()))); table.addCell(datum);
+	        	PdfPCell opis = new PdfPCell(new Paragraph(stavka.getOpis())); table.addCell(opis);
+	        	PdfPCell konto = new PdfPCell(new Paragraph(stavka.getKontoStavka().getSifraNaziv())); table.addCell(konto);
+	        	PdfPCell komitent = new PdfPCell(new Paragraph(stavka.getKomitent().getNaziv())); table.addCell(komitent);
+	        	PdfPCell duguje = new PdfPCell(new Paragraph(stavka.getDugujeStavka().toString())); duguje.setHorizontalAlignment(Element.ALIGN_RIGHT); table.addCell(duguje);
+	        	PdfPCell potrazuje = new PdfPCell(new Paragraph(stavka.getPotrazujeStavka().toString())); potrazuje.setHorizontalAlignment(Element.ALIGN_RIGHT); table.addCell(potrazuje);
+	        	PdfPCell saldo = new PdfPCell(new Paragraph(stavka.getSaldoStavka().toString())); saldo.setHorizontalAlignment(Element.ALIGN_RIGHT); table.addCell(saldo);
+	        	counter++;
+			}
+	
+			doc.add(table);
+			doc.close();
+		}
 		// setting some response headers
 		response.setHeader("Expires", "0");
 		response.setHeader("Cache-Control",
@@ -153,7 +173,7 @@ public class AnalitikaController extends BaseController {
 		response.setContentType("application/pdf");
 		// the contentlength
 		response.setContentLength(baos.size());
-		response.addHeader("Content-Disposition", "attachment; filename=test.pdf");
+		response.addHeader("Content-Disposition", "attachment; filename=analitika.pdf");
 		// write ByteArrayOutputStream to the ServletOutputStream
 		OutputStream os = response.getOutputStream();
 		baos.writeTo(os);

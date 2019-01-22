@@ -47,36 +47,31 @@
 				<th class="text-center" scope="col">#</th>
 				<th class="text-center" scope="col"><spring:message code="broj"/></th>
 				<th class="text-center" scope="col"><spring:message code="datum"/></th>
-				<th class="text-center" scope="col"><spring:message code="opis"/></th>
-				<th class="text-center" scope="col"><spring:message code="konto"/></th>
+				<%-- <th class="text-center" scope="col"><spring:message code="opis"/></th> --%>
+				<%-- <th class="text-center" scope="col"><spring:message code="konto"/></th> --%>
 				<th class="text-center" scope="col"><spring:message code="komitent"/></th>
-				<th class="text-center" scope="col"><spring:message code="duguje"/></th>
-				<th class="text-center" scope="col"><spring:message code="potrazuje"/></th>
-				<th class="text-center" scope="col"><spring:message code="saldo"/></th>
+				<th class="text-center" scope="col"><spring:message code="iznos"/></th>
+				<th class="text-center" scope="col"><spring:message code="kif.osnovica"/></th>
+				<th class="text-center" scope="col"><spring:message code="kif.pdv"/></th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach items="${stavkes}" var="stavka" varStatus="loop">	
 				<tr>
 					<td align="center">${loop.count}</td>
-					<td align="center">${stavka.nalog.broj}</td>
+					<td align="center"><%-- ${stavka.nalog.broj} --%></td>
 					<td align="center"><fmt:formatDate pattern = "${datumPattern}" value = "${stavka.datum}" /></td>
-					<td align="center">${stavka.opis}</td>
-					<td align="center">${stavka.konto.sifra} - ${stavka.konto.naziv}</td>
-					<c:if test="${ not empty stavka.komitent.naziv}">
-						<td align="center">${stavka.komitent.naziv}(${stavka.komitent.lokacija})</td>
-					</c:if>
-					<c:if test="${empty stavka.komitent.naziv}">
-						<td align="center">${stavka.komitent.naziv}</td>
-					</c:if>
-					<td align="right">${stavka.duguje}</td>
-					<td align="right">${stavka.potrazuje}</td>
-					<td align="right">${stavka.saldo}</td>
+					<%-- <td align="center">${stavka.opis}</td> --%>
+					<%-- <td align="center">${stavka.kontoA.sifra} - ${stavka.kontoA.naziv}</td> --%>
+					<td align="center">${stavka.komitent}</td>
+					<td align="right">${stavka.ukupno}</td>
+					<td align="right">${stavka.iznos}</td>
+					<td align="right">${stavka.pdv}</td>
 				</tr>
 			</c:forEach>
-			<tr><td colspan="10">&nbsp;</td></tr>
+			<tr><td colspan="7">&nbsp;</td></tr>
 			<tr>
-				<td colspan="5" class="active">&nbsp;</td>
+				<td colspan="3" class="active">&nbsp;</td>
 				<td class="active" align="center"><b><spring:message code="ukupno"/></b></td>
 				<td class="danger" align="right"><b>${duguje}</b></td>
 				<td class="success" align="right"><b>${potrazuje}</b></td>

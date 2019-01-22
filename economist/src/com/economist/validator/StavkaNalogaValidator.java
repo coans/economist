@@ -16,7 +16,7 @@ public class StavkaNalogaValidator implements Validator {
 
 	@Override
 	public void validate(Object target, Errors errors) {
-		StavkaNalogaDTO stavka = (StavkaNalogaDTO) target;
+		StavkaNalogaDTO stavka = (StavkaNalogaDTO) target;/*
 		if (stavka.getOpis().isEmpty() || stavka.getOpis().length() > 45) {
 			errors.rejectValue("opis", "error.stavka.naloga.opis.empty");
 		}
@@ -60,6 +60,6 @@ public class StavkaNalogaValidator implements Validator {
 //					errors.rejectValue("pdvpotrazuje", "error.stavka.naloga.non.pdv");
 //				}
 			}
-		}
+		}*/
 	}
 }

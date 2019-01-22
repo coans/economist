@@ -12,31 +12,49 @@ public class StavkaNalogaDTO  implements Serializable {
 	private Integer id;
 	private Date datum;
 	private String opis;
-	private BigDecimal duguje;
-	private BigDecimal potrazuje;
-	private BigDecimal saldo;
-	private KontoDTO konto;
-	private NalogDTO nalog;
 	private KomitentDTO komitent;
+	private String identifikator;
+	private NalogDTO nalog;
+	private BigDecimal dugujeStavka;
+	private BigDecimal potrazujeStavka;
+	private BigDecimal saldoStavka;
+	private KontoDTO kontoStavka;
+	private BigDecimal dugujeProtivStavka;
+	private BigDecimal potrazujeProtivStavka;
+	private BigDecimal saldoProtivStavka;
+	private KontoDTO kontoProtivStavka;
+	private BigDecimal dugujePDV;
+	private BigDecimal potrazujePDV;
+	private BigDecimal saldoPDV;
+	private KontoDTO kontoPDV;
 	
 	public StavkaNalogaDTO() {
 		super();
 	}
 
-	public StavkaNalogaDTO(Integer id, Date datum, String opis,
-			BigDecimal duguje, BigDecimal potrazuje, BigDecimal saldo,
-			KontoDTO konto, NalogDTO nalog, KomitentDTO komitent) {
+	public StavkaNalogaDTO(Integer id, Date datum, String opis, KomitentDTO komitent, String identifikator, NalogDTO nalog,
+			BigDecimal dugujeStavka, BigDecimal potrazujeStavka, BigDecimal saldoStavka, KontoDTO kontoStavka,
+			BigDecimal dugujeProtivStavka, BigDecimal potrazujeProtivStavka, BigDecimal saldoProtivStavka, KontoDTO kontoProtivStavka,
+			BigDecimal dugujePDV, BigDecimal potrazujePDV, BigDecimal saldoPDV, KontoDTO kontoPDV) {
 		super();
 		this.id = id;
 		this.datum = datum;
 		this.opis = opis;
-		this.duguje = duguje;
-		this.potrazuje = potrazuje;
-		this.saldo = saldo;
-		this.konto = konto;
 		this.nalog = nalog;
-		
+		this.identifikator = identifikator;
 		this.komitent = komitent;
+		this.dugujeStavka = dugujeStavka;
+		this.potrazujeStavka = potrazujeStavka;
+		this.saldoStavka = saldoStavka;
+		this.kontoStavka = kontoStavka;
+		this.dugujeProtivStavka = dugujeProtivStavka;
+		this.potrazujeProtivStavka = potrazujeProtivStavka;
+		this.saldoProtivStavka = saldoProtivStavka;
+		this.kontoProtivStavka = kontoProtivStavka;
+		this.dugujePDV = dugujePDV;
+		this.potrazujePDV = potrazujePDV;
+		this.saldoPDV = saldoPDV;
+		this.kontoPDV = kontoPDV;
 	}
 	
 	public StavkaNalogaDTO(StavkaNaloga bean) {
@@ -44,12 +62,13 @@ public class StavkaNalogaDTO  implements Serializable {
 			this.id = bean.getId();
 			this.datum = bean.getDatum();
 			this.opis = bean.getOpis();
-			this.duguje = bean.getDuguje();
-			this.potrazuje = bean.getPotrazuje();
-			this.saldo = bean.getSaldo();
-			this.konto = new KontoDTO(bean.getKonto());
 			this.nalog = new NalogDTO(bean.getNalog(), null, null, null);
 			this.komitent = new KomitentDTO(bean.getKomitent());
+			this.identifikator = bean.getIdentifikator();
+			this.dugujeStavka = bean.getDuguje();
+			this.potrazujeStavka = bean.getPotrazuje();
+			this.saldoStavka = bean.getSaldo();
+			this.kontoStavka = new KontoDTO(bean.getKonto());
 		}
 	}
 
@@ -77,36 +96,20 @@ public class StavkaNalogaDTO  implements Serializable {
 		this.opis = opis;
 	}
 
-	public BigDecimal getDuguje() {
-		return duguje;
+	public KomitentDTO getKomitent() {
+		return komitent;
 	}
 
-	public void setDuguje(BigDecimal duguje) {
-		this.duguje = duguje;
+	public void setKomitent(KomitentDTO komitent) {
+		this.komitent = komitent;
 	}
 
-	public BigDecimal getPotrazuje() {
-		return potrazuje;
+	public String getIdentifikator() {
+		return identifikator;
 	}
 
-	public void setPotrazuje(BigDecimal potrazuje) {
-		this.potrazuje = potrazuje;
-	}
-
-	public BigDecimal getSaldo() {
-		return saldo;
-	}
-
-	public void setSaldo(BigDecimal saldo) {
-		this.saldo = saldo;
-	}
-
-	public KontoDTO getKonto() {
-		return konto;
-	}
-
-	public void setKonto(KontoDTO konto) {
-		this.konto = konto;
+	public void setIdentifikator(String identifikator) {
+		this.identifikator = identifikator;
 	}
 
 	public NalogDTO getNalog() {
@@ -117,11 +120,99 @@ public class StavkaNalogaDTO  implements Serializable {
 		this.nalog = nalog;
 	}
 
-	public KomitentDTO getKomitent() {
-		return komitent;
+	public BigDecimal getDugujeStavka() {
+		return dugujeStavka;
 	}
 
-	public void setKomitent(KomitentDTO komitent) {
-		this.komitent = komitent;
+	public void setDugujeStavka(BigDecimal dugujeStavka) {
+		this.dugujeStavka = dugujeStavka;
+	}
+
+	public BigDecimal getPotrazujeStavka() {
+		return potrazujeStavka;
+	}
+
+	public void setPotrazujeStavka(BigDecimal potrazujeStavka) {
+		this.potrazujeStavka = potrazujeStavka;
+	}
+
+	public BigDecimal getSaldoStavka() {
+		return saldoStavka;
+	}
+
+	public void setSaldoStavka(BigDecimal saldoStavka) {
+		this.saldoStavka = saldoStavka;
+	}
+
+	public KontoDTO getKontoStavka() {
+		return kontoStavka;
+	}
+
+	public void setKontoStavka(KontoDTO kontoStavka) {
+		this.kontoStavka = kontoStavka;
+	}
+
+	public BigDecimal getDugujeProtivStavka() {
+		return dugujeProtivStavka;
+	}
+
+	public void setDugujeProtivStavka(BigDecimal dugujeProtivStavka) {
+		this.dugujeProtivStavka = dugujeProtivStavka;
+	}
+
+	public BigDecimal getPotrazujeProtivStavka() {
+		return potrazujeProtivStavka;
+	}
+
+	public void setPotrazujeProtivStavka(BigDecimal potrazujeProtivStavka) {
+		this.potrazujeProtivStavka = potrazujeProtivStavka;
+	}
+
+	public BigDecimal getSaldoProtivStavka() {
+		return saldoProtivStavka;
+	}
+
+	public void setSaldoProtivStavka(BigDecimal saldoProtivStavka) {
+		this.saldoProtivStavka = saldoProtivStavka;
+	}
+
+	public KontoDTO getKontoProtivStavka() {
+		return kontoProtivStavka;
+	}
+
+	public void setKontoProtivStavka(KontoDTO kontoProtivStavka) {
+		this.kontoProtivStavka = kontoProtivStavka;
+	}
+
+	public BigDecimal getDugujePDV() {
+		return dugujePDV;
+	}
+
+	public void setDugujePDV(BigDecimal dugujePDV) {
+		this.dugujePDV = dugujePDV;
+	}
+
+	public BigDecimal getPotrazujePDV() {
+		return potrazujePDV;
+	}
+
+	public void setPotrazujePDV(BigDecimal potrazujePDV) {
+		this.potrazujePDV = potrazujePDV;
+	}
+
+	public BigDecimal getSaldoPDV() {
+		return saldoPDV;
+	}
+
+	public void setSaldoPDV(BigDecimal saldoPDV) {
+		this.saldoPDV = saldoPDV;
+	}
+
+	public KontoDTO getKontoPDV() {
+		return kontoPDV;
+	}
+
+	public void setKontoPDV(KontoDTO kontoPDV) {
+		this.kontoPDV = kontoPDV;
 	}
 }

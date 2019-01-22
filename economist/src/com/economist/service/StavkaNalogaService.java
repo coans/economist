@@ -7,6 +7,7 @@ import java.util.List;
 import com.economist.db.entity.Komitent;
 import com.economist.db.entity.Nalog;
 import com.economist.db.entity.Preduzece;
+import com.economist.dto.KifKufDTO;
 import com.economist.dto.StavkaNalogaDTO;
 
 public interface StavkaNalogaService {
@@ -21,8 +22,8 @@ public interface StavkaNalogaService {
 	List<StavkaNalogaDTO> sintetika(String kontoOd, String kontoDo, Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent);
 	List<StavkaNalogaDTO> analitika(String kontoOd, String kontoDo, Date datumOd, Date datumDo, Preduzece preduzece);
 	List<StavkaNalogaDTO> analitika(String kontoOd, String kontoDo, Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent);
-	List<StavkaNalogaDTO> kif(Date datumOd, Date datumDo, Preduzece preduzece);
-	List<StavkaNalogaDTO> kif(Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent);
-	List<StavkaNalogaDTO> kuf(Date datumOd, Date datumDo, Preduzece preduzece);
-	List<StavkaNalogaDTO> kuf(Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent);
+	List<KifKufDTO> kif(Date datumOd, Date datumDo, Preduzece preduzece);
+	List<KifKufDTO> kif(Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent);
+	List<KifKufDTO> kuf(Date datumOd, Date datumDo, Preduzece preduzece);
+	List<KifKufDTO> kuf(Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent);
 }
