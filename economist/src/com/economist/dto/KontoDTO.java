@@ -99,6 +99,9 @@ public class KontoDTO implements Serializable {
 	}
 	
 	public String getSifraNaziv() {
-		return this.sifra + " - " + this.naziv;
+		if (this.sifra != null && this.naziv != null) {
+			return this.sifra + " - " + this.naziv;
+		}
+		return "";
 	}	
 }

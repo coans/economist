@@ -46,7 +46,7 @@ public class StavkaNalogaServiceImpl implements StavkaNalogaService {
 
 	@Override
 	public List<StavkaNalogaDTO> findByNalog(Nalog nalog) {
-		return mapToDTO(stavkaNalogaRepository.findByNalogOrderByDatumAsc(nalog));
+		return mapToDTO(stavkaNalogaRepository.findByNalogOrderByIdentifikatorAsc(nalog));
 	}
 
 	@Override
@@ -181,6 +181,7 @@ public class StavkaNalogaServiceImpl implements StavkaNalogaService {
 		List<KifKufDTO> result = new ArrayList<>();
 		for (String identifikator : kifIdentifikators) {
 			KifKufDTO dto = new KifKufDTO();
+			dto.setPdv(BigDecimal.ZERO);
 			List<StavkaNaloga> stavkes = stavkaNalogaRepository.findByIdentifikator(identifikator);
 
 			if (!stavkes.isEmpty()) {
@@ -188,11 +189,13 @@ public class StavkaNalogaServiceImpl implements StavkaNalogaService {
 				if (stavkes.get(0).getKomitent() != null) {
 					dto.setKomitent(stavkes.get(0).getKomitent().getNaziv());
 				}
-				if (stavkes.get(2) != null) {
-					if (stavkes.get(2).getDuguje() != null && !stavkes.get(2).getDuguje().equals(BigDecimal.ZERO)) {
-						dto.setPdv(stavkes.get(2).getDuguje());
-					} else if (stavkes.get(2).getPotrazuje() != null && !stavkes.get(2).getPotrazuje().equals(BigDecimal.ZERO)) {
-						dto.setPdv(stavkes.get(2).getPotrazuje());
+				if (stavkes.get(0).getKomitent().getUsistemupdv()) {
+					if (stavkes.get(2) != null) {
+						if (stavkes.get(2).getDuguje() != null && stavkes.get(2).getDuguje().compareTo(BigDecimal.ZERO) != 0) {
+							dto.setPdv(stavkes.get(2).getDuguje());
+						} else if (stavkes.get(2).getPotrazuje() != null && !stavkes.get(2).getPotrazuje().equals(BigDecimal.ZERO)) {
+							dto.setPdv(stavkes.get(2).getPotrazuje());
+						}
 					}
 				}
 				if (stavkes.get(0) != null && stavkes.get(1) != null) {

@@ -54,7 +54,8 @@
 				</div>							
 			</div>		
 			<div class="row" align="right">
-				<button type="submit" class="btn btn btn-success"><spring:message code="pretraga"/></button>
+				<button type="submit" class="btn btn btn-success" name="pretraga"><spring:message code="pretraga"/></button>
+				<button type="submit" class="btn btn btn-success" name="pdf"><spring:message code="pdf"/></button>
 				<a class="btn btn-primary" href="api/nalogs"><spring:message code="povratak"/></a>
 			</div>
 		</form:form>

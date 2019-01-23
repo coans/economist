@@ -56,7 +56,13 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${stavkes}" var="stavka" varStatus="loop">	
+			<c:set var="ukupno" value="${0}"/>
+			<c:set var="iznos" value="${0}"/>
+			<c:set var="pdv" value="${0}"/>
+			<c:forEach items="${stavkes}" var="stavka" varStatus="loop">
+				<c:set var="ukupno" value="${ukupno + stavka.ukupno}" />
+				<c:set var="iznos" value="${iznos + stavka.iznos}" />
+				<c:set var="pdv" value="${pdv + stavka.pdv}" />
 				<tr>
 					<td align="center">${loop.count}</td>
 					<td align="center"><%-- ${stavka.nalog.broj} --%></td>
@@ -73,9 +79,9 @@
 			<tr>
 				<td colspan="3" class="active">&nbsp;</td>
 				<td class="active" align="center"><b><spring:message code="ukupno"/></b></td>
-				<td class="danger" align="right"><b>${duguje}</b></td>
-				<td class="success" align="right"><b>${potrazuje}</b></td>
-				<td class="info" align="right"><b>${saldo}</b></td>
+				<td class="danger" align="right"><b>${ukupno}</b></td>
+				<td class="success" align="right"><b>${iznos}</b></td>
+				<td class="info" align="right"><b>${pdv}</b></td>
 			</tr>			
 		</tbody>
     </table>

@@ -14,7 +14,7 @@ import com.economist.db.entity.StavkaNaloga;
 
 public interface StavkaNalogaRepository extends JpaRepository<StavkaNaloga, Integer> {
 	
-	List<StavkaNaloga> findByNalogOrderByDatumAsc(Nalog nalog);
+	List<StavkaNaloga> findByNalogOrderByIdentifikatorAsc(Nalog nalog);
 	List<StavkaNaloga> findByIdentifikator(String identifikator);
 	
 	@Query("SELECT sum(sn.duguje) FROM StavkaNaloga sn WHERE sn.nalog = ?1")

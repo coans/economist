@@ -68,7 +68,7 @@ public class KifKufController extends BaseController {
 		komitents.add(0, new KomitentDTO());
 		model.addAttribute("komitents", komitents);
 		model.addAttribute("stavkes", result);
-		setZbirniRedKifKuf(result, model);
+//		setZbirniRedKifKuf(result, model);
 		
 		return KIF;
 	}
@@ -100,7 +100,7 @@ public class KifKufController extends BaseController {
 		komitents.add(0, new KomitentDTO());
 		model.addAttribute("komitents", komitents);
 		model.addAttribute("stavkes", result);
-		setZbirniRedKifKuf(result, model);
+//		setZbirniRedKifKuf(result, model);
 		
 		return KUF;
 	}
