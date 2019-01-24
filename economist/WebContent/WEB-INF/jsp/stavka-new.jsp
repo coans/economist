@@ -33,7 +33,7 @@
 				</div>
 				<div class="form-group">
 					<form:label path="komitent.id"><spring:message code="komitent"/></form:label>
-					<form:select path="komitent.id" class="form-control" items="${komitents}" itemLabel="naziv" itemValue="id" onchange="selectKomitent(this.value)"/>
+					<form:select path="komitent.id" id="komitent" class="form-control" items="${komitents}" itemLabel="naziv" itemValue="id" onchange="selectKomitent(this.value)"/>
 					<div class="has-error">
 						<form:errors path="komitent.id" cssClass="help-block" element="label"/>
 					</div>
@@ -111,14 +111,16 @@
 <script>
 	$(document).ready(function() {
 		makeInputDate();
+		if (document.getElementById("komitent").value != -1) {
+			selectKomitent(document.getElementById("komitent").value);
+		}
 	});
 	function selectKomitent(id) {
 		var baseUrl = "${baseurl}";
 		var url = baseUrl + "api/komitents/usistemupdv/" + id;
 		$.get(url, function(data, status){
 			if (data) {//komitent je u sistemu pdv, prikazi formu za unos pdv-a
-				$("#pdv").show();
-				
+				$("#pdv").show();				
 			} else {
 				$("#pdv").hide();
 			}

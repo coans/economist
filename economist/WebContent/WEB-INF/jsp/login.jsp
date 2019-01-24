@@ -4,11 +4,11 @@
 <div class="container">
 	<div class="row">
 		<div class="col-xs-5">
-			<h3><spring:message code="login.page.login"/> <a href="signup"><spring:message code="login.page.signup"/></a></h3>
+			<h3><spring:message code="login.page.login"/> <%-- <a href="signup"><spring:message code="login.page.signup"/></a> --%></h3>
 			<form id="login_form" method="post" action="j_spring_security_check" novalidate="novalidate">
 				<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
 					<div class="alert alert-danger">
-						Login failed: <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
+						<spring:message code="login.page.login.failed"/>: <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
 					</div>
 				</c:if>
 				<div class="form-group">

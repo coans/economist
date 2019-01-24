@@ -78,7 +78,7 @@
 			<c:forEach items="${stavkes}" var="stavka" varStatus="loop">	
 				<tr>
 					<td align="center">${loop.count}</td>
-					<td align="center">${stavka.nalog.broj}</a></td>
+					<td align="center">${stavka.nalog.broj}</td>
 					<td align="center"><fmt:formatDate pattern = "${datumPattern}" value = "${stavka.datum}" /></td>
 					<td align="center">${stavka.opis}</td>
 					<td align="center">${stavka.kontoStavka.sifra} - ${stavka.kontoStavka.naziv}</td>
