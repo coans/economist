@@ -36,7 +36,8 @@
 				</div>				
 			</div>		
 			<div class="row" align="right">
-				<button type="submit" class="btn btn btn-success"><spring:message code="pretraga"/></button>
+				<button type="submit" class="btn btn btn-success" name="pretraga"><spring:message code="pretraga"/></button>
+				<button type="submit" class="btn btn btn-success" name="pdf"><spring:message code="pdf"/></button>
 				<a class="btn btn-primary" href="api/nalogs"><spring:message code="povratak"/></a>
 			</div>
 		</form:form>
@@ -50,8 +51,8 @@
 				<%-- <th class="text-center" scope="col"><spring:message code="opis"/></th> --%>
 				<%-- <th class="text-center" scope="col"><spring:message code="konto"/></th> --%>
 				<th class="text-center" scope="col"><spring:message code="komitent"/></th>
-				<th class="text-center" scope="col"><spring:message code="iznos"/></th>
 				<th class="text-center" scope="col"><spring:message code="kuf.ukupno"/></th>
+				<th class="text-center" scope="col"><spring:message code="iznos"/></th>
 				<th class="text-center" scope="col"><spring:message code="kuf.pdv"/></th>
 			</tr>
 		</thead>
@@ -70,8 +71,8 @@
 					<%-- <td align="center">${stavka.opisB}</td> --%>
 					<%-- <td align="center">${stavka.kontoB.sifra} - ${stavka.kontoB.naziv}</td> --%>
 					<td align="center">${stavka.komitent}</td>
-					<td align="right">${stavka.iznos}</td>
 					<td align="right">${stavka.ukupno}</td>
+					<td align="right">${stavka.iznos}</td>
 					<td align="right">${stavka.pdv}</td>
 				</tr>
 			</c:forEach>
@@ -79,8 +80,8 @@
 			<tr>
 				<td colspan="3" class="active">&nbsp;</td>
 				<td class="active" align="center"><b><spring:message code="ukupno"/></b></td>
-				<td class="danger" align="right"><b>${iznos}</b></td>
 				<td class="success" align="right"><b>${ukupno}</b></td>
+				<td class="danger" align="right"><b>${iznos}</b></td>
 				<td class="info" align="right"><b>${pdv}</b></td>
 			</tr>			
 		</tbody>
