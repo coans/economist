@@ -7,7 +7,9 @@
 		<h3 align="center">${title}</h3>
 		<form:form modelAttribute="stavka" method="POST" action="${action}">
 			<div class="col-xs-4">
-				<form:hidden path="id" />
+				<form:hidden path="idStavka" />
+				<form:hidden path="idProtivStavka" />
+				<form:hidden path="idPDV" />
 				<form:hidden path="nalog.id" />
 				<h4 align="center"><spring:message code="stavka"/></h4>
 				<div class="form-group">

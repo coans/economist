@@ -30,6 +30,7 @@ public class StavkaNaloga implements Serializable {
 	private BigDecimal potrazuje;
 	private BigDecimal saldo;
 	private String identifikator;
+	private String vrsta;
 
 	//bi-directional many-to-one association to Konto
 	@ManyToOne
@@ -123,5 +124,13 @@ public class StavkaNaloga implements Serializable {
 
 	public void setIdentifikator(String identifikator) {
 		this.identifikator = identifikator;
+	}
+
+	public String getVrsta() {
+		return vrsta;
+	}
+
+	public void setVrsta(String vrsta) {
+		this.vrsta = vrsta;
 	}
 }

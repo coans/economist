@@ -80,9 +80,9 @@
 			<tr>
 				<td colspan="3" class="active">&nbsp;</td>
 				<td class="active" align="center"><b><spring:message code="ukupno"/></b></td>
-				<td class="danger" align="right"><b>${ukupno}</b></td>
-				<td class="success" align="right"><b>${iznos}</b></td>
-				<td class="info" align="right"><b>${pdv}</b></td>
+				<td class="ukupno" align="right"><b>${ukupno}</b></td>
+				<td class="ukupno" align="right"><b>${iznos}</b></td>
+				<td class="ukupno" align="right"><b>${pdv}</b></td>
 			</tr>			
 		</tbody>
     </table>

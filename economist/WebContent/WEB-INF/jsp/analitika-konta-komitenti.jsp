@@ -86,9 +86,9 @@
 				<td class="active">&nbsp;</td>
 				<td class="active">&nbsp;</td>
 				<td class="active" align="right"><b>Ukupno:</b></td>
-				<td class="danger" align="right"><b>${dugujeBean}</b></td>
-				<td class="success" align="right"><b>${potrazujeBean}</b></td>
-				<td class="success" align="right"><b>${saldoBean}</b></td>
+				<td class="ukupno" align="right"><b>${dugujeBean}</b></td>
+				<td class="ukupno" align="right"><b>${potrazujeBean}</b></td>
+				<td class="ukupno" align="right"><b>${saldoBean}</b></td>
 			</tr>			
 		</tbody>
     </table>

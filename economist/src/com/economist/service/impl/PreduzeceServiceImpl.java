@@ -39,7 +39,7 @@ public class PreduzeceServiceImpl implements PreduzeceService {
 	public void save(PreduzeceDTO dto) {
 		Preduzece bean = new Preduzece();
 		if (dto.getId() != null) {
-			bean = preduzeceRepository.getOne(dto.getId());
+			bean = preduzeceRepository.findOne(dto.getId());
 		}
 		bean.setAdresa(dto.getAdresa());
 		bean.setAgencija(agencijaService.findOne(dto.getAgencijaId()));

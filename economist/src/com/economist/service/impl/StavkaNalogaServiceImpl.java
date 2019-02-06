@@ -15,6 +15,7 @@ import com.economist.db.entity.StavkaNaloga;
 import com.economist.db.repository.StavkaNalogaRepository;
 import com.economist.dto.KifKufDTO;
 import com.economist.dto.StavkaNalogaDTO;
+import com.economist.model.enums.EnumVrstaStavkaNaloga;
 import com.economist.service.KomitentService;
 import com.economist.service.KontoService;
 import com.economist.service.NalogService;
@@ -52,8 +53,8 @@ public class StavkaNalogaServiceImpl implements StavkaNalogaService {
 	@Override
 	public void save(StavkaNalogaDTO dto) {
 		StavkaNaloga stavka = new StavkaNaloga();
-		if (dto.getId() != null) {
-			stavka = stavkaNalogaRepository.getOne(dto.getId());
+		if (dto.getIdStavka() != null) {
+			stavka = stavkaNalogaRepository.findOne(dto.getIdStavka());
 		}
 		stavka.setDatum(dto.getDatum());
 		stavka.setDuguje(dto.getDugujeStavka());
@@ -67,13 +68,14 @@ public class StavkaNalogaServiceImpl implements StavkaNalogaService {
 			stavka.setKomitent(null);
 		}
 		stavka.setKonto(kontoService.find(dto.getKontoStavka().getId()));
-		stavka.setNalog(nalogService.find(dto.getNalog().getId()));		
+		stavka.setNalog(nalogService.find(dto.getNalog().getId()));
+		stavka.setVrsta(EnumVrstaStavkaNaloga.STAVKA.toString());
 		
 		stavkaNalogaRepository.save(stavka);
 		
 		StavkaNaloga protivStavka = new StavkaNaloga();
-		if (dto.getId() != null) {
-			protivStavka = stavkaNalogaRepository.getOne(dto.getId());
+		if (dto.getIdProtivStavka() != null) {
+			protivStavka = stavkaNalogaRepository.findOne(dto.getIdProtivStavka());
 		}
 		protivStavka.setDatum(dto.getDatum());
 		protivStavka.setDuguje(dto.getDugujeProtivStavka());
@@ -88,13 +90,14 @@ public class StavkaNalogaServiceImpl implements StavkaNalogaService {
 		}
 		protivStavka.setKonto(kontoService.find(dto.getKontoProtivStavka().getId()));
 		protivStavka.setNalog(nalogService.find(dto.getNalog().getId()));		
+		protivStavka.setVrsta(EnumVrstaStavkaNaloga.PROTIVSTAVKA.toString());
 		
 		stavkaNalogaRepository.save(protivStavka);
 		
 		if (dto.getKomitent() != null && dto.getKomitent().getUsistemupdv()) {
 			StavkaNaloga pdv = new StavkaNaloga();
-			if (dto.getId() != null) {
-				pdv = stavkaNalogaRepository.getOne(dto.getId());
+			if (dto.getIdPDV() != null) {
+				pdv = stavkaNalogaRepository.findOne(dto.getIdPDV());
 			}
 			pdv.setDatum(dto.getDatum());
 			pdv.setDuguje(dto.getDugujePDV());
@@ -108,11 +111,15 @@ public class StavkaNalogaServiceImpl implements StavkaNalogaService {
 				pdv.setKomitent(null);
 			}
 			pdv.setKonto(kontoService.find(dto.getKontoPDV().getId()));
-			pdv.setNalog(nalogService.find(dto.getNalog().getId()));		
+			pdv.setNalog(nalogService.find(dto.getNalog().getId()));
+			pdv.setVrsta(EnumVrstaStavkaNaloga.PDV.toString());
 			
 			stavkaNalogaRepository.save(pdv);
+		} else { //izabran je komitent koji nije u sistemu pdv-a
+			if (dto.getIdPDV() != null) {
+				stavkaNalogaRepository.delete(dto.getIdPDV());
+			}
 		}
-		
 	}
 	
 	private List<StavkaNalogaDTO> mapToDTO(List<StavkaNaloga> beans) {
@@ -183,40 +190,40 @@ public class StavkaNalogaServiceImpl implements StavkaNalogaService {
 			KifKufDTO dto = new KifKufDTO();
 			dto.setPdv(BigDecimal.ZERO);
 			List<StavkaNaloga> stavkes = stavkaNalogaRepository.findByIdentifikator(identifikator);
-
-			if (!stavkes.isEmpty()) {
-				dto.setDatum(stavkes.get(0).getDatum());
-				if (stavkes.get(0).getKomitent() != null) {
-					dto.setKomitent(stavkes.get(0).getKomitent().getNaziv());
-				}
-				if (stavkes.get(0).getKomitent().getUsistemupdv()) {
-					if (stavkes.get(2) != null) {
-						if (stavkes.get(2).getDuguje() != null && stavkes.get(2).getDuguje().compareTo(BigDecimal.ZERO) != 0) {
-							dto.setPdv(stavkes.get(2).getDuguje());
-						} else if (stavkes.get(2).getPotrazuje() != null && !stavkes.get(2).getPotrazuje().equals(BigDecimal.ZERO)) {
-							dto.setPdv(stavkes.get(2).getPotrazuje());
+			if (stavkes != null) {
+				List<BigDecimal> iznosi = new ArrayList<>();
+				for (StavkaNaloga stavkaNaloga : stavkes) {
+					dto.setBrojFakture("Sta je ovaj broj");
+					dto.setDatum(stavkaNaloga.getDatum());
+					//ako imamo komitenta i on je u sistemu pdv onda setujemo pdv
+					if (stavkaNaloga.getKomitent() != null) {
+						dto.setKomitent(stavkaNaloga.getKomitent().getNaziv());
+						if (stavkaNaloga.getKomitent().getUsistemupdv() && "PDV".equals(stavkaNaloga.getVrsta())) {
+							if (stavkaNaloga.getDuguje().compareTo(BigDecimal.ZERO) != 0) {
+								dto.setPdv(stavkaNaloga.getDuguje());
+							} else if (stavkaNaloga.getPotrazuje().compareTo(BigDecimal.ZERO) != 0) {
+								dto.setPdv(stavkaNaloga.getPotrazuje());
+							}
 						}
 					}
-				}
-				if (stavkes.get(0) != null && stavkes.get(1) != null) {
-					if (stavkes.get(0).getDuguje().compareTo(BigDecimal.ZERO) > 0  && stavkes.get(1).getPotrazuje().compareTo(BigDecimal.ZERO) > 0) {
-						if (stavkes.get(0).getDuguje().compareTo(stavkes.get(1).getPotrazuje()) == -1) {
-							dto.setIznos(stavkes.get(0).getDuguje());
-							dto.setUkupno(stavkes.get(1).getPotrazuje());
-						} else {
-							dto.setUkupno(stavkes.get(0).getDuguje());
-							dto.setIznos(stavkes.get(1).getPotrazuje());
+					
+					if (!"PDV".equals(stavkaNaloga.getVrsta())) {
+						if (stavkaNaloga.getDuguje().compareTo(BigDecimal.ZERO) == 1) {
+							iznosi.add(stavkaNaloga.getDuguje());
+						} else if (stavkaNaloga.getPotrazuje().compareTo(BigDecimal.ZERO) == 1) {
+							iznosi.add(stavkaNaloga.getPotrazuje());
 						}
+					}	
+				}
+				if (iznosi.size() > 1) {
+					if (iznosi.get(0).compareTo(iznosi.get(1)) == 1) {
+						dto.setUkupno(iznosi.get(0));
+						dto.setIznos(iznosi.get(1));
 					} else {
-						if (stavkes.get(0).getPotrazuje().compareTo(stavkes.get(1).getDuguje()) == -1) {
-							dto.setIznos(stavkes.get(0).getPotrazuje());
-							dto.setUkupno(stavkes.get(1).getDuguje());
-						} else {
-							dto.setUkupno(stavkes.get(0).getPotrazuje());
-							dto.setIznos(stavkes.get(1).getDuguje());
-						}
+						dto.setUkupno(iznosi.get(1));
+						dto.setIznos(iznosi.get(0));
 					}
-				}			
+				}
 				result.add(dto);
 			}
 		}
@@ -236,5 +243,15 @@ public class StavkaNalogaServiceImpl implements StavkaNalogaService {
 //		return mapToDTO(stavkaNalogaRepository.kuf(datumOd, datumDo, preduzece));
 		List<String> kufIdentifikators = stavkaNalogaRepository.getKufIdentifikators(datumOd, datumDo, preduzece);
 		return mapToKifKuf(kufIdentifikators);
+	}
+
+	@Override
+	public String getIdentifikatorById(Integer id) {
+		return stavkaNalogaRepository.getIdentifikatorById(id);
+	}
+
+	@Override
+	public List<StavkaNaloga> findByIdentifikator(String identifikator) {
+		return stavkaNalogaRepository.findByIdentifikator(identifikator);
 	}
 }

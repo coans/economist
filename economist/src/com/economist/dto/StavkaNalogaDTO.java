@@ -9,7 +9,9 @@ import com.economist.db.entity.StavkaNaloga;
 public class StavkaNalogaDTO  implements Serializable {
 	private static final long serialVersionUID = 5803943535971375490L;
 
-	private Integer id;
+	private Integer idStavka;
+	private Integer idProtivStavka;
+	private Integer idPDV;
 	private Date datum;
 	private String opis;
 	private KomitentDTO komitent;
@@ -31,7 +33,7 @@ public class StavkaNalogaDTO  implements Serializable {
 	public StavkaNalogaDTO() {
 		super();
 	}
-
+/*
 	public StavkaNalogaDTO(Integer id, Date datum, String opis, KomitentDTO komitent, String identifikator, NalogDTO nalog,
 			BigDecimal dugujeStavka, BigDecimal potrazujeStavka, BigDecimal saldoStavka, KontoDTO kontoStavka,
 			BigDecimal dugujeProtivStavka, BigDecimal potrazujeProtivStavka, BigDecimal saldoProtivStavka, KontoDTO kontoProtivStavka,
@@ -56,10 +58,10 @@ public class StavkaNalogaDTO  implements Serializable {
 		this.saldoPDV = saldoPDV;
 		this.kontoPDV = kontoPDV;
 	}
-	
+	*/
 	public StavkaNalogaDTO(StavkaNaloga bean) {
 		if (bean != null) {
-			this.id = bean.getId();
+			this.idStavka = bean.getId();
 			this.datum = bean.getDatum();
 			this.opis = bean.getOpis();
 			this.nalog = new NalogDTO(bean.getNalog(), null, null, null);
@@ -72,14 +74,24 @@ public class StavkaNalogaDTO  implements Serializable {
 		}
 	}
 
-	public Integer getId() {
-		return id;
+	public Integer getIdStavka() {
+		return idStavka;
 	}
-
-	public void setId(Integer id) {
-		this.id = id;
+	public void setIdStavka(Integer idStavka) {
+		this.idStavka = idStavka;
 	}
-
+	public Integer getIdProtivStavka() {
+		return idProtivStavka;
+	}
+	public void setIdProtivStavka(Integer idProtivStavka) {
+		this.idProtivStavka = idProtivStavka;
+	}
+	public Integer getIdPDV() {
+		return idPDV;
+	}
+	public void setIdPDV(Integer idPDV) {
+		this.idPDV = idPDV;
+	}
 	public Date getDatum() {
 		return datum;
 	}

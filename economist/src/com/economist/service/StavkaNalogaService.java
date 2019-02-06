@@ -7,6 +7,7 @@ import java.util.List;
 import com.economist.db.entity.Komitent;
 import com.economist.db.entity.Nalog;
 import com.economist.db.entity.Preduzece;
+import com.economist.db.entity.StavkaNaloga;
 import com.economist.dto.KifKufDTO;
 import com.economist.dto.StavkaNalogaDTO;
 
@@ -26,4 +27,6 @@ public interface StavkaNalogaService {
 	List<KifKufDTO> kif(Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent);
 	List<KifKufDTO> kuf(Date datumOd, Date datumDo, Preduzece preduzece);
 	List<KifKufDTO> kuf(Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent);
+	String getIdentifikatorById(Integer id);
+	List<StavkaNaloga> findByIdentifikator(String identifikator);
 }

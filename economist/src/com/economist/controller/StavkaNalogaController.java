@@ -21,10 +21,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.economist.config.BaseController;
 import com.economist.db.entity.Nalog;
+import com.economist.db.entity.StavkaNaloga;
 import com.economist.dto.KomitentDTO;
 import com.economist.dto.KontoDTO;
 import com.economist.dto.NalogDTO;
@@ -43,7 +43,10 @@ import com.economist.validator.StavkaNalogaValidator;
 public class StavkaNalogaController extends BaseController {
 	
 	private static final String ACTION_CREATE = "create";
+	private static final String ACTION_UPDATE = "update";
 	private static final String DODAJ_NOVU_STAVKU_TITLE = "Dodaj novu stavku";
+	private static final String IZMIJENI_STAVKU_TITLE = "Izmijeni stavku";
+	
 
 	final static Logger logger = Logger.getLogger(StavkaNalogaController.class);
 	
@@ -113,8 +116,7 @@ public class StavkaNalogaController extends BaseController {
 	}
 	
 	@RequestMapping(value = ACTION_CREATE, method = RequestMethod.POST)
-	public String create(@ModelAttribute("stavka") StavkaNalogaDTO stavka, Errors errors, ModelMap model,
-			final RedirectAttributes redirectAttributes) {
+	public String create(@ModelAttribute("stavka") StavkaNalogaDTO stavka, Errors errors, ModelMap model) {
 		NalogDTO nalog = nalogService.findOne(stavka.getNalog().getId());
 		stavka.setNalog(nalog);
 		if (stavka.getKomitent() != null && stavka.getKomitent().getId() != null) {
@@ -130,7 +132,9 @@ public class StavkaNalogaController extends BaseController {
 
 		stavka.setSaldoStavka(stavka.getDugujeStavka().subtract(stavka.getPotrazujeStavka()));
 		stavka.setSaldoProtivStavka(stavka.getDugujeProtivStavka().subtract(stavka.getPotrazujeProtivStavka()));
-		stavka.setSaldoPDV(stavka.getDugujePDV().subtract(stavka.getPotrazujePDV()));
+		if (stavka.getDugujePDV() != null && stavka.getPotrazujePDV() != null) {
+			stavka.setSaldoPDV(stavka.getDugujePDV().subtract(stavka.getPotrazujePDV()));
+		}
 		stavka.setIdentifikator(String.valueOf(Calendar.getInstance().getTimeInMillis()) + getUser().getId());
 		stavkaNalogaService.save(stavka);
 		
@@ -138,6 +142,54 @@ public class StavkaNalogaController extends BaseController {
 		nalogService.save(nalog);
 
 		return "redirect:/" + StavkaNalogaController.CONTROLLER + "/details/" + stavka.getNalog().getId();
+	}
+	
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+	public String edit(@PathVariable(value = "id") Integer id, HttpServletRequest request, ModelMap model) {
+		StavkaNalogaDTO stavkaDTO = new StavkaNalogaDTO();
+		String identifikator = stavkaNalogaService.getIdentifikatorById(id);
+		List<StavkaNaloga> stavkes = stavkaNalogaService.findByIdentifikator(identifikator);
+		if (stavkes != null && !stavkes.isEmpty()) {
+			stavkaDTO.setDatum(stavkes.get(0).getDatum());
+			stavkaDTO.setIdentifikator(identifikator);
+			stavkaDTO.setKomitent(new KomitentDTO(stavkes.get(0).getKomitent()));
+			stavkaDTO.setNalog(new NalogDTO(stavkes.get(0).getNalog(), null, null, null));
+			stavkaDTO.setOpis(stavkes.get(0).getOpis());
+		}
+		for (StavkaNaloga stavkaNaloga : stavkes) {
+			switch (stavkaNaloga.getVrsta()) {
+			case "STAVKA":
+				stavkaDTO.setDugujeStavka(stavkaNaloga.getDuguje());
+				stavkaDTO.setPotrazujeStavka(stavkaNaloga.getPotrazuje());
+				stavkaDTO.setSaldoStavka(stavkaNaloga.getSaldo());
+				stavkaDTO.setKontoStavka(new KontoDTO(stavkaNaloga.getKonto()));
+				stavkaDTO.setIdStavka(stavkaNaloga.getId());
+				break;
+			case "PROTIVSTAVKA":
+				stavkaDTO.setDugujeProtivStavka(stavkaNaloga.getDuguje());
+				stavkaDTO.setPotrazujeProtivStavka(stavkaNaloga.getPotrazuje());
+				stavkaDTO.setSaldoProtivStavka(stavkaNaloga.getSaldo());
+				stavkaDTO.setKontoProtivStavka(new KontoDTO(stavkaNaloga.getKonto()));
+				stavkaDTO.setIdProtivStavka(stavkaNaloga.getId());
+				break;
+			case "PDV":
+				stavkaDTO.setDugujePDV(stavkaNaloga.getDuguje());
+				stavkaDTO.setPotrazujePDV(stavkaNaloga.getPotrazuje());
+				stavkaDTO.setSaldoPDV(stavkaNaloga.getSaldo());
+				stavkaDTO.setKontoPDV(new KontoDTO(stavkaNaloga.getKonto()));
+				stavkaDTO.setIdPDV(stavkaNaloga.getId());
+				break;
+			}
+		}
+		
+		setNalogModel(model, ACTION_UPDATE, IZMIJENI_STAVKU_TITLE, stavkaDTO);
+		
+		return VIEW_NEW;
+	}
+
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	public String update(@ModelAttribute("stavka") StavkaNalogaDTO stavka, HttpServletRequest request, Errors errors, ModelMap model) {
+		return create(stavka, errors, model);
 	}
 
 	@Override

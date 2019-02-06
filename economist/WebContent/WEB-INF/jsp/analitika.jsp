@@ -98,9 +98,9 @@
 			<tr>
 				<td  colspan="5" class="active">&nbsp;</td>
 				<td class="active" align="center"><b><spring:message code="ukupno"/></b></td>
-				<td class="danger" align="right"><b>${duguje}</b></td>
-				<td class="success" align="right"><b>${potrazuje}</b></td>
-				<td class="info" align="right"><b>${saldo}</b></td>
+				<td class="ukupno" align="right"><b>${duguje}</b></td>
+				<td class="ukupno" align="right"><b>${potrazuje}</b></td>
+				<td class="ukupno" align="right"><b>${saldo}</b></td>
 			</tr>			
 		</tbody>
     </table>

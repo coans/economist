@@ -109,6 +109,7 @@ CREATE TABLE IF NOT EXISTS `economist`.`nalog` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `datum` DATE NOT NULL,
   `opis` VARCHAR(50) NOT NULL,
+  `vrsta` ENUM('STAVKA','PROTIVSTAVKA','PDV') NOT NULL,
   `duguje` DECIMAL(10,2) NOT NULL,
   `potrazuje` DECIMAL(10,2) NOT NULL,
   `saldo` DECIMAL(10,2) NOT NULL,

@@ -4,7 +4,7 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="container">
-	<h3 align="center"><b><spring:message code="pregled.svih.stavki"/></b></h3>
+	<h3 align="center" style="padding-bottom: 0px;"><b><spring:message code="pregled.svih.stavki"/></b></h3>
 	<h4 align="center"><b><spring:message code="nalog.broj"/> ${nalogBroj}</b></h4>
 	<h4 align="center" style="padding-bottom: 0px;">${user.preduzece.naziv}</h4>
 	<p><a href="api/stavkas/new/${nalogId}" class="btn btn-info"><spring:message code="dodaj.stavku"/></a>&nbsp;<a href="api/nalogs" class="btn btn-primary"><spring:message code="povratak"/></a></p>
@@ -20,6 +20,7 @@
 				<th class="text-center" scope="col"><spring:message code="duguje"/></th>
 				<th class="text-center" scope="col"><spring:message code="potrazuje"/></th>
 				<th class="text-center" scope="col"><spring:message code="saldo"/></th>
+				<th class="text-center" scope="col"><spring:message code="akcije"/></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -39,15 +40,17 @@
 					<td align="right">${stavka.dugujeStavka}</td>
 					<td align="right">${stavka.potrazujeStavka}</td>
 					<td align="right">${stavka.saldoStavka}</td>
+					<td align="center"><a href="api/stavkas/edit/${stavka.idStavka}" title="<spring:message code='izmijeni'/>"><i class="glyphicon glyphicon-pencil"></i></a>
 				</tr>
 			</c:forEach>
-			<tr><td colspan="9">&nbsp;</td></tr>
+			<!-- <tr><td colspan="10">&nbsp;</td></tr> -->
 			<tr>
 				<td colspan="5" class="active">&nbsp;</td>
 				<td class="active" align="center"><b><spring:message code="ukupno"/></b></td>
-				<td class="danger" align="right"><b>${duguje}</b></td>
-				<td class="success" align="right"><b>${potrazuje}</b></td>
-				<td class="info" align="right"><b>${saldo}</b></td>
+				<td class="ukupno" align="right"><b>${duguje}</b></td>
+				<td class="ukupno" align="right"><b>${potrazuje}</b></td>
+				<td class="ukupno" align="right"><b>${saldo}</b></td>
+				<!-- <td class="active">&nbsp;</td> -->
 			</tr>			
 		</tbody>
     </table>

@@ -4,7 +4,7 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="container">
-	<h3 align="center"><b><spring:message code="pregled.svih.naloga"/></b></h3>
+	<h3 align="center" style="padding-bottom: 0px;"><b><spring:message code="pregled.svih.naloga"/></b></h3>
 	<h4 align="center" style="padding-bottom: 0px;">${user.preduzece.naziv}</h4>
 	<p><a href="api/nalogs/new" class="btn btn-info"><spring:message code="novi.nalog"/></a></p>
 <%-- 	<label>Filter by category</label>
@@ -66,9 +66,9 @@
 			<tr>
 				<td class="active" colspan="6">&nbsp;</td>
 				<td class="active" align="center"><b><spring:message code="ukupno"/></b></td>
-				<td class="danger" align="right"><b>${duguje}</b></td>
-				<td class="success" align="right"><b>${potrazuje}</b></td>
-				<td class="info" align="right"><b>${saldo}</b></td>
+				<td class="ukupno" align="right"><b>${duguje}</b></td>
+				<td class="ukupno" align="right"><b>${potrazuje}</b></td>
+				<td class="ukupno" align="right"><b>${saldo}</b></td>
 			</tr>		
 		</tbody>
     </table>
