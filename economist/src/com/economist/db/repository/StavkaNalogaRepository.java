@@ -36,16 +36,16 @@ public interface StavkaNalogaRepository extends JpaRepository<StavkaNaloga, Inte
 	@Query("SELECT sn FROM StavkaNaloga sn WHERE sn.konto.sifra between ?1 AND ?2 AND sn.datum between ?3 AND ?4 AND sn.nalog.preduzece = ?5 AND sn.komitent = ?6 AND length(sn.konto.sifra) = 5")
 	List<StavkaNaloga> analitika(String kontoOd, String kontoDo, Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent);
 	
-	@Query("SELECT distinct(sn.identifikator) FROM StavkaNaloga sn WHERE sn.datum between ? AND ? AND sn.nalog.preduzece = ? AND sn.konto.sifra like '201%'")
+	@Query("SELECT distinct(sn.identifikator) FROM StavkaNaloga sn WHERE sn.datum between ? AND ? AND sn.nalog.preduzece = ? AND sn.konto.sifra like '201%' AND sn.duguje != null AND sn.duguje != 0")
 	List<String> getKifIdentifikators(Date datumOd, Date datumDo, Preduzece preduzece);
 	
-	@Query("SELECT distinct(sn.identifikator) FROM StavkaNaloga sn WHERE sn.datum between ? AND ? AND sn.nalog.preduzece = ? AND sn.konto.sifra like '201%' AND sn.komitent = ?")
+	@Query("SELECT distinct(sn.identifikator) FROM StavkaNaloga sn WHERE sn.datum between ? AND ? AND sn.nalog.preduzece = ? AND sn.konto.sifra like '201%' AND sn.komitent = ? AND sn.duguje != null AND sn.duguje != 0")
 	List<String> getKifIdentifikators(Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent);
 	
-	@Query("SELECT distinct(sn.identifikator) FROM StavkaNaloga sn WHERE sn.datum between ? AND ? AND sn.nalog.preduzece = ? AND (sn.konto.sifra like '432%' or sn.konto.sifra like '433%' or sn.konto.sifra like '434%' or sn.konto.sifra like '435%')")
+	@Query("SELECT distinct(sn.identifikator) FROM StavkaNaloga sn WHERE sn.datum between ? AND ? AND sn.nalog.preduzece = ? AND (sn.konto.sifra like '432%' or sn.konto.sifra like '433%' or sn.konto.sifra like '434%' or sn.konto.sifra like '435%') AND sn.potrazuje != null AND sn.potrazuje != 0")
 	List<String> getKufIdentifikators(Date datumOd, Date datumDo, Preduzece preduzece);
 	
-	@Query("SELECT distinct(sn.identifikator) FROM StavkaNaloga sn WHERE sn.datum between ? AND ? AND sn.nalog.preduzece = ? AND (sn.konto.sifra like '432%' or sn.konto.sifra like '433%' or sn.konto.sifra like '434%' or sn.konto.sifra like '435%') AND sn.komitent = ?")
+	@Query("SELECT distinct(sn.identifikator) FROM StavkaNaloga sn WHERE sn.datum between ? AND ? AND sn.nalog.preduzece = ? AND (sn.konto.sifra like '432%' or sn.konto.sifra like '433%' or sn.konto.sifra like '434%' or sn.konto.sifra like '435%') AND sn.komitent = ?  AND sn.potrazuje != null AND sn.potrazuje != 0")
 	List<String> getKufIdentifikators(Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent);
 	
 	@Query("SELECT sn.identifikator FROM StavkaNaloga sn WHERE sn.id = ?")
