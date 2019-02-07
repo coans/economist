@@ -107,4 +107,9 @@ public class NalogServiceImpl implements NalogService {
 		}
 		return null;
 	}
+
+	@Override
+	public List<NalogDTO> findByPreduzeceAndStatus(Preduzece preduzece, Integer status) {
+		return mapToDTO(nalogRepository.findByPreduzeceAndStatus(preduzece, status));
+	}
 }

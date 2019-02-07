@@ -2,6 +2,7 @@ package com.economist.controller;
 
 import java.beans.PropertyEditorSupport;
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.economist.config.BaseController;
@@ -52,8 +54,15 @@ public class NalogController extends BaseController {
 	private NalogValidator validator;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public String defaultView(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale/*, @RequestParam(required = false) Integer preduzeceId*/) {
-		final List<NalogDTO> nalogs = nalogService.findByPreduzece(getUser().getPreduzece());
+	public String defaultView(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale, @RequestParam(required = false) Integer status) {
+		List<NalogDTO> nalogs = null;
+		if (status != null) {
+			nalogs = nalogService.findByPreduzeceAndStatus(getUser().getPreduzece(), status);
+		} else {
+			nalogs = nalogService.findByPreduzeceAndStatus(getUser().getPreduzece(), 0);
+		}
+		model.addAttribute("statusSelected", status);
+		model.addAttribute("statuses", Arrays.asList(0, 1));
 		model.addAttribute("nalogs", nalogs);
 		setUkupno(nalogs, model);
 		
@@ -82,7 +91,7 @@ public class NalogController extends BaseController {
 
 		nalog.setPreduzece(new PreduzeceDTO(getUser().getPreduzece()));
 		nalog.setModified(new Date());
-		nalog.setZakljucan(Boolean.FALSE);
+		nalog.setZakljucan(0);
 		
 		validator.validate(nalog, errors);
 		if (errors.hasErrors()) {
@@ -103,7 +112,7 @@ public class NalogController extends BaseController {
 	@RequestMapping(value = "/zakljucaj/{id}", method = RequestMethod.GET)
 	public String zakljucaj(@PathVariable(value = "id") Integer nalogId, ModelMap model) {
 		NalogDTO nalog = nalogService.findOne(nalogId);
-		nalog.setZakljucan(Boolean.TRUE);
+		nalog.setZakljucan(1);
 		
 		nalogService.save(nalog);
 		
@@ -113,7 +122,7 @@ public class NalogController extends BaseController {
 	@RequestMapping(value = "/otkljucaj/{id}", method = RequestMethod.GET)
 	public String otkljucaj(@PathVariable(value = "id") Integer nalogId, ModelMap model) {
 		NalogDTO nalog = nalogService.findOne(nalogId);
-		nalog.setZakljucan(Boolean.FALSE);
+		nalog.setZakljucan(0);
 		
 		nalogService.save(nalog);
 		

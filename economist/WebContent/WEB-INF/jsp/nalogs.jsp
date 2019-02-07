@@ -6,13 +6,21 @@
 <div class="container">
 	<h3 align="center" style="padding-bottom: 0px;"><b><spring:message code="pregled.svih.naloga"/></b></h3>
 	<h4 align="center" style="padding-bottom: 0px;">${user.preduzece.naziv}</h4>
-	<p><a href="api/nalogs/new" class="btn btn-info"><spring:message code="novi.nalog"/></a></p>
-<%-- 	<label>Filter by category</label>
-	<select id="category" onchange="filterFoodByCategory()">
-	    <c:forEach items="${categories}" var="category">
-            <option value="${category.id}" ${category.id == selectedCategoryId ? 'selected' : ''}>${category.name}</option>
-	    </c:forEach>
-	</select> --%>
+	<div class="row">
+		<div class="col-xs-7">
+			<p><a href="api/nalogs/new" class="btn btn-info"><spring:message code="novi.nalog"/></a></p>
+		</div>
+		<div class="col-xs-2">
+			<label><spring:message code="nalog.filter"/></label>
+		</div>
+		<div class="col-xs-3" align="right">
+			<select class="form-control" id="status" onchange="filterNalog()">
+	    		<c:forEach items="${statuses}" var="s">
+	    	        <option value="${s}" ${s == statusSelected ? 'selected' : ''}><c:if test="${s == 0}"><spring:message code="aktivan"/></c:if> <c:if test="${s == 1}"><spring:message code="zakljucan"/></c:if></option>
+			    </c:forEach>
+			</select>
+		</div>
+	</div>
 	<table class="${tableClass}">
 		<thead>
 			<tr>
@@ -33,42 +41,43 @@
 			<c:forEach items="${nalogs}" var="nalog" varStatus="loop">	
 				<tr>
 					<td align="center">${loop.count}</td>
-					<c:if test="${not nalog.zakljucan}">
+					<c:if test="${nalog.zakljucan == 0}">
 						<td align="center"><a href="api/stavkas/details/${nalog.id}" title="<spring:message code='detalji'/>">${nalog.broj}</a></td>
 					</c:if>
-					<c:if test="${nalog.zakljucan}">
+					<c:if test="${nalog.zakljucan == 1}">
 						<td align="center">${nalog.broj}</td>
 					</c:if>
 					<td align="center"><fmt:formatDate pattern = "${datumPattern}" value = "${nalog.created}" /> / <fmt:formatDate pattern = "${datumPattern}" value = "${nalog.modified}" /></td>
 					<td align="center">${nalog.vrstaDokumenta.naziv}</td>
 					<td align="center">${nalog.opis}</td>
 					<td align="center">${nalog.napomena}</td>
-					<c:if test="${nalog.zakljucan}"><td align="center"><spring:message code="zakljucan"/></td></c:if>
-					<c:if test="${not nalog.zakljucan}"><td align="center"><spring:message code="aktivan"/></td></c:if>
+					<c:if test="${nalog.zakljucan == 1}"><td align="center"><spring:message code="zakljucan"/></td></c:if>
+					<c:if test="${nalog.zakljucan == 0}"><td align="center"><spring:message code="aktivan"/></td></c:if>
 					<td align="right">${nalog.duguje}</td>
 					<td align="right">${nalog.potrazuje}</td>
 					<td align="right">${nalog.saldo}</td>
 					<td align="center">
-						<c:if test="${not nalog.zakljucan}">
+						<c:if test="${nalog.zakljucan == 0}">
 							<a href="api/stavkas/new/${nalog.id}" title="<spring:message code='dodaj.stavku'/>"><i class="glyphicon glyphicon-plus"></i></a>
 							 &nbsp;
 							<%-- <a href="#" data-href="api/nalogs/zakljucaj/${nalog.id}" data-toggle="modal" data-target="#confirmDeleteId" title="Delete"><i class="glyphicon glyphicon-remove"></i></a> --%>
 							<a href="api/nalogs/zakljucaj/${nalog.id}" title="<spring:message code='zakljucaj.nalog'/>"><i class="glyphicon glyphicon-ban-circle"></i></a>
 						</c:if>
-						<c:if test="${nalog.zakljucan}">	
+						<c:if test="${nalog.zakljucan == 1}">	
 							&nbsp;
 							<a href="api/nalogs/otkljucaj/${nalog.id}" title="<spring:message code='otkljucaj.nalog'/>"><i class="glyphicon glyphicon-ok"></i></a>
 						</c:if>
 					</td>
 				</tr>
 			</c:forEach>
-			<tr><td colspan="11">&nbsp;</td></tr>
+			<!-- <tr><td colspan="11">&nbsp;</td></tr> -->
 			<tr>
 				<td class="active" colspan="6">&nbsp;</td>
 				<td class="active" align="center"><b><spring:message code="ukupno"/></b></td>
 				<td class="ukupno" align="right"><b>${duguje}</b></td>
 				<td class="ukupno" align="right"><b>${potrazuje}</b></td>
 				<td class="ukupno" align="right"><b>${saldo}</b></td>
+				<td class="ukupno">&nbsp;</td>
 			</tr>		
 		</tbody>
     </table>
@@ -93,8 +102,8 @@
 	    $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
 	}); */
 	
-/* 	function filterFoodByCategory() {
+	function filterNalog() {
 		var baseUrl = "${baseurl}";
-		location.href = baseUrl + "foods?categoryId=" + $("#category").val();
-	} */
+		location.href = baseUrl + "api/nalogs?status=" + $("#status").val();
+	}
 </script>

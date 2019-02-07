@@ -15,7 +15,7 @@ public class NalogDTO  implements Serializable {
 	private Date modified;
 	private String opis;
 	private String napomena;
-	private Boolean zakljucan;
+	private Integer zakljucan;
 	private PreduzeceDTO preduzece;
 	private VrstaDokumentaDTO vrstaDokumenta;
 	private BigDecimal duguje;
@@ -27,7 +27,7 @@ public class NalogDTO  implements Serializable {
 	}
 
 	public NalogDTO(Integer id, String broj, Date created, String opis,
-			String napomena, VrstaDokumentaDTO vrstaDokumenta, PreduzeceDTO preduzece, Boolean zakljucan, Date modified) {
+			String napomena, VrstaDokumentaDTO vrstaDokumenta, PreduzeceDTO preduzece, Integer zakljucan, Date modified) {
 		super();
 		this.id = id;
 		this.broj = broj;
@@ -121,11 +121,11 @@ public class NalogDTO  implements Serializable {
 		this.vrstaDokumenta = vrstaDokumenta;
 	}
 
-	public Boolean getZakljucan() {
+	public Integer getZakljucan() {
 		return zakljucan;
 	}
 
-	public void setZakljucan(Boolean zakljucan) {
+	public void setZakljucan(Integer zakljucan) {
 		this.zakljucan = zakljucan;
 	}
 

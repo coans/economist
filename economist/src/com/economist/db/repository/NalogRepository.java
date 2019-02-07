@@ -17,6 +17,9 @@ public interface NalogRepository extends JpaRepository<Nalog, Integer> {
 	@Query("SELECT n FROM Nalog n WHERE n.preduzece = ? ORDER BY n.created ASC")
 	public List<Nalog> findByPreduzece(Preduzece p);
 	
+	@Query("SELECT n FROM Nalog n WHERE n.preduzece = ? and n.zakljucan = ? ORDER BY n.created ASC")
+	public List<Nalog> findByPreduzeceAndStatus(Preduzece p, Integer status);
+	
 //	@Query("SELECT n FROM Nalog n WHERE n.preduzece = ? AND n.parentId = ?")
 //	@Query("SELECT n FROM Nalog n")
 //	public List<Nalog> findByPreduzeceAndParent(Preduzece p, Integer parentId);

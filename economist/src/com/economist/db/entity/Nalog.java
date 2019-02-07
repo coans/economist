@@ -31,7 +31,7 @@ public class Nalog implements Serializable {
 	private Date modified;
 	private String opis;
 	private String napomena;
-	private Boolean zakljucan;
+	private Integer zakljucan;
 	
 	@ManyToOne
 	private Preduzece preduzece;
@@ -106,11 +106,11 @@ public class Nalog implements Serializable {
 		this.vrstaDokumenta = vrstaDokumenta;
 	}
 
-	public Boolean getZakljucan() {
+	public Integer getZakljucan() {
 		return zakljucan;
 	}
 
-	public void setZakljucan(Boolean zakljucan) {
+	public void setZakljucan(Integer zakljucan) {
 		this.zakljucan = zakljucan;
 	}
 }

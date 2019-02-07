@@ -11,6 +11,7 @@ public interface NalogService {
 	NalogDTO findOne(Integer id);
 	Nalog find(Integer id);
 	List<NalogDTO> findByPreduzece(Preduzece preduzece);
+	List<NalogDTO> findByPreduzeceAndStatus(Preduzece preduzece, Integer status);
 	void save(NalogDTO dto);
 //	List<NalogDTO> analitika(Preduzece p, String sifraOd, String sifraDo, Date datumOd, Date datumDo);
 //	List<NalogDTO> findByPreduzeceAndParent(Preduzece p, Integer parentId);
