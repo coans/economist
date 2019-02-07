@@ -93,7 +93,7 @@
 					<td align="right">${stavka.saldoStavka}</td>
 				</tr>
 			</c:forEach>
-			<tr><td colspan="9">&nbsp;</td></tr>
+			<!-- <tr><td colspan="9">&nbsp;</td></tr> -->
 			<tr>
 				<td colspan="5" class="active">&nbsp;</td>
 				<td class="active" align="center"><b><spring:message code="ukupno"/></b></td>

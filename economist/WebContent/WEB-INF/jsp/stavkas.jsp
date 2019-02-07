@@ -50,7 +50,7 @@
 				<td class="ukupno" align="right"><b>${duguje}</b></td>
 				<td class="ukupno" align="right"><b>${potrazuje}</b></td>
 				<td class="ukupno" align="right"><b>${saldo}</b></td>
-				<!-- <td class="active">&nbsp;</td> -->
+				<td class="ukupno">&nbsp;</td>
 			</tr>			
 		</tbody>
     </table>

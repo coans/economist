@@ -76,7 +76,7 @@
 					<td align="right">${stavka.pdv}</td>
 				</tr>
 			</c:forEach>
-			<tr><td colspan="7">&nbsp;</td></tr>
+			<!-- <tr><td colspan="7">&nbsp;</td></tr> -->
 			<tr>
 				<td colspan="3" class="active">&nbsp;</td>
 				<td class="active" align="center"><b><spring:message code="ukupno"/></b></td>
