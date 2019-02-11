@@ -66,8 +66,7 @@ public class SintetikaController extends BaseController {
 	
 	@RequestMapping(value = "generate", method = RequestMethod.POST)
 	public String generate(@ModelAttribute("search") SearchBean search, Errors errors, ModelMap model, HttpServletRequest request, HttpServletResponse response) throws NoSuchMessageException, DocumentException, IOException {
-		List<StavkaNalogaDTO> result = null;
-		result = getResult(search);
+		List<StavkaNalogaDTO> result = getResult(search);
 		if (request.getParameter("pretraga") != null) {
 			model.addAttribute("search", search);
 			model.addAttribute("action", CONTROLLER + "/generate");
@@ -80,7 +79,7 @@ public class SintetikaController extends BaseController {
 			
 			return VIEW_DEFAULT;
 		} else {
-			generatePDF(request, response, result, "Sintetika od konta do konta", search, "sintetika");
+			generatePDF(request, response, result, messageSource.getMessage("sintetika.header", null, request.getLocale()), search, "sintetika");
 			return null;
 		}
 	}
@@ -94,9 +93,9 @@ public class SintetikaController extends BaseController {
 		if (search.getKomitent() != null && search.getKomitent().getId() != null) {
 			Komitent komitent = komitentService.find(search.getKomitent().getId());
 			search.setKomitent(new KomitentDTO(komitent));
-			result = stavkaNalogaService.sintetika(kontoOd.getSifra(), kontoDo.getSifra() + "99", search.getDatumOd(), search.getDatumDo(), getUser().getPreduzece(), komitent);
+			result = stavkaNalogaService.analitika(kontoOd.getSifra(), kontoDo.getSifra() + "99", search.getDatumOd(), search.getDatumDo(), getUser().getPreduzece(), komitent);
 		} else {
-			result = stavkaNalogaService.sintetika(kontoOd.getSifra(), kontoDo.getSifra() + "99", search.getDatumOd(), search.getDatumDo(), getUser().getPreduzece());
+			result = stavkaNalogaService.analitika(kontoOd.getSifra(), kontoDo.getSifra() + "99", search.getDatumOd(), search.getDatumDo(), getUser().getPreduzece());
 		}
 		return result;
 	}

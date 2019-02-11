@@ -17,8 +17,8 @@
 						<ul class="dropdown-menu">
 							<li><a href="api/sintetika">Sintetika</a></li>
 							<li><a href="api/analitika">Analitika</a></li>
-							<!-- <li><a href="analitika-konta-komitenti">Analitika konto komitent</a></li>
-							<li><a href="bilans">Bilans</a></li>-->
+							<!-- <li><a href="analitika-konta-komitenti">Analitika konto komitent</a></li>-->
+							<li><a href="api/bilans">Bilans</a></li>
 							<li><a href="api/kif-kuf/kif">KIF</a></li>
 							<li><a href="api/kif-kuf/kuf">KUF</a></li> 
 						</ul>

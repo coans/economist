@@ -15,6 +15,7 @@ public class StavkaNalogaDTO  implements Serializable {
 	private Date datum;
 	private String opis;
 	private KomitentDTO komitent;
+	private String brojFakture;
 	private String identifikator;
 	private NalogDTO nalog;
 	private BigDecimal dugujeStavka;
@@ -66,6 +67,7 @@ public class StavkaNalogaDTO  implements Serializable {
 			this.opis = bean.getOpis();
 			this.nalog = new NalogDTO(bean.getNalog(), null, null, null);
 			this.komitent = new KomitentDTO(bean.getKomitent());
+			this.brojFakture = bean.getBrojFakture();
 			this.identifikator = bean.getIdentifikator();
 			this.dugujeStavka = bean.getDuguje();
 			this.potrazujeStavka = bean.getPotrazuje();
@@ -226,5 +228,11 @@ public class StavkaNalogaDTO  implements Serializable {
 
 	public void setKontoPDV(KontoDTO kontoPDV) {
 		this.kontoPDV = kontoPDV;
+	}
+	public String getBrojFakture() {
+		return brojFakture;
+	}
+	public void setBrojFakture(String brojFakture) {
+		this.brojFakture = brojFakture;
 	}
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,6 +32,8 @@ public class StavkaNaloga implements Serializable {
 	private BigDecimal saldo;
 	private String identifikator;
 	private String vrsta;
+	@Column(name="broj_fakture")
+	private String brojFakture;
 
 	//bi-directional many-to-one association to Konto
 	@ManyToOne
@@ -132,5 +135,13 @@ public class StavkaNaloga implements Serializable {
 
 	public void setVrsta(String vrsta) {
 		this.vrsta = vrsta;
+	}
+
+	public String getBrojFakture() {
+		return brojFakture;
+	}
+
+	public void setBrojFakture(String brojFakture) {
+		this.brojFakture = brojFakture;
 	}
 }

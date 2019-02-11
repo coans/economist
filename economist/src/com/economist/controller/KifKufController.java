@@ -73,7 +73,7 @@ public class KifKufController extends BaseController {
 		
 			return KIF;
 		} else {
-			List<String> headers = Arrays.asList("#", messageSource.getMessage("broj", null, request.getLocale()), messageSource.getMessage("datum", null, request.getLocale()),
+			List<String> headers = Arrays.asList("#", messageSource.getMessage("broj.fakture", null, request.getLocale()), messageSource.getMessage("datum", null, request.getLocale()),
 					messageSource.getMessage("komitent", null, request.getLocale()), messageSource.getMessage("iznos", null, request.getLocale()), messageSource.getMessage("kif.osnovica", null, request.getLocale()),
 					messageSource.getMessage("kif.pdv", null, request.getLocale()));
 			generateKifKufPDF(request, response, result, messageSource.getMessage("kif", null, request.getLocale()), search, headers, "kif");
@@ -117,7 +117,7 @@ public class KifKufController extends BaseController {
 			
 			return KUF;
 		} else {
-			List<String> headers = Arrays.asList("#", messageSource.getMessage("broj", null, request.getLocale()), messageSource.getMessage("datum", null, request.getLocale()),
+			List<String> headers = Arrays.asList("#", messageSource.getMessage("broj.fakture", null, request.getLocale()), messageSource.getMessage("datum", null, request.getLocale()),
 					messageSource.getMessage("komitent", null, request.getLocale()), messageSource.getMessage("kuf.ukupno", null, request.getLocale()), messageSource.getMessage("iznos", null, request.getLocale()),
 					messageSource.getMessage("kuf.pdv", null, request.getLocale()));
 			generateKifKufPDF(request, response, result, messageSource.getMessage("kuf", null, request.getLocale()), search, headers, "kuf");

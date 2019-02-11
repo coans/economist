@@ -39,16 +39,23 @@
 					<div class="has-error">
 						<form:errors path="komitent.id" cssClass="help-block" element="label"/>
 					</div>
+				</div>
+				<div class="form-group">
+					<form:label path="brojFakture"><spring:message code="broj.fakture"/></form:label>
+					<form:input path="brojFakture" type="text" class="form-control" />
+					<div class="has-error">
+						<form:errors path="brojFakture" cssClass="help-block" element="label"/>
+					</div>
 				</div>				
 				<div class="form-group">
-					<form:label path="dugujeStavka" class="required" id="labelDuguje"><spring:message code="duguje"/></form:label>
+					<form:label path="dugujeStavka" class="required"><spring:message code="duguje"/></form:label>
 					<form:input path="dugujeStavka" type="text" class="form-control" />
 					<div class="has-error">
 						<form:errors path="dugujeStavka" cssClass="help-block" element="label"/>
 					</div>
 				</div>				
 				<div class="form-group">
-					<form:label path="potrazujeStavka" class="required" id="labelPotrazuje"><spring:message code="potrazuje"/></form:label>
+					<form:label path="potrazujeStavka" class="required"><spring:message code="potrazuje"/></form:label>
 					<form:input path="potrazujeStavka" type="text" class="form-control" />
 					<div class="has-error">
 						<form:errors path="potrazujeStavka" cssClass="help-block" element="label"/>
@@ -69,14 +76,14 @@
 					</div>
 				</div>			
 				<div class="form-group">
-					<form:label path="dugujeProtivStavka" class="required" id="labelDuguje"><spring:message code="duguje"/></form:label>
+					<form:label path="dugujeProtivStavka" class="required"><spring:message code="duguje"/></form:label>
 					<form:input path="dugujeProtivStavka" type="text" class="form-control" />
 					<div class="has-error">
 						<form:errors path="dugujeProtivStavka" cssClass="help-block" element="label"/>
 					</div>
 				</div>				
 				<div class="form-group">
-					<form:label path="potrazujeProtivStavka" class="required" id="labelPotrazuje"><spring:message code="potrazuje"/></form:label>
+					<form:label path="potrazujeProtivStavka" class="required"><spring:message code="potrazuje"/></form:label>
 					<form:input path="potrazujeProtivStavka" type="text" class="form-control" />
 					<div class="has-error">
 						<form:errors path="potrazujeProtivStavka" cssClass="help-block" element="label"/>
@@ -93,14 +100,14 @@
 					</div>
 				</div>			
 				<div class="form-group">
-					<form:label path="dugujePDV" class="required" id="labelDuguje"><spring:message code="duguje"/></form:label>
+					<form:label path="dugujePDV" class="required"><spring:message code="duguje"/></form:label>
 					<form:input path="dugujePDV" type="text" class="form-control" />
 					<div class="has-error">
 						<form:errors path="dugujePDV" cssClass="help-block" element="label"/>
 					</div>
 				</div>				
 				<div class="form-group">
-					<form:label path="potrazujePDV" class="required" id="labelPotrazuje"><spring:message code="potrazuje"/></form:label>
+					<form:label path="potrazujePDV" class="required"><spring:message code="potrazuje"/></form:label>
 					<form:input path="potrazujePDV" type="text" class="form-control" />
 					<div class="has-error">
 						<form:errors path="potrazujePDV" cssClass="help-block" element="label"/>

@@ -3,18 +3,22 @@ package com.economist.service.impl;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.economist.db.entity.Komitent;
+import com.economist.db.entity.Konto;
 import com.economist.db.entity.Nalog;
 import com.economist.db.entity.Preduzece;
 import com.economist.db.entity.StavkaNaloga;
 import com.economist.db.repository.StavkaNalogaRepository;
 import com.economist.dto.KifKufDTO;
 import com.economist.dto.StavkaNalogaDTO;
+import com.economist.model.BilansResultBean;
 import com.economist.model.enums.EnumVrstaStavkaNaloga;
 import com.economist.service.KomitentService;
 import com.economist.service.KontoService;
@@ -61,6 +65,7 @@ public class StavkaNalogaServiceImpl implements StavkaNalogaService {
 		stavka.setPotrazuje(dto.getPotrazujeStavka());
 		stavka.setSaldo(dto.getSaldoStavka());
 		stavka.setOpis(dto.getOpis());
+		stavka.setBrojFakture(dto.getBrojFakture());
 		stavka.setIdentifikator(dto.getIdentifikator());
 		if (dto.getKomitent() != null) {
 			stavka.setKomitent(komitentService.find(dto.getKomitent().getId()));
@@ -82,6 +87,7 @@ public class StavkaNalogaServiceImpl implements StavkaNalogaService {
 		protivStavka.setPotrazuje(dto.getPotrazujeProtivStavka());
 		protivStavka.setSaldo(dto.getSaldoProtivStavka());
 		protivStavka.setOpis(dto.getOpis());
+		protivStavka.setBrojFakture(dto.getBrojFakture());
 		protivStavka.setIdentifikator(dto.getIdentifikator());
 		if (dto.getKomitent() != null) {
 			protivStavka.setKomitent(komitentService.find(dto.getKomitent().getId()));
@@ -104,6 +110,7 @@ public class StavkaNalogaServiceImpl implements StavkaNalogaService {
 			pdv.setPotrazuje(dto.getPotrazujePDV());
 			pdv.setSaldo(dto.getSaldoPDV());
 			pdv.setOpis(dto.getOpis());
+			pdv.setBrojFakture(dto.getBrojFakture());
 			pdv.setIdentifikator(dto.getIdentifikator());
 			if (dto.getKomitent() != null) {
 				pdv.setKomitent(komitentService.find(dto.getKomitent().getId()));
@@ -147,19 +154,19 @@ public class StavkaNalogaServiceImpl implements StavkaNalogaService {
 	public BigDecimal getSaldoByNalog(Nalog nalog) {
 		return stavkaNalogaRepository.getSaldoByNalog(nalog);
 	}
-
+/*
 	@Override
 	public List<StavkaNalogaDTO> sintetika(String kontoOd, String kontoDo,
 			Date datumOd, Date datumDo, Preduzece preduzece) {
-		return mapToDTO(stavkaNalogaRepository.sintetika(kontoOd, kontoDo, datumOd, datumDo, preduzece));
+		return mapToDTO(stavkaNalogaRepository.analitika(kontoOd, kontoDo, datumOd, datumDo, preduzece));
 	}
 
 	@Override
 	public List<StavkaNalogaDTO> sintetika(String kontoOd, String kontoDo,
 			Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent) {
-		return mapToDTO(stavkaNalogaRepository.sintetika(kontoOd, kontoDo, datumOd, datumDo, preduzece, komitent));
+		return mapToDTO(stavkaNalogaRepository.analitika(kontoOd, kontoDo, datumOd, datumDo, preduzece, komitent));
 	}
-
+*/
 	@Override
 	public List<StavkaNalogaDTO> analitika(String kontoOd, String kontoDo,
 			Date datumOd, Date datumDo, Preduzece preduzece) {
@@ -193,7 +200,7 @@ public class StavkaNalogaServiceImpl implements StavkaNalogaService {
 			if (stavkes != null) {
 				List<BigDecimal> iznosi = new ArrayList<>();
 				for (StavkaNaloga stavkaNaloga : stavkes) {
-					dto.setBrojFakture("Sta je ovaj broj");
+					dto.setBrojFakture(stavkaNaloga.getBrojFakture());
 					dto.setDatum(stavkaNaloga.getDatum());
 					//ako imamo komitenta i on je u sistemu pdv onda setujemo pdv
 					if (stavkaNaloga.getKomitent() != null) {
@@ -253,5 +260,73 @@ public class StavkaNalogaServiceImpl implements StavkaNalogaService {
 	@Override
 	public List<StavkaNaloga> findByIdentifikator(String identifikator) {
 		return stavkaNalogaRepository.findByIdentifikator(identifikator);
+	}
+
+	@Override
+	public Map<Integer, List<BilansResultBean>> bilans(String kontoOd, String kontoDo, Date datumOd, Date datumDo, Preduzece preduzece) {
+		Map<Integer, List<BilansResultBean>> result = new HashMap<>();
+		
+		List<Object> stavke = stavkaNalogaRepository.bilans(kontoOd, kontoDo, datumOd, datumDo, preduzece);
+		for (Object object : stavke) {
+			BilansResultBean bean = new BilansResultBean();
+			Object[] objectArray = (Object[]) object;
+			bean.setKonto((Konto)objectArray[0]);
+			bean.setDuguje((BigDecimal)objectArray[1]);
+			bean.setPotrazuje((BigDecimal) objectArray[2]);
+			bean.setSaldo((BigDecimal) objectArray[3]);
+			
+			if (bean.getKonto().getSifra().startsWith("0")) { //konta klase 0
+				if (result.get(0) == null) {
+					result.put(0, new ArrayList<BilansResultBean>());
+				}
+				result.get(0).add(bean);
+			} else if (bean.getKonto().getSifra().startsWith("1")) {
+				if (result.get(1) == null) {
+					result.put(1, new ArrayList<BilansResultBean>());
+				}
+				result.get(1).add(bean);
+			} else if (bean.getKonto().getSifra().startsWith("2")) {
+				if (result.get(2) == null) {
+					result.put(2, new ArrayList<BilansResultBean>());
+				}
+				result.get(2).add(bean);
+			} else if (bean.getKonto().getSifra().startsWith("3")) {
+				if (result.get(3) == null) {
+					result.put(3, new ArrayList<BilansResultBean>());
+				}
+				result.get(3).add(bean);
+			} else if (bean.getKonto().getSifra().startsWith("4")) {
+				if (result.get(4) == null) {
+					result.put(4, new ArrayList<BilansResultBean>());
+				}
+				result.get(4).add(bean);
+			} else if (bean.getKonto().getSifra().startsWith("5")) {
+				if (result.get(5) == null) {
+					result.put(5, new ArrayList<BilansResultBean>());
+				}
+				result.get(5).add(bean);
+			} else if (bean.getKonto().getSifra().startsWith("6")) {
+				if (result.get(6) == null) {
+					result.put(6, new ArrayList<BilansResultBean>());
+				}
+				result.get(6).add(bean);
+			} else if (bean.getKonto().getSifra().startsWith("7")) {
+				if (result.get(7) == null) {
+					result.put(7, new ArrayList<BilansResultBean>());
+				}
+				result.get(7).add(bean);
+			} else if (bean.getKonto().getSifra().startsWith("8")) {
+				if (result.get(8) == null) {
+					result.put(8, new ArrayList<BilansResultBean>());
+				}
+				result.get(8).add(bean);
+			} else if (bean.getKonto().getSifra().startsWith("9")) {
+				if (result.get(9) == null) {
+					result.put(9, new ArrayList<BilansResultBean>());
+				}
+				result.get(9).add(bean);
+			}
+		}
+		return result;
 	}
 }

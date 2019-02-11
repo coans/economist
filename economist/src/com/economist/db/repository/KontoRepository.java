@@ -13,7 +13,7 @@ public interface KontoRepository extends JpaRepository<Konto, Integer> {
 	public Konto findBySifraAndAgencija(String sifra, Agencija agencija);
 	@Query("SELECT k FROM Konto k WHERE length(k.sifra) = 3 AND k.agencija = ?")
 	public List<Konto> findSintetickaKonta(Agencija agencija);
-	@Query("SELECT k FROM Konto k WHERE length(k.sifra) = 5 AND k.agencija = ?")
+	@Query("SELECT k FROM Konto k WHERE length(k.sifra) = 4 AND k.agencija = ?")
 	public List<Konto> findAnalitickaKonta(Agencija agencija);
 	
 	

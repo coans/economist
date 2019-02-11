@@ -81,19 +81,13 @@
 					<td align="center">${stavka.nalog.broj}</td>
 					<td align="center"><fmt:formatDate pattern = "${datumPattern}" value = "${stavka.datum}" /></td>
 					<td align="center">${stavka.opis}</td>
-					<td align="center">${stavka.kontoStavka.sifra} - ${stavka.kontoStavka.naziv}</td>
-					<c:if test="${ not empty stavka.komitent.naziv}">
-						<td align="center">${stavka.komitent.naziv}(${stavka.komitent.lokacija})</td>
-					</c:if>
-					<c:if test="${empty stavka.komitent.naziv}">
-						<td align="center">${stavka.komitent.naziv}</td>
-					</c:if>
+					<td align="center">${stavka.kontoStavka.sifraNaziv}</td>
+					<td align="center">${stavka.komitent.naziv}</td>
 					<td align="right">${stavka.dugujeStavka}</td>
 					<td align="right">${stavka.potrazujeStavka}</td>
 					<td align="right">${stavka.saldoStavka}</td>
 				</tr>
 			</c:forEach>
-			<!-- <tr><td colspan="9">&nbsp;</td></tr> -->
 			<tr>
 				<td colspan="5" class="active">&nbsp;</td>
 				<td class="active" align="center"><b><spring:message code="ukupno"/></b></td>

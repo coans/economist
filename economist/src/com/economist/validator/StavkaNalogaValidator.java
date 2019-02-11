@@ -28,6 +28,9 @@ public class StavkaNalogaValidator implements Validator {
 		if (stavka.getNalog() == null) {
 			errors.rejectValue("datum", "error.stavka.naloga.nalog.empty");
 		}
+		if (stavka.getBrojFakture().length() > 50) {
+			errors.rejectValue("brojFakture", "error.stavka.naloga.broj.fakture.empty");
+		}
 		if (stavka.getKontoStavka() == null || stavka.getKontoStavka().getId().equals(-1)) {
 			errors.rejectValue("kontoStavka.id", "error.stavka.naloga.konto.empty");
 		}

@@ -155,6 +155,7 @@ public class StavkaNalogaController extends BaseController {
 			stavkaDTO.setKomitent(new KomitentDTO(stavkes.get(0).getKomitent()));
 			stavkaDTO.setNalog(new NalogDTO(stavkes.get(0).getNalog(), null, null, null));
 			stavkaDTO.setOpis(stavkes.get(0).getOpis());
+			stavkaDTO.setBrojFakture(stavkes.get(0).getBrojFakture());
 		}
 		for (StavkaNaloga stavkaNaloga : stavkes) {
 			switch (stavkaNaloga.getVrsta()) {

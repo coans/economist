@@ -1,13 +1,20 @@
 package com.economist.controller;
 
 import java.beans.PropertyEditorSupport;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.NoSuchMessageException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.Errors;
@@ -19,11 +26,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.economist.config.BaseController;
 import com.economist.db.entity.Konto;
-import com.economist.db.repository.KontoRepository;
-import com.economist.db.repository.NalogRepository;
-import com.economist.db.repository.PreduzeceRepository;
-import com.economist.db.repository.UserRepository;
+import com.economist.dto.KontoDTO;
+import com.economist.model.BilansResultBean;
 import com.economist.model.SearchBean;
+import com.economist.service.KontoService;
+import com.economist.service.StavkaNalogaService;
+import com.itextpdf.text.DocumentException;
 
 
 @Controller
@@ -32,62 +40,46 @@ public class BilansController extends BaseController {
 	
 	final static Logger logger = Logger.getLogger(BilansController.class);
 	
-	public static final String CONTROLLER = "bilans";
+	public static final String CONTROLLER = "api/bilans";
 	public static final String VIEW_DEFAULT = "bilans";
 	
 	@Autowired
-	private UserRepository userRepository;
+	private StavkaNalogaService stavkaNalogaService;
 	@Autowired
-	private KontoRepository kontoRepository;
+	private KontoService kontoService;
 	@Autowired
-	private NalogRepository nalogRepository;
-	@Autowired
-	private PreduzeceRepository preduzeceRepository;
+	private MessageSource messageSource;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String defaultView(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale) {
 		model.addAttribute("search", new SearchBean());
 		model.addAttribute("action", CONTROLLER + "/generate");
-		model.addAttribute("showTable", false);
-//		model.addAttribute("konta", kontoRepository.findByUser(getUser()));
+		model.addAttribute("kontos", kontoService.findSintetickaKonta(getUser().getAgencija()));
 		return VIEW_DEFAULT;
 	}
 	
 	@RequestMapping(value = "generate", method = RequestMethod.POST)
-	public String generate(@ModelAttribute("search") SearchBean search, Errors errors, ModelMap model) {
-		
-/*		model.addAttribute("search", search);
-		model.addAttribute("action", CONTROLLER + "/generate");
-		model.addAttribute("konta", kontoRepository.findByAgencija(getUser().getAgencija()));
-		model.addAttribute("showTable", true);
-		Preduzece p = preduzeceRepository.findOne(1);
-		
-		for (int i = Integer.valueOf(search.getKontoOdBilans()); i <= Integer.valueOf(search.getKontoDoBilans());i ++) {
-			List<Object> result = kontoRepository.bilans(p, String.valueOf(i), search.getDatumOd(), search.getDatumDo());
-			List<BilansResultBean> kontos = new ArrayList<BilansResultBean>();
-			BigDecimal duguje = BigDecimal.ZERO;
-			BigDecimal potrazuje = BigDecimal.ZERO;
-			
-			for (Object object : result) {
-				BilansResultBean bean = new BilansResultBean();
-				Object[] objectArray = (Object[]) object;
-				bean.setKonto((Konto)objectArray[0]);
-				bean.setDuguje((BigDecimal)objectArray[1]);
-				bean.setPotrazuje((BigDecimal) objectArray[2]);
-				bean.setSaldo((BigDecimal) objectArray[3]);
-				
-				kontos.add(bean);
-				
-				duguje = duguje.add((BigDecimal)objectArray[1]);
-				potrazuje = potrazuje.add((BigDecimal) objectArray[2]);
+	public String generate(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("search") SearchBean search, Errors errors, ModelMap model) throws NoSuchMessageException, DocumentException, IOException {
+		Konto kontoOd = kontoService.find(search.getKontoOd().getId());
+		search.setKontoOd(new KontoDTO(kontoOd));
+		Konto kontoDo = kontoService.find(search.getKontoDo().getId());
+		search.setKontoDo(new KontoDTO(kontoDo));
+		Map<Integer, List<BilansResultBean>> result = stavkaNalogaService.bilans(search.getKontoOd().getSifra(), search.getKontoDo().getSifra(), search.getDatumOd(), search.getDatumDo(), getUser().getPreduzece());
+		if (request.getParameter("pretraga") != null) {
+			model.addAttribute("search", search);
+			model.addAttribute("action", CONTROLLER + "/generate");
+			model.addAttribute("kontos", kontoService.findSintetickaKonta(getUser().getAgencija()));
+			for (Integer key : result.keySet()) {
+				model.addAttribute("konto" + key, result.get(key));
 			}
-			model.addAttribute("konto" + i, kontos);
-			model.addAttribute("dugujeKonto" + i, duguje);
-			model.addAttribute("potrazujeKonto" + i, potrazuje);
-			model.addAttribute("saldoKonto" + i, duguje.subtract(potrazuje));
-		}*/
-		
-		return VIEW_DEFAULT;
+			
+			return VIEW_DEFAULT;
+		} else {
+			List<String> headers = Arrays.asList("#", messageSource.getMessage("konto", null, request.getLocale()), messageSource.getMessage("duguje", null, request.getLocale()),
+					messageSource.getMessage("potrazuje", null, request.getLocale()), messageSource.getMessage("saldo", null, request.getLocale()));
+			generateBilansPDF(response, result, messageSource.getMessage("bilans.header", null, request.getLocale()), search, headers, "bilans");
+			return null;
+		}
 	}
 
 	@Override

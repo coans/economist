@@ -25,15 +25,15 @@ public interface StavkaNalogaRepository extends JpaRepository<StavkaNaloga, Inte
 	
 	@Query("SELECT sum(sn.saldo) FROM StavkaNaloga sn WHERE sn.nalog = ?1")
 	BigDecimal getSaldoByNalog(Nalog nalog);
-	
+/*	
 	@Query("SELECT sn FROM StavkaNaloga sn WHERE sn.konto.sifra between ?1 AND ?2 AND sn.datum between ?3 AND ?4 AND sn.nalog.preduzece = ?5")
 	List<StavkaNaloga> sintetika(String kontoOd, String kontoDo, Date datumOd, Date datumDo, Preduzece preduzece);
 	@Query("SELECT sn FROM StavkaNaloga sn WHERE sn.konto.sifra between ?1 AND ?2 AND sn.datum between ?3 AND ?4 AND sn.nalog.preduzece = ?5 AND sn.komitent = ?6")
 	List<StavkaNaloga> sintetika(String kontoOd, String kontoDo, Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent);
-	
-	@Query("SELECT sn FROM StavkaNaloga sn WHERE sn.konto.sifra between ?1 AND ?2 AND sn.datum between ?3 AND ?4 AND sn.nalog.preduzece = ?5 AND length(sn.konto.sifra) = 5")
+*/	
+	@Query("SELECT sn FROM StavkaNaloga sn WHERE sn.konto.sifra between ?1 AND ?2 AND sn.datum between ?3 AND ?4 AND sn.nalog.preduzece = ?5")
 	List<StavkaNaloga> analitika(String kontoOd, String kontoDo, Date datumOd, Date datumDo, Preduzece preduzece);
-	@Query("SELECT sn FROM StavkaNaloga sn WHERE sn.konto.sifra between ?1 AND ?2 AND sn.datum between ?3 AND ?4 AND sn.nalog.preduzece = ?5 AND sn.komitent = ?6 AND length(sn.konto.sifra) = 5")
+	@Query("SELECT sn FROM StavkaNaloga sn WHERE sn.konto.sifra between ?1 AND ?2 AND sn.datum between ?3 AND ?4 AND sn.nalog.preduzece = ?5 AND sn.komitent = ?6")
 	List<StavkaNaloga> analitika(String kontoOd, String kontoDo, Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent);
 	
 	@Query("SELECT distinct(sn.identifikator) FROM StavkaNaloga sn WHERE sn.datum between ? AND ? AND sn.nalog.preduzece = ? AND sn.konto.sifra like '201%' AND sn.duguje != null AND sn.duguje != 0")
@@ -51,4 +51,8 @@ public interface StavkaNalogaRepository extends JpaRepository<StavkaNaloga, Inte
 	@Query("SELECT sn.identifikator FROM StavkaNaloga sn WHERE sn.id = ?")
 	String getIdentifikatorById(Integer id);
 	
+	@Query("SELECT sn.konto, sum(sn.duguje), sum(sn.potrazuje), sum(sn.saldo) FROM StavkaNaloga sn WHERE sn.konto.sifra between ?1 AND ?2 AND sn.datum between ?3 AND ?4 AND sn.nalog.preduzece = ?5 group by sn.konto.sifra")
+	List<Object> bilans(String kontoOd, String kontoDo, Date datumOd, Date datumDo, Preduzece preduzece);
+//	@Query("SELECT sn FROM StavkaNaloga sn WHERE sn.konto.sifra between ?1 AND ?2 AND sn.datum between ?3 AND ?4 AND sn.nalog.preduzece = ?5 AND sn.komitent = ?6")
+//	List<StavkaNaloga> bilans(String kontoOd, String kontoDo, Date datumOd, Date datumDo, Preduzece preduzece, Komitent komitent);
 }

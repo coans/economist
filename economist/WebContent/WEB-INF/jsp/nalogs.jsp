@@ -10,7 +10,7 @@
 		<div class="col-xs-7">
 			<p><a href="api/nalogs/new" class="btn btn-info"><spring:message code="novi.nalog"/></a></p>
 		</div>
-		<div class="col-xs-2">
+		<div class="col-xs-2" style="padding-left: 6%">
 			<label><spring:message code="nalog.filter"/></label>
 		</div>
 		<div class="col-xs-3" align="right">

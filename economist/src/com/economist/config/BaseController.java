@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +36,7 @@ import com.economist.auth.AuthorizationService;
 import com.economist.db.entity.User;
 import com.economist.dto.KifKufDTO;
 import com.economist.dto.StavkaNalogaDTO;
+import com.economist.model.BilansResultBean;
 import com.economist.model.KifKufSearchBean;
 import com.economist.model.SearchBean;
 import com.itextpdf.text.BaseColor;
@@ -301,6 +303,93 @@ public class BaseController {
 			}
 	
 			doc.add(table);
+			doc.close();
+		}
+		// setting some response headers
+		response.setHeader("Expires", "0");
+		response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
+		response.setHeader("Pragma", "public");
+		response.setContentType("application/pdf; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentLength(baos.size());
+		response.addHeader("Content-Disposition", "attachment; filename=" + filename + ".pdf");
+
+		// write ByteArrayOutputStream to the ServletOutputStream
+		OutputStream os = response.getOutputStream();
+		baos.writeTo(os);
+		os.flush();
+		os.close();
+	}
+	
+	public void generateBilansPDF(HttpServletResponse response,Map<Integer, List<BilansResultBean>> result, String reportTitle, SearchBean searchBean, List<String> headers, String filename) throws DocumentException, IOException {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		SimpleDateFormat formatter = new SimpleDateFormat(getDatumPattern());
+		BaseFont baseFont = BaseFont.createFont(BaseFont.TIMES_ROMAN, BaseFont.CP1250, BaseFont.EMBEDDED);
+		if (result != null && !result.isEmpty()) {
+			Document doc = new Document();
+			PdfWriter.getInstance(doc, baos);
+			doc.open();
+			
+			Paragraph preduzece = new Paragraph(getUser().getPreduzece().getNaziv(), new Font(baseFont, 18, Font.BOLD));
+			preduzece.setAlignment(Element.ALIGN_CENTER);
+			doc.add(preduzece);
+			
+			Paragraph title = new Paragraph(reportTitle, new Font(baseFont, 12, Font.BOLD));
+			title.setAlignment(Element.ALIGN_CENTER);
+			doc.add(title);
+			
+			Paragraph kontoOdDo = new Paragraph("Konto: " + searchBean.getKontoOd().getSifra() + " - " + searchBean.getKontoDo().getSifra(), new Font(baseFont, 10, Font.BOLD));
+			kontoOdDo.setAlignment(Element.ALIGN_CENTER);
+			doc.add(kontoOdDo);
+			
+			Paragraph datumOdDo = new Paragraph("Datum: " + formatter.format(searchBean.getDatumOd()) + " - " + formatter.format(searchBean.getDatumDo()), new Font(baseFont, 10, Font.BOLD));
+			datumOdDo.setAlignment(Element.ALIGN_CENTER);
+			addEmptyLine(datumOdDo, 1);
+			doc.add(datumOdDo);
+	
+			for (Integer key : result.keySet()) {
+				// Creating a table object 
+				PdfPTable table = new PdfPTable(5);
+				table.setWidths(new float[] { 3f, 15f, 10f, 10f, 10f});
+				
+				Font headerFont = new Font(baseFont, 10, Font.BOLD);
+				for (String headerCell : headers) {
+					PdfPCell c1 = new PdfPCell(new Phrase(headerCell, headerFont));  c1.setHorizontalAlignment(Element.ALIGN_CENTER); c1.setBackgroundColor(BaseColor.LIGHT_GRAY); table.addCell(c1);
+				}	
+				table.setHeaderRows(1);
+		        
+		        int counter = 1;
+		        Font cellFont = new Font(baseFont, 8, Font.NORMAL);
+		        BigDecimal dugujeUkupno = BigDecimal.ZERO;
+		        BigDecimal potrazujeUkupno = BigDecimal.ZERO;
+		        for (BilansResultBean stavka : result.get(key)) {
+		        	PdfPCell rBroj = new PdfPCell(new Paragraph(String.valueOf(counter), cellFont)); rBroj.setHorizontalAlignment(Element.ALIGN_CENTER); table.addCell(rBroj);
+		        	PdfPCell konto = new PdfPCell(new Paragraph(stavka.getKonto().getSifraNaziv(), cellFont)); table.addCell(konto);
+		        	PdfPCell duguje = new PdfPCell(new Paragraph(stavka.getDuguje().toString(), cellFont)); duguje.setHorizontalAlignment(Element.ALIGN_RIGHT); table.addCell(duguje);
+		        	PdfPCell potrazuje = new PdfPCell(new Paragraph(stavka.getPotrazuje().toString(), cellFont)); potrazuje.setHorizontalAlignment(Element.ALIGN_RIGHT); table.addCell(potrazuje);
+		        	PdfPCell saldo = new PdfPCell(new Paragraph(stavka.getSaldo().toString(), cellFont)); saldo.setHorizontalAlignment(Element.ALIGN_RIGHT); table.addCell(saldo);
+		        	counter++;
+		        	dugujeUkupno = dugujeUkupno.add(stavka.getDuguje());
+		        	potrazujeUkupno = potrazujeUkupno.add(stavka.getPotrazuje());
+				}
+		        table.addCell("");
+		        Font footerFont = new Font(baseFont, 8, Font.BOLD);
+		        PdfPCell ukupno = new PdfPCell(new Paragraph("Ukupno", footerFont)); ukupno.setHorizontalAlignment(Element.ALIGN_CENTER);
+		        table.addCell(ukupno);
+		        PdfPCell dugujeUkupnoCell = new PdfPCell(new Paragraph(dugujeUkupno.toString(), footerFont)); dugujeUkupnoCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+		        table.addCell(dugujeUkupnoCell);
+		        PdfPCell potrazujeUkupnoCell = new PdfPCell(new Paragraph(potrazujeUkupno.toString(), footerFont)); potrazujeUkupnoCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+		        table.addCell(potrazujeUkupnoCell);
+		        PdfPCell saldoUkupnoCell = new PdfPCell(new Paragraph(dugujeUkupno.subtract(potrazujeUkupno).toString(), footerFont)); saldoUkupnoCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+		        table.addCell(saldoUkupnoCell);
+		        
+		        Paragraph klasa = new Paragraph("Klasa " + key, new Font(baseFont, 10, Font.BOLD));
+		        klasa.setAlignment(Element.ALIGN_CENTER); 
+		        addEmptyLine(klasa, 1);
+		        doc.add(klasa);
+		        
+		        doc.add(table);
+			}
 			doc.close();
 		}
 		// setting some response headers

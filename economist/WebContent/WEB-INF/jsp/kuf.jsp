@@ -46,7 +46,7 @@
 		<thead class="thead-light">
 			<tr>
 				<th class="text-center" scope="col">#</th>
-				<th class="text-center" scope="col"><spring:message code="broj"/></th>
+				<th class="text-center" scope="col"><spring:message code="broj.fakture"/></th>
 				<th class="text-center" scope="col"><spring:message code="datum"/></th>
 				<%-- <th class="text-center" scope="col"><spring:message code="opis"/></th> --%>
 				<%-- <th class="text-center" scope="col"><spring:message code="konto"/></th> --%>
@@ -66,7 +66,7 @@
 				<c:set var="pdv" value="${pdv + stavka.pdv}" />
 				<tr>
 					<td align="center">${loop.count}</td>
-					<td align="center"><%-- ${stavka.nalog.broj} --%></td>
+					<td align="center">${stavka.brojFakture}</td>
 					<td align="center"><fmt:formatDate pattern = "${datumPattern}" value = "${stavka.datum}" /></td>
 					<%-- <td align="center">${stavka.opisB}</td> --%>
 					<%-- <td align="center">${stavka.kontoB.sifra} - ${stavka.kontoB.naziv}</td> --%>
