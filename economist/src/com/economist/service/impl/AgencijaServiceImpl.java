@@ -44,8 +44,10 @@ public class AgencijaServiceImpl implements AgencijaService {
 	@Override
 	public void save(AgencijaDTO agencijaDTO) {
 		Agencija bean = new Agencija();
-		bean.setNaziv(agencijaDTO.getNaziv());
-		bean.setId(agencijaDTO.getId());
+		if (agencijaDTO.getId() != null) {
+			bean = agencijaRepository.findOne(agencijaDTO.getId());
+		}
+		bean.setNaziv(agencijaDTO.getNaziv());		
 		
 		agencijaRepository.save(bean);
 	}
