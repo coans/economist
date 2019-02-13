@@ -52,7 +52,7 @@ public class KontoController extends BaseController {
 //		List<Category> categories = categoryRepository.findAll();
 //		categories.add(0, new Category("Select category..."));
 //		model.addAttribute("categories", categories);
-		model.addAttribute("kontos", kontoService.findByAgencija(getUser().getAgencija()));
+		model.addAttribute("kontos", kontoService.findByAgencija(getUser().getPreduzece().getAgencija()));
 		
 		return VIEW_DEFAULT;
 	}
@@ -72,7 +72,7 @@ public class KontoController extends BaseController {
 	public String create(@ModelAttribute("konto") KontoDTO kontoDTO, Errors errors, ModelMap model,
 			final RedirectAttributes redirectAttributes) {
 
-		kontoDTO.setAgencijaId(getUser().getAgencija().getId());		
+		kontoDTO.setAgencijaId(getUser().getPreduzece().getAgencija().getId());		
 		validator.validate(kontoDTO, errors);
 		if (errors.hasErrors()) {
 			model.addAttribute("konto", kontoDTO);

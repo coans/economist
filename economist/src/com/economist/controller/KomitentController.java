@@ -43,7 +43,7 @@ public class KomitentController extends BaseController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String defaultView(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale) {
-		model.addAttribute("komitents", komitentService.findByAgencija(getUser().getAgencija()));
+		model.addAttribute("komitents", komitentService.findByAgencija(getUser().getPreduzece().getAgencija()));
 		
 		return VIEW_DEFAULT;
 	}
@@ -63,7 +63,7 @@ public class KomitentController extends BaseController {
 	public String create(@ModelAttribute("komitent") KomitentDTO komitentDTO, HttpServletRequest request, Errors errors, ModelMap model,
 			final RedirectAttributes redirectAttributes) {
 
-		komitentDTO.setAgencijaId(getUser().getAgencija().getId());
+		komitentDTO.setAgencijaId(getUser().getPreduzece().getAgencija().getId());
 		validator.validate(komitentDTO, errors);
 		if (errors.hasErrors()) {
 			model.addAttribute("komitent", komitentDTO);
@@ -91,7 +91,7 @@ public class KomitentController extends BaseController {
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public String update(@ModelAttribute("komitent") KomitentDTO komitentDTO, HttpServletRequest request, Errors errors, ModelMap model) {
 
-		komitentDTO.setAgencijaId(getUser().getAgencija().getId());		
+		komitentDTO.setAgencijaId(getUser().getPreduzece().getAgencija().getId());		
 		validator.validate(komitentDTO, errors);
 		if (errors.hasErrors()) {
 			model.addAttribute("komitent", komitentDTO);

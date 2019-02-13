@@ -54,7 +54,7 @@ public class KifKufController extends BaseController {
 	public String kif(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale) {
 		model.addAttribute("search", new KifKufSearchBean());
 		model.addAttribute("action", CONTROLLER + "/generate-kif");
-		List<KomitentDTO> komitents = komitentService.findByAgencija(getUser().getAgencija());
+		List<KomitentDTO> komitents = komitentService.findByAgencija(getUser().getPreduzece().getAgencija());
 		komitents.add(0, new KomitentDTO());
 		model.addAttribute("komitents", komitents);
 		return KIF;
@@ -66,7 +66,7 @@ public class KifKufController extends BaseController {
 		if (request.getParameter("pretraga") != null) {
 			model.addAttribute("search", search);
 			model.addAttribute("action", CONTROLLER + "/generate-kif");
-			List<KomitentDTO> komitents = komitentService.findByAgencija(getUser().getAgencija());
+			List<KomitentDTO> komitents = komitentService.findByAgencija(getUser().getPreduzece().getAgencija());
 			komitents.add(0, new KomitentDTO());
 			model.addAttribute("komitents", komitents);
 			model.addAttribute("stavkes", result);
@@ -97,7 +97,7 @@ public class KifKufController extends BaseController {
 	public String kuf(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale) {
 		model.addAttribute("search", new KifKufSearchBean());
 		model.addAttribute("action", CONTROLLER + "/generate-kuf");
-		List<KomitentDTO> komitents = komitentService.findByAgencija(getUser().getAgencija());
+		List<KomitentDTO> komitents = komitentService.findByAgencija(getUser().getPreduzece().getAgencija());
 		komitents.add(0, new KomitentDTO());
 		model.addAttribute("komitents", komitents);
 		
@@ -110,7 +110,7 @@ public class KifKufController extends BaseController {
 		if (request.getParameter("pretraga") != null) {
 			model.addAttribute("search", search);
 			model.addAttribute("action", CONTROLLER + "/generate-kuf");
-			List<KomitentDTO> komitents = komitentService.findByAgencija(getUser().getAgencija());
+			List<KomitentDTO> komitents = komitentService.findByAgencija(getUser().getPreduzece().getAgencija());
 			komitents.add(0, new KomitentDTO());
 			model.addAttribute("komitents", komitents);
 			model.addAttribute("stavkes", result);

@@ -80,7 +80,7 @@ public class NalogController extends BaseController {
 	private void setNalogModel(final ModelMap model, final NalogDTO nalog, final String action, final boolean disabled) {
 		model.addAttribute("nalog", nalog);
 		model.addAttribute("action", CONTROLLER + "/" + action);
-		List<VrstaDokumentaDTO> vrstaDokumentas = vrstaDokumentaService.findByAgencija(getUser().getAgencija());
+		List<VrstaDokumentaDTO> vrstaDokumentas = vrstaDokumentaService.findByAgencija(getUser().getPreduzece().getAgencija());
 		vrstaDokumentas.add(0, new VrstaDokumentaDTO());
 		model.addAttribute("vrstadokumentas", vrstaDokumentas);
 	}

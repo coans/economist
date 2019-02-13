@@ -42,7 +42,7 @@ public class VrstaDokumentaController extends BaseController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String defaultView(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale) {
-		model.addAttribute("vrstadokumentas", vrstaDokumentaRepository.findByAgencija(getUser().getAgencija()));
+		model.addAttribute("vrstadokumentas", vrstaDokumentaRepository.findByAgencija(getUser().getPreduzece().getAgencija()));
 		
 		return VIEW_DEFAULT;
 	}
@@ -50,7 +50,7 @@ public class VrstaDokumentaController extends BaseController {
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public String add(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale) {
 		VrstaDokumenta vrstaDokumenta = new VrstaDokumenta();
-		final int sifra = vrstaDokumentaRepository.findNextSifra(getUser().getAgencija()) == null ? 1 : vrstaDokumentaRepository.findNextSifra(getUser().getAgencija()) + 1;
+		final int sifra = vrstaDokumentaRepository.findNextSifra(getUser().getPreduzece().getAgencija()) == null ? 1 : vrstaDokumentaRepository.findNextSifra(getUser().getPreduzece().getAgencija()) + 1;
 		
 		vrstaDokumenta.setSifra(sifra);
 		
@@ -65,7 +65,7 @@ public class VrstaDokumentaController extends BaseController {
 	public String create(@ModelAttribute("vrstadokumenta") VrstaDokumenta vrstaDokumenta, Errors errors, ModelMap model,
 			final RedirectAttributes redirectAttributes) {
 
-		vrstaDokumenta.setAgencija(getUser().getAgencija());
+		vrstaDokumenta.setAgencija(getUser().getPreduzece().getAgencija());
 		validator.validate(vrstaDokumenta, errors);
 		if (errors.hasErrors()) {
 			model.addAttribute("vrstadokumenta", vrstaDokumenta);
@@ -93,7 +93,7 @@ public class VrstaDokumentaController extends BaseController {
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public String update(@ModelAttribute("vrstadokumenta") VrstaDokumenta vrstaDokumenta, Errors errors, ModelMap model) {
 		
-		vrstaDokumenta.setAgencija(getUser().getAgencija());		
+		vrstaDokumenta.setAgencija(getUser().getPreduzece().getAgencija());		
 		validator.validate(vrstaDokumenta, errors);
 		if (errors.hasErrors()) {
 			model.addAttribute("vrstadokumenta", vrstaDokumenta);

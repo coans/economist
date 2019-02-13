@@ -35,8 +35,6 @@ public class User implements Serializable {
 	@Column(name="first_name")
 	private String firstName;
 
-	private String gender;
-
 	@Column(name="last_name")
 	private String lastName;
 
@@ -45,9 +43,6 @@ public class User implements Serializable {
 	private String status;
 
 	private String uuid;
-	
-	@ManyToOne
-	private Agencija agencija;
 	
 	@ManyToOne
 	private Preduzece preduzece;
@@ -87,14 +82,6 @@ public class User implements Serializable {
 		this.firstName = firstName;
 	}
 
-	public String getGender() {
-		return this.gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
 	public String getLastName() {
 		return this.lastName;
 	}
@@ -125,14 +112,6 @@ public class User implements Serializable {
 
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
-	}
-
-	public Agencija getAgencija() {
-		return agencija;
-	}
-
-	public void setAgencija(Agencija agencija) {
-		this.agencija = agencija;
 	}
 
 	public Preduzece getPreduzece() {

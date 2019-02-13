@@ -57,8 +57,8 @@ public class SintetikaController extends BaseController {
 	public String defaultView(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale) {
 		model.addAttribute("search", new SearchBean());
 		model.addAttribute("action", CONTROLLER + "/generate");
-		model.addAttribute("kontos", kontoService.findSintetickaKonta(getUser().getAgencija()));
-		List<KomitentDTO> komitents = komitentService.findByAgencija(getUser().getAgencija());
+		model.addAttribute("kontos", kontoService.findSintetickaKonta(getUser().getPreduzece().getAgencija()));
+		List<KomitentDTO> komitents = komitentService.findByAgencija(getUser().getPreduzece().getAgencija());
 		komitents.add(0, new KomitentDTO());
 		model.addAttribute("komitents", komitents);
 		return VIEW_DEFAULT;
@@ -70,8 +70,8 @@ public class SintetikaController extends BaseController {
 		if (request.getParameter("pretraga") != null) {
 			model.addAttribute("search", search);
 			model.addAttribute("action", CONTROLLER + "/generate");
-			model.addAttribute("kontos", kontoService.findSintetickaKonta(getUser().getAgencija()));
-			List<KomitentDTO> komitents = komitentService.findByAgencija(getUser().getAgencija());
+			model.addAttribute("kontos", kontoService.findSintetickaKonta(getUser().getPreduzece().getAgencija()));
+			List<KomitentDTO> komitents = komitentService.findByAgencija(getUser().getPreduzece().getAgencija());
 			komitents.add(0, new KomitentDTO());
 			model.addAttribute("komitents", komitents);
 			model.addAttribute("stavkes", result);

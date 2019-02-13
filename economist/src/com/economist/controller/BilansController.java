@@ -54,7 +54,7 @@ public class BilansController extends BaseController {
 	public String defaultView(ModelMap model, HttpServletRequest request, HttpSession session, Locale locale) {
 		model.addAttribute("search", new SearchBean());
 		model.addAttribute("action", CONTROLLER + "/generate");
-		model.addAttribute("kontos", kontoService.findSintetickaKonta(getUser().getAgencija()));
+		model.addAttribute("kontos", kontoService.findSintetickaKonta(getUser().getPreduzece().getAgencija()));
 		return VIEW_DEFAULT;
 	}
 	
@@ -68,7 +68,7 @@ public class BilansController extends BaseController {
 		if (request.getParameter("pretraga") != null) {
 			model.addAttribute("search", search);
 			model.addAttribute("action", CONTROLLER + "/generate");
-			model.addAttribute("kontos", kontoService.findSintetickaKonta(getUser().getAgencija()));
+			model.addAttribute("kontos", kontoService.findSintetickaKonta(getUser().getPreduzece().getAgencija()));
 			for (Integer key : result.keySet()) {
 				model.addAttribute("konto" + key, result.get(key));
 			}

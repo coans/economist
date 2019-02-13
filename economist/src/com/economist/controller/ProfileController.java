@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.economist.config.BaseController;
 import com.economist.db.entity.User;
 import com.economist.db.repository.UserRepository;
+import com.economist.dto.UserDTO;
 import com.economist.util.UserPath;
 import com.economist.validator.UserValidator;
 
@@ -49,7 +50,7 @@ public class ProfileController extends BaseController {
 			throws NoSuchAlgorithmException, IOException {
 		User sessionUser = getUser();
 		user.setId(sessionUser.getId());
-		validator.validate(user, errors);
+		validator.validate(new UserDTO(user), errors);
 		if (errors.hasErrors()) {
 			return VIEW_DEFAULT;
 		}
@@ -61,7 +62,6 @@ public class ProfileController extends BaseController {
 		}
 		sessionUser.setFirstName(user.getFirstName());
 		sessionUser.setLastName(user.getLastName());
-		sessionUser.setGender(user.getGender());
         userRepository.save(sessionUser);
 
         return "redirect:/" + HomeController.CONTROLLER;

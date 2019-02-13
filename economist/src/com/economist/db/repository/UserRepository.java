@@ -1,9 +1,12 @@
 package com.economist.db.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.economist.db.entity.Preduzece;
 import com.economist.db.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
@@ -19,4 +22,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	
 	@Query("SELECT u FROM User u WHERE u.email = :email AND u.uuid = :uuid AND u.status = 'Inactive'")
 	public User findInactiveByEmailAndUuid(@Param("email") String email, @Param("uuid") String uuid);
+	
+	public List<User> findByPreduzece(Preduzece preduzece);
 }

@@ -66,4 +66,9 @@ public class PreduzeceServiceImpl implements PreduzeceService {
 	public List<PreduzeceDTO> findAll() {
 		return mapToDTO(preduzeceRepository.findAll());
 	}
+
+	@Override
+	public Preduzece find(Integer id) {
+		return preduzeceRepository.findOne(id);
+	}
 }

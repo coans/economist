@@ -103,12 +103,12 @@ public class StavkaNalogaController extends BaseController {
 		model.addAttribute("stavka", stavka);
 		model.addAttribute("action", CONTROLLER + "/" + action);
 		model.addAttribute("title", title);
-		List<KontoDTO> kontos = kontoService.findByAgencija(getUser().getAgencija());
+		List<KontoDTO> kontos = kontoService.findByAgencija(getUser().getPreduzece().getAgencija());
 		KontoDTO konto = new KontoDTO();
 		konto.setId(-1);
 		kontos.add(0, konto);		
 		model.addAttribute("konta", kontos);
-		List<KomitentDTO> komitents = komitentService.findByAgencija(getUser().getAgencija());
+		List<KomitentDTO> komitents = komitentService.findByAgencija(getUser().getPreduzece().getAgencija());
 		KomitentDTO emptyKomitent = new KomitentDTO();
 		emptyKomitent.setId(-1);
 		komitents.add(0, emptyKomitent);

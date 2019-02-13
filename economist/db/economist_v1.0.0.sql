@@ -25,20 +25,12 @@ CREATE TABLE IF NOT EXISTS `economist`.`user` (
   `password` VARCHAR(80) NOT NULL,
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
-  `gender` ENUM('Female', 'Male') NOT NULL,
   `uuid` VARCHAR(45) NULL DEFAULT NULL,
   `created` DATETIME NOT NULL,
   `status` ENUM('Active','Inactive') NOT NULL,
-  `agencija_id` INT NOT NULL,
   `preduzece_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `user_agencija_idx` (`agencija_id` ASC),
   INDEX `user_preduzece_idx` (`preduzece_id` ASC),
-  CONSTRAINT `user_agencija`
-  FOREIGN KEY (`agencija_id`)
-  REFERENCES `economist`.`agencija` (`id`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION,
   CONSTRAINT `user_preduzece`
   FOREIGN KEY (`preduzece_id`)
   REFERENCES `economist`.`preduzece` (`id`)
@@ -177,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `economist`.`nalog` (
  
   INSERT INTO `economist`.`agencija` (`id`, `created`, `naziv`) VALUES ('1', '2018-03-16 11:06:25', 'IT-OROZ'); 
   INSERT INTO `economist`.`preduzece` (`id`, `naziv`, `adresa`, `telefon`, `mobilni`, `ziroracun`, `agencija_id`, `created`) VALUES ('1', 'Preduzece 1', 'Adresa 1', '021...', '064...', '321564', '1', '2018-03-16 11:06:25');
-  INSERT INTO `economist`.`user` (`email`, `password`, `first_name`, `last_name`, `gender`, `created`, `status`, `agencija_id`, `preduzece_id`) VALUES ('coa', '89ec8da57db1f394906736ce9224fb9d99841c288572c3ada3018db668aff0d6fa5bf098b0a35072', 'admin', 'admin', '1', '2018-03-16 11:06:25', 'Active', '1', '1');
+  INSERT INTO `economist`.`user` (`email`, `password`, `first_name`, `last_name`, `created`, `status`, `preduzece_id`) VALUES ('coa', '89ec8da57db1f394906736ce9224fb9d99841c288572c3ada3018db668aff0d6fa5bf098b0a35072', 'admin', 'admin', '2018-03-16 11:06:25', 'Active', '1');
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

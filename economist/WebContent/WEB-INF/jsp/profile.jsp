@@ -36,20 +36,6 @@
 						<form:errors path="lastName" cssClass="help-block" element="label"/>
 					</div>
 				</div>
-				<div class="form-group">
-					<form:label path="gender" class="required"><spring:message code="signup.page.gender"/></form:label><br/>
-					<label class="radio-inline">
-						<form:radiobutton value="Female" path="gender"/>
-						<spring:message code="signup.page.female"/>
-					</label>
-					<label class="radio-inline">
-						<form:radiobutton value="Male" path="gender"/>
-						<spring:message code="signup.page.male"/>
-					</label>
-					<div class="has-error">
-						<form:errors path="gender" cssClass="help-block" element="label"/>
-					</div>
-				</div>
 				<button type="submit" class="btn btn-primary"><spring:message code="button.save"/></button>
 			</form:form>
 		</div>

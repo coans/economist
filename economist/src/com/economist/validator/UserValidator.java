@@ -8,7 +8,7 @@ import org.springframework.validation.Validator;
 
 import com.economist.db.entity.User;
 import com.economist.db.repository.UserRepository;
-import com.economist.model.enums.EnumGender;
+import com.economist.dto.UserDTO;
 import com.economist.util.ValidatorUtil;
 
 @Component
@@ -19,14 +19,14 @@ public class UserValidator implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return User.class.equals(clazz);
+		return UserDTO.class.equals(clazz);
 	}
 
 	@Override
 	public void validate(Object target, Errors errors) {
-		User user = (User) target;
+		UserDTO user = (UserDTO) target;
 		// validate email
-		if (user.getId() == 0) {
+		if (user.getId() == null) {
 			if (StringUtils.isBlank(user.getEmail())) {
 				errors.rejectValue("email", "error.notempty");
 			} else {
@@ -60,12 +60,6 @@ public class UserValidator implements Validator {
 			errors.rejectValue("lastName", "error.notempty");
 		} else if (user.getLastName().length() > 100) {
 			errors.rejectValue("lastName", "error.maxlength", new Integer[]{45}, ValidatorUtil.DEFAULT_MESSAGE);
-		}
-		// validate gender
-		if (StringUtils.isBlank(user.getGender())) {
-			errors.rejectValue("gender", "error.notempty");
-		} else if (!EnumGender.FEMALE.toString().equals(user.getGender()) && !EnumGender.MALE.toString().equals(user.getGender())) {
-			errors.rejectValue("gender", "error.notempty");
 		}
 	}
 
