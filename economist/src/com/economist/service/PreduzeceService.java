@@ -9,5 +9,6 @@ public interface PreduzeceService {
 	
 	PreduzeceDTO findOne(Integer id);
 	List<PreduzeceDTO> findByAgencija(Agencija agencija);
+	List<PreduzeceDTO> findAll();
 	void save(PreduzeceDTO dto);
 }

@@ -15,14 +15,14 @@ public class PreduzeceDTO implements Serializable {
 	private String telefon;
 	private String mobilni;
 	private String ziroracun;
-	private Integer agencijaId;
+	private AgencijaDTO agencija;
 	
 	public PreduzeceDTO() {
 		super();
 	}
 
 	public PreduzeceDTO(Integer id, Date created, String naziv, String adresa,
-			String telefon, String mobilni, String ziroracun, Integer agencijaId) {
+			String telefon, String mobilni, String ziroracun, AgencijaDTO agencija) {
 		super();
 		this.id = id;
 		this.created = created;
@@ -31,7 +31,7 @@ public class PreduzeceDTO implements Serializable {
 		this.telefon = telefon;
 		this.mobilni = mobilni;
 		this.ziroracun = ziroracun;
-		this.agencijaId = agencijaId;
+		this.agencija = agencija;
 	}
 	
 	public PreduzeceDTO(Preduzece bean) {
@@ -43,7 +43,7 @@ public class PreduzeceDTO implements Serializable {
 			this.telefon = bean.getTelefon();
 			this.mobilni = bean.getMobilni();
 			this.ziroracun = bean.getZiroracun();
-			this.agencijaId = bean.getAgencija().getId();
+			this.agencija = new AgencijaDTO(bean.getAgencija());
 		}
 	}
 
@@ -103,11 +103,11 @@ public class PreduzeceDTO implements Serializable {
 		this.ziroracun = ziroracun;
 	}
 
-	public Integer getAgencijaId() {
-		return agencijaId;
+	public AgencijaDTO getAgencija() {
+		return agencija;
 	}
 
-	public void setAgencijaId(Integer agencijaId) {
-		this.agencijaId = agencijaId;
+	public void setAgencija(AgencijaDTO agencija) {
+		this.agencija = agencija;
 	}
 }

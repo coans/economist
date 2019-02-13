@@ -42,7 +42,7 @@ public class PreduzeceServiceImpl implements PreduzeceService {
 			bean = preduzeceRepository.findOne(dto.getId());
 		}
 		bean.setAdresa(dto.getAdresa());
-		bean.setAgencija(agencijaService.findOne(dto.getAgencijaId()));
+		bean.setAgencija(agencijaService.findOne(dto.getAgencija().getId()));
 		bean.setMobilni(dto.getMobilni());
 		bean.setNaziv(dto.getNaziv());
 		bean.setTelefon(dto.getTelefon());
@@ -60,5 +60,10 @@ public class PreduzeceServiceImpl implements PreduzeceService {
 			return result;
 		}
 		return null;
+	}
+
+	@Override
+	public List<PreduzeceDTO> findAll() {
+		return mapToDTO(preduzeceRepository.findAll());
 	}
 }
