@@ -158,28 +158,25 @@ public class StavkaNalogaController extends BaseController {
 			stavkaDTO.setBrojFakture(stavkes.get(0).getBrojFakture());
 		}
 		for (StavkaNaloga stavkaNaloga : stavkes) {
-			switch (stavkaNaloga.getVrsta()) {
-			case "STAVKA":
+			if ("STAVKA".equals(stavkaNaloga.getVrsta())) {
 				stavkaDTO.setDugujeStavka(stavkaNaloga.getDuguje());
 				stavkaDTO.setPotrazujeStavka(stavkaNaloga.getPotrazuje());
 				stavkaDTO.setSaldoStavka(stavkaNaloga.getSaldo());
 				stavkaDTO.setKontoStavka(new KontoDTO(stavkaNaloga.getKonto()));
 				stavkaDTO.setIdStavka(stavkaNaloga.getId());
-				break;
-			case "PROTIVSTAVKA":
+			} else if ("PROTIVSTAVKA".equals(stavkaNaloga.getVrsta())) {
 				stavkaDTO.setDugujeProtivStavka(stavkaNaloga.getDuguje());
 				stavkaDTO.setPotrazujeProtivStavka(stavkaNaloga.getPotrazuje());
 				stavkaDTO.setSaldoProtivStavka(stavkaNaloga.getSaldo());
 				stavkaDTO.setKontoProtivStavka(new KontoDTO(stavkaNaloga.getKonto()));
 				stavkaDTO.setIdProtivStavka(stavkaNaloga.getId());
-				break;
-			case "PDV":
+			} else if ("PDV".equals(stavkaNaloga.getVrsta())) {
 				stavkaDTO.setDugujePDV(stavkaNaloga.getDuguje());
 				stavkaDTO.setPotrazujePDV(stavkaNaloga.getPotrazuje());
 				stavkaDTO.setSaldoPDV(stavkaNaloga.getSaldo());
 				stavkaDTO.setKontoPDV(new KontoDTO(stavkaNaloga.getKonto()));
 				stavkaDTO.setIdPDV(stavkaNaloga.getId());
-				break;
+			
 			}
 		}
 		

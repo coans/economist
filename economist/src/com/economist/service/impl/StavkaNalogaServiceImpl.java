@@ -192,13 +192,13 @@ public class StavkaNalogaServiceImpl implements StavkaNalogaService {
 	}
 	
 	private List<KifKufDTO> mapToKifKuf(List<String> kifIdentifikators) {
-		List<KifKufDTO> result = new ArrayList<>();
+		List<KifKufDTO> result = new ArrayList<KifKufDTO>();
 		for (String identifikator : kifIdentifikators) {
 			KifKufDTO dto = new KifKufDTO();
 			dto.setPdv(BigDecimal.ZERO);
 			List<StavkaNaloga> stavkes = stavkaNalogaRepository.findByIdentifikator(identifikator);
 			if (stavkes != null) {
-				List<BigDecimal> iznosi = new ArrayList<>();
+				List<BigDecimal> iznosi = new ArrayList<BigDecimal>();
 				for (StavkaNaloga stavkaNaloga : stavkes) {
 					dto.setBrojFakture(stavkaNaloga.getBrojFakture());
 					dto.setDatum(stavkaNaloga.getDatum());
@@ -264,7 +264,7 @@ public class StavkaNalogaServiceImpl implements StavkaNalogaService {
 
 	@Override
 	public Map<Integer, List<BilansResultBean>> bilans(String kontoOd, String kontoDo, Date datumOd, Date datumDo, Preduzece preduzece) {
-		Map<Integer, List<BilansResultBean>> result = new HashMap<>();
+		Map<Integer, List<BilansResultBean>> result = new HashMap<Integer, List<BilansResultBean>>();
 		
 		List<Object> stavke = stavkaNalogaRepository.bilans(kontoOd, kontoDo, datumOd, datumDo, preduzece);
 		for (Object object : stavke) {
