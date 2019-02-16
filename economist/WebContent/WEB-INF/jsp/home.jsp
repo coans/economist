@@ -1,37 +1,56 @@
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<div id="home">
+<!-- <div id="home"> -->
 	<div class="section-container">
-		<section class="section-home-background">
-			<div class="container text-center">
-<%-- 				<h1>
-					<span class="h1grey">Welcome</span>
-					<span class="h1grey">to</span>
-				</h1>
-				<c:choose>
-					<c:when test="${not empty user}">
-						<div>
-							<a href="my/posts" class="btn btn-primary btn-lg">Add post</a>
+		<div id="myCarousel" class="carousel slide" data-ride="carousel"> <!-- data-interval="false" -->
+			<!-- <h3 align="center"><i>AAA1A</i></h3> -->
+			<!-- Indicators -->
+			<ol class="carousel-indicators">
+				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+				<li data-target="#myCarousel" data-slide-to="1"></li>
+				<li data-target="#myCarousel" data-slide-to="2"></li>
+			</ol>
+
+			<!-- Wrapper for slides -->
+			<div class="carousel-inner" align="center">
+					<div class="item active">
+						<div class="row">
+							<!-- <div class="col-xs-2"> -->
+								<img class="picture-size" src="images/sl2.jpg" alt="Slide 1">
+								<%-- <label>${bestseller.food.name}</label> --%>
+							<!-- </div> -->
 						</div>
-					</c:when>
-					<c:otherwise>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<div>
-							<a href="signup" class="btn btn-primary btn-lg">Sign up</a>
+					</div>
+					<div class="item">
+						<div class="row">
+							<!-- <div class="col-xs-2"> -->
+								<img class="picture-size" src="images/sl3.jpg" alt="Slide 2">
+								<%-- <label>${bestseller.food.name}</label> --%>
+							<!-- </div> -->
 						</div>
-						<div>
-							<a href="login" class="orlogin">or log in</a>
+					</div>
+					<div class="item">
+						<div class="row">
+							<!-- <div class="col-xs-2"> -->
+								<img class="picture-size" src="images/sl1.jpg" alt="Slide 3">
+								<%-- <label>${bestseller.food.name}</label> --%>
+							<!-- </div> -->
 						</div>
-					</c:otherwise>
-				</c:choose> --%>
+					</div>
 			</div>
-		</section>		
+
+			<!-- Left and right controls -->
+			<a class="left carousel-control" href="#myCarousel" data-slide="prev">
+				<span class="glyphicon glyphicon-chevron-left"></span>
+				<span class="sr-only"><%-- <spring:message code="carousel.previous"/> --%>Prethodna</span>
+			</a>
+			<a class="right carousel-control" href="#myCarousel" data-slide="next">
+				<span class="glyphicon glyphicon-chevron-right"></span>
+				<span class="sr-only"><%-- <spring:message code="carousel.next"/> --%>Sledeca</span>
+			</a>
+		</div>	
 <!-- 		<section id="about" class="section-white">
 			<div class="container text-center">
 				<div class="row">
@@ -44,7 +63,7 @@
 			</div>
 		</section> -->
 	</div>
-</div>
+<!-- </div> -->
 
 <script type="text/javascript">
 	// default navigation	

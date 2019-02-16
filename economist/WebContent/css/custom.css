@@ -45,7 +45,7 @@ body {
 }
 
 .navbar-inverse .navbar-nav>li>a {
-	color: #999999
+	color: #FFFFFF
 }
 
 .navbar-inverse .navbar-nav>li>a:hover,.navbar-inverse .navbar-nav>li>a:focus
@@ -64,7 +64,7 @@ body {
 }
 
 .dropdown-menu>li>a {
-	color: #999999
+	color: #FFFFFF
 }
 
 .dropdown-menu>li>a:hover,.dropdown-menu>li>a:focus {
@@ -110,7 +110,7 @@ footer li {
 
 .section-container {
 	font-size: 18px;
-    margin: -20px 0 -100px 0;
+    margin: -40px 0 -100px 0;
     background-color:   #FAFAFA  ;
 }
 
@@ -216,4 +216,8 @@ body {
 }
 .ukupno {
 	background-color: #e5e8e8;
+}
+.picture-size {
+	height: 600px;
+	width: 1580px;
 }

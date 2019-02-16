@@ -1,12 +1,13 @@
 <%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@page import="java.util.*" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Economist</title>
-		<meta name="description" content="Economist veb sajt za racunovodje" />
+		<title>AlfaEkonomist</title>
+		<meta name="description" content="<spring:message code="description"/>" />
 
 		<base href="${baseurl}">
 		<!-- CSS -->
