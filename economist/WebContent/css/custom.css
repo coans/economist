@@ -217,7 +217,12 @@ body {
 .ukupno {
 	background-color: #e5e8e8;
 }
+/*
 .picture-size {
 	height: 600px;
 	width: 1580px;
+}*/
+.picture-size {
+	height: 400px;
+	width: 980px;
 }

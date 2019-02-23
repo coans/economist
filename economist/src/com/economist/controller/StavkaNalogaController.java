@@ -86,7 +86,7 @@ public class StavkaNalogaController extends BaseController {
 		stavka.setNalog(nalogService.findOne(nalogId));
 		stavka.setDugujeStavka(BigDecimal.ZERO);
 		stavka.setPotrazujeStavka(BigDecimal.ZERO);
-		stavka.setOpis(nalogService.findOne(nalogId).getBroj());
+//		stavka.setOpis(nalogService.findOne(nalogId).getBroj());
 		
 		stavka.setDugujeProtivStavka(BigDecimal.ZERO);
 		stavka.setPotrazujeProtivStavka(BigDecimal.ZERO);

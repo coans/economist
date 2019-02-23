@@ -28,14 +28,14 @@
 				</div>				
 				<div class="form-group">
 					<form:label path="firstName" class="required"><spring:message code="user.ime"/></form:label>
-					<form:textarea path="firstName" type="text" class="form-control" />
+					<form:input path="firstName" type="text" class="form-control" />
 					<div class="has-error">
 						<form:errors path="firstName" cssClass="help-block" element="label"/>
 					</div>
 				</div>				
 				<div class="form-group">
 					<form:label path="lastName" class="required"><spring:message code="user.prezime"/></form:label>
-					<form:textarea path="lastName" type="text" class="form-control" />
+					<form:input path="lastName" type="text" class="form-control" />
 					<div class="has-error">
 						<form:errors path="lastName" cssClass="help-block" element="label"/>
 					</div>
