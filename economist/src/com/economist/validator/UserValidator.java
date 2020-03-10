@@ -32,9 +32,9 @@ public class UserValidator implements Validator {
 			} else {
 				if (user.getEmail().length() > 100) {
 					errors.rejectValue("email", "error.maxlength", new Integer[]{100}, ValidatorUtil.DEFAULT_MESSAGE);
-				} else if (!ValidatorUtil.validateEmail(user.getEmail())) {
+				}/* else if (!ValidatorUtil.validateEmail(user.getEmail())) {
 					errors.rejectValue("email", "error.email");
-				} else {
+				}*/ else {
 					// validate if already exists
 					User userInDb = userRepository.findActiveByEmail(user.getEmail());
 					if (userInDb != null) {
