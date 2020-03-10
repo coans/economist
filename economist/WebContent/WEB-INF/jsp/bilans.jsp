@@ -51,15 +51,15 @@
 			<a class="btn btn-primary" href="api/nalogs"><spring:message code="povratak"/></a>
 		</div>
 	</form:form>
-	<p>&nbsp;</p>
+	<p>&nbsp;</p><p>&nbsp;</p>
 
 	<c:if test="${not empty konto0}">
-		<label><spring:message code="klasa"/> 0</label>
-		<table class="${tableClass}">
+		<h4 align="center"><b><spring:message code="klasa"/> 0</b></h4>
+		<table class="${tableClass}" id="konto0Table">
 			<thead>
 				<tr>
 					<th class="text-center" scope="col">#</th>
-					<th class="text-center" scope="col"><spring:message code="konto"/></th>
+					<th class="text-center" style="width:100%" scope="col"><spring:message code="konto"/></th>
 					<th class="text-center" scope="col"><spring:message code="duguje"/></th>
 					<th class="text-center" scope="col"><spring:message code="potrazuje"/></th>
 					<th class="text-center" scope="col"><spring:message code="saldo"/></th>
@@ -81,23 +81,25 @@
 						<td align="right">${bilans.saldo}</td>
 					</tr>
 				</c:forEach>
+			</tbody>
+			<tfoot>
 				<tr>
 					<td class="active" colspan="2" align="center"><b><spring:message code="ukupno.klasa"/> 0</b></td>
 					<td class="ukupno" align="right"><b>${duguje}</b></td>
 					<td class="ukupno" align="right"><b>${potrazuje}</b></td>
 					<td class="ukupno" align="right"><b>${saldo}</b></td>
-				</tr>
-			</tbody>
+				</tr>			
+			</tfoot>
 		</table>				
 	</c:if>
-
+	<p>&nbsp;</p><p>&nbsp;</p>
 	<c:if test="${not empty konto1}">
-		<label><spring:message code="klasa"/> 1</label>
-		<table class="${tableClass}">
+		<h4 align="center"><b><spring:message code="klasa"/> 1</b></h4>
+		<table class="${tableClass}" id="konto1Table">
 			<thead>
 				<tr>
 					<th class="text-center" scope="col">#</th>
-					<th class="text-center" scope="col"><spring:message code="konto"/></th>
+					<th class="text-center" style="width:100%" scope="col"><spring:message code="konto"/></th>
 					<th class="text-center" scope="col"><spring:message code="duguje"/></th>
 					<th class="text-center" scope="col"><spring:message code="potrazuje"/></th>
 					<th class="text-center" scope="col"><spring:message code="saldo"/></th>
@@ -119,23 +121,25 @@
 						<td align="right">${bilans.saldo}</td>
 					</tr>
 				</c:forEach>
+			</tbody>
+			<tfoot>
 				<tr>
 					<td class="active" colspan="2" align="center"><b><spring:message code="ukupno.klasa"/> 1</b></td>
 					<td class="ukupno" align="right"><b>${duguje}</b></td>
 					<td class="ukupno" align="right"><b>${potrazuje}</b></td>
 					<td class="ukupno" align="right"><b>${saldo}</b></td>
-				</tr>
-			</tbody>
+				</tr>			
+			</tfoot>
 		</table>				
 	</c:if>
-	
+	<p>&nbsp;</p><p>&nbsp;</p>	
 	<c:if test="${not empty konto2}">
-		<label><spring:message code="klasa"/> 2</label>
-		<table class="${tableClass}">
+		<h4 align="center"><b><spring:message code="klasa"/> 2</b></h4>
+		<table class="${tableClass}" id="konto2Table">
 			<thead>
 				<tr>
 					<th class="text-center" scope="col">#</th>
-					<th class="text-center" scope="col"><spring:message code="konto"/></th>
+					<th class="text-center" style="width:100%" scope="col"><spring:message code="konto"/></th>
 					<th class="text-center" scope="col"><spring:message code="duguje"/></th>
 					<th class="text-center" scope="col"><spring:message code="potrazuje"/></th>
 					<th class="text-center" scope="col"><spring:message code="saldo"/></th>
@@ -157,23 +161,25 @@
 						<td align="right">${bilans.saldo}</td>
 					</tr>
 				</c:forEach>
+			</tbody>
+			<tfoot>
 				<tr>
 					<td class="active" colspan="2" align="center"><b><spring:message code="ukupno.klasa"/> 2</b></td>
 					<td class="ukupno" align="right"><b>${duguje}</b></td>
 					<td class="ukupno" align="right"><b>${potrazuje}</b></td>
 					<td class="ukupno" align="right"><b>${saldo}</b></td>
-				</tr>
-			</tbody>
+				</tr>			
+			</tfoot>
 		</table>				
 	</c:if>	
-
+	<p>&nbsp;</p><p>&nbsp;</p>
 	<c:if test="${not empty konto3}">
-		<label><spring:message code="klasa"/> 3</label>
-		<table class="${tableClass}">
+		<h4 align="center"><b><spring:message code="klasa"/> 3</b></h4>
+		<table class="${tableClass}" id="konto3Table">
 			<thead>
 				<tr>
 					<th class="text-center" scope="col">#</th>
-					<th class="text-center" scope="col"><spring:message code="konto"/></th>
+					<th class="text-center" style="width:100%" scope="col"><spring:message code="konto"/></th>
 					<th class="text-center" scope="col"><spring:message code="duguje"/></th>
 					<th class="text-center" scope="col"><spring:message code="potrazuje"/></th>
 					<th class="text-center" scope="col"><spring:message code="saldo"/></th>
@@ -195,23 +201,25 @@
 						<td align="right">${bilans.saldo}</td>
 					</tr>
 				</c:forEach>
+			</tbody>
+			<tfoot>
 				<tr>
 					<td class="active" colspan="2" align="center"><b><spring:message code="ukupno.klasa"/> 3</b></td>
 					<td class="ukupno" align="right"><b>${duguje}</b></td>
 					<td class="ukupno" align="right"><b>${potrazuje}</b></td>
 					<td class="ukupno" align="right"><b>${saldo}</b></td>
-				</tr>
-			</tbody>
+				</tr>			
+			</tfoot>
 		</table>				
 	</c:if>
-
+	<p>&nbsp;</p><p>&nbsp;</p>
 	<c:if test="${not empty konto4}">
-		<label><spring:message code="klasa"/> 4</label>
-		<table class="${tableClass}">
+		<h4 align="center"><b><spring:message code="klasa"/> 4</b></h4>
+		<table class="${tableClass}" id="konto4Table">
 			<thead>
 				<tr>
 					<th class="text-center" scope="col">#</th>
-					<th class="text-center" scope="col"><spring:message code="konto"/></th>
+					<th class="text-center" style="width:100%" scope="col"><spring:message code="konto"/></th>
 					<th class="text-center" scope="col"><spring:message code="duguje"/></th>
 					<th class="text-center" scope="col"><spring:message code="potrazuje"/></th>
 					<th class="text-center" scope="col"><spring:message code="saldo"/></th>
@@ -233,23 +241,25 @@
 						<td align="right">${bilans.saldo}</td>
 					</tr>
 				</c:forEach>
+			</tbody>
+			<tfoot>
 				<tr>
 					<td class="active" colspan="2" align="center"><b><spring:message code="ukupno.klasa"/> 4</b></td>
 					<td class="ukupno" align="right"><b>${duguje}</b></td>
 					<td class="ukupno" align="right"><b>${potrazuje}</b></td>
 					<td class="ukupno" align="right"><b>${saldo}</b></td>
-				</tr>
-			</tbody>
+				</tr>			
+			</tfoot>
 		</table>				
 	</c:if>
-
+	<p>&nbsp;</p><p>&nbsp;</p>
 	<c:if test="${not empty konto5}">
-		<label><spring:message code="klasa"/> 5</label>
-		<table class="${tableClass}">
+		<h4 align="center"><b><spring:message code="klasa"/> 5</b></h4>
+		<table class="${tableClass}" id="konto5Table">
 			<thead>
 				<tr>
 					<th class="text-center" scope="col">#</th>
-					<th class="text-center" scope="col"><spring:message code="konto"/></th>
+					<th class="text-center" style="width:100%" scope="col"><spring:message code="konto"/></th>
 					<th class="text-center" scope="col"><spring:message code="duguje"/></th>
 					<th class="text-center" scope="col"><spring:message code="potrazuje"/></th>
 					<th class="text-center" scope="col"><spring:message code="saldo"/></th>
@@ -271,23 +281,26 @@
 						<td align="right">${bilans.saldo}</td>
 					</tr>
 				</c:forEach>
+
+			</tbody>
+			<tfoot>
 				<tr>
 					<td class="active" colspan="2" align="center"><b><spring:message code="ukupno.klasa"/> 5</b></td>
 					<td class="ukupno" align="right"><b>${duguje}</b></td>
 					<td class="ukupno" align="right"><b>${potrazuje}</b></td>
 					<td class="ukupno" align="right"><b>${saldo}</b></td>
-				</tr>
-			</tbody>
+				</tr>			
+			</tfoot>
 		</table>				
 	</c:if>
-
+	<p>&nbsp;</p><p>&nbsp;</p>
 	<c:if test="${not empty konto6}">
-		<label><spring:message code="klasa"/> 6</label>
-		<table class="${tableClass}">
+		<h4 align="center"><b><spring:message code="klasa"/> 6</b></h4>
+		<table class="${tableClass}" id="konto6Table">
 			<thead>
 				<tr>
 					<th class="text-center" scope="col">#</th>
-					<th class="text-center" scope="col"><spring:message code="konto"/></th>
+					<th class="text-center" style="width:100%" scope="col"><spring:message code="konto"/></th>
 					<th class="text-center" scope="col"><spring:message code="duguje"/></th>
 					<th class="text-center" scope="col"><spring:message code="potrazuje"/></th>
 					<th class="text-center" scope="col"><spring:message code="saldo"/></th>
@@ -309,23 +322,25 @@
 						<td align="right">${bilans.saldo}</td>
 					</tr>
 				</c:forEach>
+			</tbody>
+			<tfoot>
 				<tr>
 					<td class="active" colspan="2" align="center"><b><spring:message code="ukupno.klasa"/> 6</b></td>
 					<td class="ukupno" align="right"><b>${duguje}</b></td>
 					<td class="ukupno" align="right"><b>${potrazuje}</b></td>
 					<td class="ukupno" align="right"><b>${saldo}</b></td>
-				</tr>
-			</tbody>
+				</tr>			
+			</tfoot>
 		</table>				
 	</c:if>
-
+	<p>&nbsp;</p><p>&nbsp;</p>
 	<c:if test="${not empty konto7}">
-		<label><spring:message code="klasa"/> 7</label>
-		<table class="${tableClass}">
+		<h4 align="center"><b><spring:message code="klasa"/> 7</b></h4>
+		<table class="${tableClass}" id="konto7Table">
 			<thead>
 				<tr>
 					<th class="text-center" scope="col">#</th>
-					<th class="text-center" scope="col"><spring:message code="konto"/></th>
+					<th class="text-center" style="width:100%" scope="col"><spring:message code="konto"/></th>
 					<th class="text-center" scope="col"><spring:message code="duguje"/></th>
 					<th class="text-center" scope="col"><spring:message code="potrazuje"/></th>
 					<th class="text-center" scope="col"><spring:message code="saldo"/></th>
@@ -347,23 +362,25 @@
 						<td align="right">${bilans.saldo}</td>
 					</tr>
 				</c:forEach>
+			</tbody>
+			<tfoot>
 				<tr>
 					<td class="active" colspan="2" align="center"><b><spring:message code="ukupno.klasa"/> 7</b></td>
 					<td class="ukupno" align="right"><b>${duguje}</b></td>
 					<td class="ukupno" align="right"><b>${potrazuje}</b></td>
 					<td class="ukupno" align="right"><b>${saldo}</b></td>
-				</tr>
-			</tbody>
+				</tr>			
+			</tfoot>
 		</table>				
 	</c:if>
-
+	<p>&nbsp;</p><p>&nbsp;</p>
 	<c:if test="${not empty konto8}">
-		<label><spring:message code="klasa"/> 8</label>
-		<table class="${tableClass}">
+		<h4 align="center"><b><spring:message code="klasa"/> 8</b></h4>
+		<table class="${tableClass}" id="konto8Table">
 			<thead>
 				<tr>
 					<th class="text-center" scope="col">#</th>
-					<th class="text-center" scope="col"><spring:message code="konto"/></th>
+					<th class="text-center" style="width:100%" scope="col"><spring:message code="konto"/></th>
 					<th class="text-center" scope="col"><spring:message code="duguje"/></th>
 					<th class="text-center" scope="col"><spring:message code="potrazuje"/></th>
 					<th class="text-center" scope="col"><spring:message code="saldo"/></th>
@@ -385,23 +402,25 @@
 						<td align="right">${bilans.saldo}</td>
 					</tr>
 				</c:forEach>
+			</tbody>
+			<tfoot>
 				<tr>
 					<td class="active" colspan="2" align="center"><b><spring:message code="ukupno.klasa"/> 8</b></td>
 					<td class="ukupno" align="right"><b>${duguje}</b></td>
 					<td class="ukupno" align="right"><b>${potrazuje}</b></td>
 					<td class="ukupno" align="right"><b>${saldo}</b></td>
-				</tr>
-			</tbody>
+				</tr>			
+			</tfoot>
 		</table>				
 	</c:if>
-
+	<p>&nbsp;</p><p>&nbsp;</p>
 	<c:if test="${not empty konto9}">
-		<label><spring:message code="klasa"/> 9</label>
-		<table class="${tableClass}">
+		<h4 align="center"><b><spring:message code="klasa"/> 9</b></h4>
+		<table class="${tableClass}" id="konto9Table">
 			<thead>
 				<tr>
 					<th class="text-center" scope="col">#</th>
-					<th class="text-center" scope="col"><spring:message code="konto"/></th>
+					<th class="text-center" style="width:100%" scope="col"><spring:message code="konto"/></th>
 					<th class="text-center" scope="col"><spring:message code="duguje"/></th>
 					<th class="text-center" scope="col"><spring:message code="potrazuje"/></th>
 					<th class="text-center" scope="col"><spring:message code="saldo"/></th>
@@ -423,13 +442,15 @@
 						<td align="right">${bilans.saldo}</td>
 					</tr>
 				</c:forEach>
+			</tbody>
+			<tfoot>
 				<tr>
 					<td class="active" colspan="2" align="center"><b><spring:message code="ukupno.klasa"/> 9</b></td>
 					<td class="ukupno" align="right"><b>${duguje}</b></td>
 					<td class="ukupno" align="right"><b>${potrazuje}</b></td>
 					<td class="ukupno" align="right"><b>${saldo}</b></td>
-				</tr>
-			</tbody>
+				</tr>			
+			</tfoot>
 		</table>				
 	</c:if>		
 </div>
@@ -438,5 +459,15 @@
 		makeInputDate();
 		setActiveHeader("#izvjestaji");
 		setActiveHeader("api/bilans");
+		setPaginationTableLabels('#konto0Table');
+		setPaginationTableLabels('#konto1Table');
+		setPaginationTableLabels('#konto2Table');
+		setPaginationTableLabels('#konto3Table');
+		setPaginationTableLabels('#konto4Table');
+		setPaginationTableLabels('#konto5Table');
+		setPaginationTableLabels('#konto6Table');
+		setPaginationTableLabels('#konto7Table');
+		setPaginationTableLabels('#konto8Table');
+		setPaginationTableLabels('#konto9Table');
 	});
 </script>

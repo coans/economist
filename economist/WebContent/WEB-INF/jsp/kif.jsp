@@ -42,18 +42,16 @@
 			</div>
 		</form:form>
 	<p>&nbsp;</p>					
-	<table class="table table-striped table-bordered">
+	<table class="${tableClass}" id="kifTable">
 		<thead class="thead-light">
 			<tr>
-				<th class="text-center" scope="col">#</th>
-				<th class="text-center" scope="col"><spring:message code="broj.fakture"/></th>
-				<th class="text-center" scope="col"><spring:message code="datum"/></th>
-				<%-- <th class="text-center" scope="col"><spring:message code="opis"/></th> --%>
-				<%-- <th class="text-center" scope="col"><spring:message code="konto"/></th> --%>
-				<th class="text-center" scope="col"><spring:message code="komitent"/></th>
-				<th class="text-center" scope="col"><spring:message code="iznos"/></th>
-				<th class="text-center" scope="col"><spring:message code="kif.osnovica"/></th>
-				<th class="text-center" scope="col"><spring:message code="kif.pdv"/></th>
+				<th class="text-center" style="width:10%" scope="col">#</th>
+				<th class="text-center" style="width:15%" scope="col"><spring:message code="broj.fakture"/></th>
+				<th class="text-center" style="width:15%" scope="col"><spring:message code="datum"/></th>
+				<th class="text-center" style="width:15%" scope="col"><spring:message code="komitent"/></th>
+				<th class="text-center" style="width:15%" scope="col"><spring:message code="iznos"/></th>
+				<th class="text-center" style="width:15%" scope="col"><spring:message code="kif.osnovica"/></th>
+				<th class="text-center" style="width:15%" scope="col"><spring:message code="kif.pdv"/></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -68,23 +66,22 @@
 					<td align="center">${loop.count}</td>
 					<td align="center">${stavka.brojFakture}</td>
 					<td align="center"><fmt:formatDate pattern = "${datumPattern}" value = "${stavka.datum}" /></td>
-					<%-- <td align="center">${stavka.opis}</td> --%>
-					<%-- <td align="center">${stavka.kontoA.sifra} - ${stavka.kontoA.naziv}</td> --%>
 					<td align="center">${stavka.komitent}</td>
 					<td align="right">${stavka.ukupno}</td>
 					<td align="right">${stavka.iznos}</td>
 					<td align="right">${stavka.pdv}</td>
 				</tr>
 			</c:forEach>
-			<!-- <tr><td colspan="7">&nbsp;</td></tr> -->
+		</tbody>
+		<tfoot>
 			<tr>
 				<td colspan="3" class="active">&nbsp;</td>
 				<td class="active" align="center"><b><spring:message code="ukupno"/></b></td>
 				<td class="ukupno" align="right"><b>${ukupno}</b></td>
 				<td class="ukupno" align="right"><b>${iznos}</b></td>
 				<td class="ukupno" align="right"><b>${pdv}</b></td>
-			</tr>			
-		</tbody>
+			</tr>
+		</tfoot>
     </table>
 </div>
 <script type="text/javascript">
@@ -92,5 +89,6 @@
 		makeInputDate();
 		setActiveHeader("#izvjestaji");
 		setActiveHeader("api/kif-kuf/kif");
+		setPaginationTableLabels('#kifTable');
 	});
 </script>

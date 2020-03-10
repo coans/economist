@@ -21,7 +21,7 @@
 			</select>
 		</div>
 	</div>
-	<table class="${tableClass}">
+	<table class="${tableClass}" id="nalogTable">
 		<thead>
 			<tr>
 				<th class="text-center" scope="col">#</th>
@@ -70,7 +70,8 @@
 					</td>
 				</tr>
 			</c:forEach>
-			<!-- <tr><td colspan="11">&nbsp;</td></tr> -->
+		</tbody>
+		<tfoot>
 			<tr>
 				<td class="active" colspan="6">&nbsp;</td>
 				<td class="active" align="center"><b><spring:message code="ukupno"/></b></td>
@@ -78,8 +79,8 @@
 				<td class="ukupno" align="right"><b>${potrazuje}</b></td>
 				<td class="ukupno" align="right"><b>${saldo}</b></td>
 				<td class="ukupno">&nbsp;</td>
-			</tr>		
-		</tbody>
+			</tr>
+		</tfoot>
     </table>
 </div>
 <!-- <div class="modal fade" id="confirmDeleteId" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -97,6 +98,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		setActiveHeader("api/nalogs");
+		setPaginationTableLabels('#nalogTable');
 	});
 /* 	$('#confirmDeleteId').on('show.bs.modal', function(e) {
 	    $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));

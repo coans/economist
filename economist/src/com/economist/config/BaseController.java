@@ -14,6 +14,7 @@ import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -59,6 +60,7 @@ public class BaseController {
 
 	private static final String BASEURL = "baseurl";
 	private static final String VERISON = "verison";
+	private static final String CURRENTYEAR = "currentyear";
 	
 	private static final String KLASE_KONTA = "klaseKonta";
 	private static final String DATUM_PATTERN = "datumPattern";
@@ -119,7 +121,13 @@ public class BaseController {
 	
 	@ModelAttribute(TABLE_CLASS)
 	public String getTableClass() {
-		return "table table-striped table-bordered";
+		return "table table-striped table-bordered pagination";
+	}
+	
+	@SuppressWarnings("static-access")
+	@ModelAttribute(CURRENTYEAR)
+	public String getCurrentYear() {
+		return String.valueOf(Calendar.getInstance().get(Calendar.getInstance().YEAR));
 	}
 	
 	public void setZbirniRed(List<StavkaNalogaDTO> stavke, ModelMap model) {

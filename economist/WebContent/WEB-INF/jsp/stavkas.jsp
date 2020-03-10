@@ -8,19 +8,19 @@
 	<h4 align="center"><b><spring:message code="nalog.broj"/> ${nalogBroj}</b></h4>
 	<h4 align="center" style="padding-bottom: 0px;">${user.preduzece.naziv}</h4>
 	<p><a href="api/stavkas/new/${nalogId}" class="btn btn-info"><spring:message code="dodaj.stavku"/></a>&nbsp;<a href="api/nalogs" class="btn btn-primary"><spring:message code="povratak"/></a></p>
-	<table class="${tableClass}">
+	<table class="${tableClass}" id="stavkeTable">
 		<thead>
 			<tr>
-				<th class="text-center" scope="col">#</th>
-				<th class="text-center" scope="col"><spring:message code="broj"/></th>
-				<th class="text-center" scope="col"><spring:message code="datum"/></th>
-				<th class="text-center" scope="col"><spring:message code="opis"/></th>
-				<th class="text-center" scope="col"><spring:message code="konto"/></th>
-				<th class="text-center" scope="col"><spring:message code="komitent"/></th>
-				<th class="text-center" scope="col"><spring:message code="duguje"/></th>
-				<th class="text-center" scope="col"><spring:message code="potrazuje"/></th>
-				<th class="text-center" scope="col"><spring:message code="saldo"/></th>
-				<th class="text-center" scope="col"><spring:message code="akcije"/></th>
+				<th class="text-center" style="width:5%" scope="col">#</th>
+				<th class="text-center" style="width:10%" scope="col"><spring:message code="broj"/></th>
+				<th class="text-center" style="width:10%" scope="col"><spring:message code="datum"/></th>
+				<th class="text-center" style="width:15%" scope="col"><spring:message code="opis"/></th>
+				<th class="text-center" style="width:10%" scope="col"><spring:message code="konto"/></th>
+				<th class="text-center" style="width:10%" scope="col"><spring:message code="komitent"/></th>
+				<th class="text-center" style="width:10%" scope="col"><spring:message code="duguje"/></th>
+				<th class="text-center" style="width:10%" scope="col"><spring:message code="potrazuje"/></th>
+				<th class="text-center" style="width:10%" scope="col"><spring:message code="saldo"/></th>
+				<th class="text-center" style="width:10%" scope="col"><spring:message code="akcije"/></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -44,19 +44,23 @@
 				</tr>
 			</c:forEach>
 			<!-- <tr><td colspan="10">&nbsp;</td></tr> -->
+						
+		</tbody>
+		<tfoot>
 			<tr>
-				<td colspan="5" class="active">&nbsp;</td>
+				<td class="active" colspan="5">&nbsp;</td>
 				<td class="active" align="center"><b><spring:message code="ukupno"/></b></td>
 				<td class="ukupno" align="right"><b>${duguje}</b></td>
 				<td class="ukupno" align="right"><b>${potrazuje}</b></td>
 				<td class="ukupno" align="right"><b>${saldo}</b></td>
 				<td class="ukupno">&nbsp;</td>
-			</tr>			
-		</tbody>
+			</tr>
+		</tfoot>
     </table>
 </div>
 <script type="text/javascript">
 $(document).ready(function() {
 	setActiveHeader("api/nalogs");
+	setPaginationTableLabels('#stavkeTable');
 });
 </script>

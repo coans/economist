@@ -6,19 +6,19 @@
 <div class="container">
 	<h3 align="center"><spring:message code="lista.komitenata"/></h3>
 	<p><a href="api/komitents/new" class="btn btn-info"><spring:message code="novi.komitent"/></a>&nbsp;<a href="api/nalogs" class="btn btn-primary"><spring:message code="povratak"/></a></p>
-	<table class="${tableClass}">
+	<table class="${tableClass}" id="komitentTable">
 		<thead>
 			<tr>
-				<th class="text-center" scope="col">#</th>
-				<th class="text-center" scope="col"><spring:message code="naziv"/></th>
-				<th class="text-center" scope="col"><spring:message code="mjesto"/></th>
-				<th class="text-center" scope="col"><spring:message code="adresa"/></th>
-				<th class="text-center" scope="col"><spring:message code="u.sistemu.pdv"/></th>
-				<th class="text-center" scope="col"><spring:message code="lokacija"/></th>
-				<th class="text-center" scope="col"><spring:message code="ziroracun"/></th>
-				<th class="text-center" scope="col"><spring:message code="telefon"/></th>
-				<th class="text-center" scope="col"><spring:message code="napomena"/></th>
-				<th class="text-center" scope="col"><spring:message code="akcije"/></th>
+				<th class="text-center" style="width:5%" scope="col">#</th>
+				<th class="text-center" style="width:10%" scope="col"><spring:message code="naziv"/></th>
+				<th class="text-center" style="width:10%" scope="col"><spring:message code="mjesto"/></th>
+				<th class="text-center" style="width:15%" scope="col"><spring:message code="adresa"/></th>
+				<th class="text-center" style="width:10%" scope="col"><spring:message code="u.sistemu.pdv"/></th>
+				<th class="text-center" style="width:10%" scope="col"><spring:message code="lokacija"/></th>
+				<th class="text-center" style="width:10%" scope="col"><spring:message code="ziroracun"/></th>
+				<th class="text-center" style="width:10%" scope="col"><spring:message code="telefon"/></th>
+				<th class="text-center" style="width:10%" scope="col"><spring:message code="napomena"/></th>
+				<th class="text-center" style="width:10%" scope="col"><spring:message code="akcije"/></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -45,5 +45,6 @@
 	$(document).ready(function() {
 		setActiveHeader("#sifarnici");
 		setActiveHeader("api/komitents");
+		setPaginationTableLabels('#komitentTable');
 	});
 </script>
