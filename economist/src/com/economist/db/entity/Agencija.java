@@ -25,6 +25,7 @@ public class Agencija implements Serializable {
 	@CreationTimestamp
 	private Date created;
 	private String naziv;
+	private String email;
 
 	public Agencija() {
 	}
@@ -51,5 +52,13 @@ public class Agencija implements Serializable {
 
 	public void setNaziv(String naziv) {
 		this.naziv = naziv;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }

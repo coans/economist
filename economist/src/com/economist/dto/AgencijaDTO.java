@@ -14,16 +14,18 @@ public class AgencijaDTO implements Serializable {
 	private Integer id;
 	private Date created;
 	private String naziv;
+	private String email;
 	
 	public AgencijaDTO() {
 		super();
 	}
 	
-	public AgencijaDTO(Integer id, Date created, String naziv) {
+	public AgencijaDTO(Integer id, Date created, String naziv, String email) {
 		super();
 		this.id = id;
 		this.created = created;
 		this.naziv = naziv;
+		this.email = email;
 	}
 	
 	public AgencijaDTO(Agencija bean) {
@@ -31,6 +33,7 @@ public class AgencijaDTO implements Serializable {
 			this.id = bean.getId();
 			this.created = bean.getCreated();
 			this.naziv = bean.getNaziv();
+			this.email = bean.getEmail();
 		}
 	}
 
@@ -56,5 +59,13 @@ public class AgencijaDTO implements Serializable {
 
 	public void setNaziv(String naziv) {
 		this.naziv = naziv;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }

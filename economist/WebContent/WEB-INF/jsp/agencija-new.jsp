@@ -18,6 +18,13 @@
 					<div class="has-error">
 						<form:errors path="naziv" cssClass="help-block" element="label"/>
 					</div>
+				</div>
+				<div class="form-group">
+					<form:label path="email" class="required"><spring:message code="user.email"/></form:label>
+					<form:input path="email" type="text" class="form-control" />
+					<div class="has-error">
+						<form:errors path="email" cssClass="help-block" element="label"/>
+					</div>
 				</div>							
 				<p>&nbsp;</p>					
 				<button type="submit" class="btn btn btn-success"><spring:message code="button.save"/></button>

@@ -10,7 +10,7 @@
 		<thead>
 			<tr>
 				<th class="text-center" scope="col">#</th>
-				<th class="text-center" scope="col"><spring:message code="user.email"/></th>
+				<th class="text-center" style="width:100%" scope="col"><spring:message code="user.email"/></th>
 				<th class="text-center" scope="col"><spring:message code="user.ime"/></th>
 				<th class="text-center" scope="col"><spring:message code="user.prezime"/></th>
 				<th class="text-center" scope="col"><spring:message code="user.preduzece"/></th>

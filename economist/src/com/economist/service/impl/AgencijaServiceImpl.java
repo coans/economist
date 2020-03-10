@@ -47,7 +47,8 @@ public class AgencijaServiceImpl implements AgencijaService {
 		if (agencijaDTO.getId() != null) {
 			bean = agencijaRepository.findOne(agencijaDTO.getId());
 		}
-		bean.setNaziv(agencijaDTO.getNaziv());		
+		bean.setNaziv(agencijaDTO.getNaziv());
+		bean.setEmail(agencijaDTO.getEmail());
 		
 		agencijaRepository.save(bean);
 	}

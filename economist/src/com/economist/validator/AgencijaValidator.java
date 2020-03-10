@@ -20,6 +20,9 @@ public class AgencijaValidator implements Validator {
 		if (agencija.getNaziv().isEmpty() || agencija.getNaziv().length() > 100) {
 			errors.rejectValue("naziv", "error.agencija.naziv.empty");
 		}
+		if (agencija.getEmail().isEmpty() || agencija.getEmail().length() > 100) {
+			errors.rejectValue("email", "error.agencija.email.empty");
+		}
 	}
 
 }

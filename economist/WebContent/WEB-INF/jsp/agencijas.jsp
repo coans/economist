@@ -6,11 +6,12 @@
 <div class="container">
 	<h3 align="center"><spring:message code="lista.agencija"/></h3>
 	<p><a href="admin/agencijas/new" class="btn btn-info"><spring:message code="nova.agencija"/></a></p>
-	<table class="${tableClass}">
+	<table class="${tableClass}" id="agencijaTable">
 		<thead>
 			<tr>
 				<th class="text-center" scope="col">#</th>
-				<th class="text-center" scope="col"><spring:message code="naziv"/></th>
+				<th class="text-center" style="width:100%" scope="col"><spring:message code="naziv"/></th>
+				<th class="text-center" scope="col"><spring:message code="user.email"/></th>
 				<th class="text-center" scope="col"><spring:message code="datum"/></th>
 				<th class="text-center" scope="col"><spring:message code="akcije"/></th>
 			</tr>
@@ -20,6 +21,7 @@
 				<tr>
 					<td align="center">${loop.count}</td>
 					<td align="center">${agencija.naziv}</td>
+					<td align="center">${agencija.email}</td>
 					<td align="center"><fmt:formatDate pattern = "${datumPattern}" value = "${agencija.created}" /></td>
 					<td align="center"><a href="admin/agencijas/edit/${agencija.id}" title="<spring:message code='izmijeni'/>"><i class="glyphicon glyphicon-pencil"></i></a>
 					</td>
@@ -32,5 +34,6 @@
 	$(document).ready(function() {
 		setActiveHeader("#administration");
 		setActiveHeader("admin/agencijas");
+		setPaginationTableLabels('#agencijaTable');
 	});
 </script>
