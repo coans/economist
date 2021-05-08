@@ -32,6 +32,11 @@ public class Preduzece implements Serializable {
 	private String telefon;
 	private String mobilni;
 	private String ziroracun;
+	private String jib;
+	private Integer iznos;
+	private Integer redniBrojFakture;
+	private Integer godinaFakture;
+	private Boolean mjesecnaFaktura;
 
 	@ManyToOne
 	private Agencija agencija;
@@ -102,4 +107,44 @@ public class Preduzece implements Serializable {
 	public void setAgencija(Agencija agencija) {
 		this.agencija = agencija;
 	}
+
+	public String getJib() {
+		return jib;
+	}
+
+	public void setJib(String jib) {
+		this.jib = jib;
+	}
+
+	public Integer getIznos() {
+		return iznos;
+	}
+
+	public void setIznos(Integer iznos) {
+		this.iznos = iznos;
+	}
+
+	public Integer getRedniBrojFakture() {
+		return redniBrojFakture;
+	}
+
+	public void setRedniBrojFakture(Integer redniBrojFakture) {
+		this.redniBrojFakture = redniBrojFakture;
+	}
+
+	public Integer getGodinaFakture() {
+		return godinaFakture;
+	}
+
+	public void setGodinaFakture(Integer godinaFakture) {
+		this.godinaFakture = godinaFakture;
+	}
+
+	public Boolean getMjesecnaFaktura() {
+		return mjesecnaFaktura;
+	}
+
+	public void setMjesecnaFaktura(Boolean mjesecnaFaktura) {
+		this.mjesecnaFaktura = mjesecnaFaktura;
+	}	
 }
